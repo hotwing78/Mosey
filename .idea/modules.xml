@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Mosey.iml" filepath="$PROJECT_DIR$/.idea/modules/Mosey.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Mosey_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Mosey_main.iml" group="Mosey" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Mosey_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Mosey_test.iml" group="Mosey" />
+    </modules>
+  </component>
+</project>
