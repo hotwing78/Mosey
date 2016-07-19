@@ -1,0 +1,25 @@
+{
+  "name": "mosey",
+  "version": "1.0.0",
+  "description": "A virtual concierge service",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MoseyGroupProject/Mosey.git"
+  },
+  "author": "Winston,Damon,Hosea,Ben",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MoseyGroupProject/Mosey/issues"
+  },
+  "homepage": "https://github.com/MoseyGroupProject/Mosey#readme",
+  "devDependencies": {
+    "gulp-browserify": "^0.5.1",
+    "gulp-minify": "0.0.12",
+    "gulp-sass": "^2.3.2",
+    "gulp-watch": "^4.3.8"
+  }
+}
