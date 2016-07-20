@@ -1,1 +1,1 @@
-let app = angular.module('MoseyApp', ['ngRoute']);
+let app = angular.module('Mosey', ['ngRoute']);
