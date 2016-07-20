@@ -1,6 +1,8 @@
+
 <div class = 'tempContainer' id="regContainerMain">
   <div class = 'tempHeader' id="regHeader"></div>
-  <div class = 'tempBody' id="regBody">
+  <div class="row">
+  <div class = 'tempBody small-2 medium-3 large-4 columns' id="regBody">
     <h1>Please fill in all fields</h1>
     <ul>
       <li><input type="text"= ng-model='lName'  placeholder ="First Name"></li>
@@ -11,4 +13,49 @@
       <input type="radio" name="button" ng-model='isLocal'> Native </input>
       <input type="radio" name="button" ng-model='isLocal'> Tourist </input>
     </ul>
-  </div
+  </div>
+
+  <h3>My Google Maps Demo</h3>
+   <div class="row" id="map"></div>
+   <script class="large-12 columns">
+     function initMap() {
+       var mapDiv = document.getElementById('map');
+       var map = new google.maps.Map(mapDiv, {
+           center: {lat: 32.78, lng: -79.94},
+           zoom: 12
+       });
+     }
+   </script>
+
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdGq0n-cnI--cZyb9gc73KTxEr_mYFVCM&callback=initMap"
+    async defer>
+  </script>
+
+
+
+
+<!--
+  <div class="row">
+  <div class="small-2 medium-3 large-4 columns">2/3/4 columns</div>
+  <div class="small-4 medium-3 large-4 columns">4/3/4 columns</div>
+  <div class="small-6 large-4 columns">6/6/4 columns</div>
+</div>
+<div class="row">
+  <div class="large-3 columns">12/12/3 columns</div>
+  <div class="large-6 columns">12/12/6 columns</div>
+  <div class="large-3 columns">12/12/3 columns</div>
+</div>
+<div class="row">
+  <div class="small-6 large-2 columns">6/6/2 columns</div>
+  <div class="small-6 large-8 columns">6/6/8 columns</div>
+  <div class="small-12 large-2 columns">12/12/2 columns</div>
+</div>
+<div class="row">
+  <div class="small-3 columns">3 columns</div>
+  <div class="small-9 columns">9 columns</div>
+</div>
+<div class="row">
+  <div class="medium-8 large-4 columns">12/8/4 columns</div>
+  <div class="medium-4 large-8 columns">12/4/8 columns</div>
+</div> -->
