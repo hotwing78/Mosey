@@ -1,5 +1,12 @@
 package com.theironyard.controlllers;
 
+import com.google.maps.GeoApiContext;
+import com.google.maps.GeocodingApi;
+import com.google.maps.NearbySearchRequest;
+import com.google.maps.model.GeocodingResult;
+import com.google.maps.model.LatLng;
+import com.google.maps.model.PlacesSearchResponse;
+import com.google.maps.model.PlacesSearchResult;
 import com.theironyard.entities.Activity;
 import com.theironyard.entities.Restaurant;
 import com.theironyard.entities.User;
@@ -49,12 +56,12 @@ public class MoseyController {
             while (filescanner.hasNext()) {
                 String line = filescanner.nextLine();
                 String[] columns = line.split("\\,");
-                int size = columns.length;
-                if (size == 5) {
-                    Restaurant restaurant = new Restaurant(columns[0], columns[1], columns[2], columns[3], columns[4]);
-                    restaurants.save(restaurant);
+                //int size = columns.length;
 
-                }
+                Restaurant restaurant = new Restaurant(columns[0], columns[1], columns[2], columns[3], columns[4]);
+                restaurants.save(restaurant);
+
+
 
 
             }
@@ -68,11 +75,11 @@ public class MoseyController {
             while (filescanner.hasNext()) {
                 String line = filescanner.nextLine();
                 String[] columns = line.split("\\,");
-                int size = columns.length;
-                if (size == 5) {
-                    Activity activity = new Activity(columns[0], columns[1], Boolean.valueOf(columns[2]), columns[3], columns[4]);
-                    activities.save(activity);
-                }
+                //int size = columns.length;
+
+                Activity activity = new Activity(columns[0], columns[1], Boolean.valueOf(columns[2]), columns[3], columns[4]);
+                activities.save(activity);
+
             }
         }
 
@@ -80,13 +87,32 @@ public class MoseyController {
     }
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
-    public String home(Model model, HttpSession session) {
+    public String home(Model model, HttpSession session) throws Exception {
 
         String username = (String) session.getAttribute("username");
         if (username != null) {
             model.addAttribute("user", username);
 
         }
+
+        GeoApiContext context = new GeoApiContext().
+                setApiKey("AIzaSyDdGq0n-cnI--cZyb9gc73KTxEr_mYFVCM");
+        GeocodingResult[] results = GeocodingApi.geocode(
+                context,
+                "Pearlz").await();
+                System.out.println(
+                        results[0].formattedAddress);
+        int size = 0;
+        while (size< results.length) {
+            System.out.println(results[size]);
+            size++;
+        }
+        LatLng ll = new LatLng(32.780277,-79.9956509);
+        NearbySearchRequest a = new NearbySearchRequest(context);
+
+        PlacesSearchResponse result  =  a.location(ll).radius(1).await();
+        System.out.println(result);
+        //NearbySearchRequest
         return "home";
     }
 
@@ -100,6 +126,7 @@ public class MoseyController {
             throw new Exception("Incorrect password");
         }
         session.setAttribute("username", username);
+
         return "redirect:/";
     }
 
