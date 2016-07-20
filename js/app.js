@@ -8,7 +8,11 @@ require('services/reg.js')(app);
 
 app.config(['$routeProvider', function($routeProvider){
   $routeProvider
-    .when('/registration', {
-      
+    .when('/registration',
+      controller: 'RegController',
+      templateUrl: 'templates/registration.html',
+    })
+    .when('/', {
+      redirectTo: '/registration'
     })
 }])
