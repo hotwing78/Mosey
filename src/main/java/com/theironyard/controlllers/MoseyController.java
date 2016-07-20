@@ -107,10 +107,10 @@ public class MoseyController {
             System.out.println(results[size]);
             size++;
         }
-        LatLng ll = new LatLng(32.780277,-79.9956509);
+        LatLng ll = new LatLng(32.7784801,-79.9271972);
         NearbySearchRequest a = new NearbySearchRequest(context);
 
-        PlacesSearchResponse result  =  a.location(ll).radius(1).await();
+        PlacesSearchResponse result  =  a.location(ll).radius(50).await();
         System.out.println(result);
         //NearbySearchRequest
         return "home";
