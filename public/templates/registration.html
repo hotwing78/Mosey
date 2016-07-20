@@ -21,7 +21,7 @@
    function initMap() {
      var map = new google.maps.Map(document.getElementById('map'), {
        center: {lat: -34.397, lng: 150.644},
-       zoom: 6
+       zoom: 20
     });
      var infoWindow = new google.maps.InfoWindow({map: map});
 
@@ -30,11 +30,11 @@
        navigator.geolocation.getCurrentPosition(function(position) {
          var pos = {
            lat: position.coords.latitude,
-           lng: position.coords.longitude
+           lng: position.coords.longitude,
          };
 
          infoWindow.setPosition(pos);
-         infoWindow.setContent('Location You is here foo.');
+         infoWindow.setContent('Location You is here!!!');
          map.setCenter(pos);
        }, function() {
          handleLocationError(true, infoWindow, map.getCenter());
