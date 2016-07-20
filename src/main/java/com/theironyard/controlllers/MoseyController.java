@@ -1,7 +1,9 @@
 package com.theironyard.controlllers;
 
+import com.theironyard.entities.Activity;
 import com.theironyard.entities.Restaurant;
 import com.theironyard.entities.User;
+import com.theironyard.services.ActivityRepository;
 import com.theironyard.services.RestaurantRepository;
 import com.theironyard.services.UserRepository;
 import com.theironyard.utils.PasswordStorage;
@@ -31,6 +33,9 @@ public class MoseyController {
     @Autowired
     RestaurantRepository restaurants;
 
+    @Autowired
+    ActivityRepository activities;
+
     // start h2 web server
     @PostConstruct
     public void init() throws SQLException, FileNotFoundException {
@@ -52,6 +57,22 @@ public class MoseyController {
                 }
 
 
+            }
+        }
+
+        if (activities.count() == 0) {
+            String filename = "Activities.csv";
+            File f = new File(filename);
+            Scanner filescanner = new Scanner(f);
+            filescanner.nextLine();
+            while (filescanner.hasNext()) {
+                String line = filescanner.nextLine();
+                String[] columns = line.split("\\,");
+                int size = columns.length;
+                if (size == 5) {
+                    Activity activity = new Activity(columns[0], columns[1], Boolean.valueOf(columns[2]), columns[3], columns[4]);
+                    activities.save(activity);
+                }
             }
         }
 
