@@ -27,12 +27,13 @@
 
 
   <!-- navigation bar -->
-  <div class="top-bar">
-    <div class="top-bar-left">
+  <nav class="top-bar" data-topbar>
+    <div class="top-bar-left" >
       <ul class="menu">
-        <li><a href="#/"><img id="moseyLogo" src="images/Mosey_Logo.png" alt="logo"/></a></li>
+        <li class="name"><a href="#/"><img id="moseyLogo" src="images/Mosey_Logo.png" alt="logo"/></a></li>
+        <!-- <li class="toggle-topbar menu-icon"><a href="#"></a>Menu</li> -->
         <li><a href="#/about">About</a></li>
-        <li><a href="#/itinerary">Itinerary</a></li>
+        <li class="active"><a href="#/itinerary">Itinerary</a></li>
         <li><a href="#/reviews">Reviews</a></li>
       </ul>
     </div>
@@ -42,7 +43,7 @@
         <li><button type="button" class="button">Search</button></li>
       </ul>
     </div>
-  </div>
+  </nav>
 
 
     <main ng-view></main>
