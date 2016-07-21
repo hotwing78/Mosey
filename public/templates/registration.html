@@ -1,19 +1,77 @@
 
+
+
 <div class = 'tempContainer' id="regContainerMain">
   <div class = 'tempHeader' id="regHeader"></div>
   <div class="row">
-  <div class = 'tempBody small-2 medium-3 large-4 columns' id="regBody">
-    <h1>Please fill in all fields</h1>
+  <div class = 'tempBody small-6 columns' id="regBody">
+    <h3>Please fill in all fields</h3>
     <ul>
-      <li><input type="text"= ng-model='lName'  placeholder ="First Name"></li>
-      <li><input type="text"= ng-model='FName'  placeholder = 'Last Name'></li>
-      <li><input type="text"= ng-model='Email'  placeholder ='Email'></li>
-      <li><input type="text"= ng-model='UName'  placeholder='User Name'></li>
-      <li><input type="text"= ng-model='Pword'  placeholder='Password'></li>
+      <li><input type="text"  ng-model='lName'  placeholder ="First Name"></li>
+      <li><input type="text"  ng-model='FName'  placeholder = 'Last Name'></li>
+      <li><input type="text"  ng-model='Email'  placeholder ='Email'></li>
+      <li><input type="text"  ng-model='UName'  placeholder='User Name'></li>
+      <li><input type="password" name="password" ng-model='Pword'  placeholder='Password'></li>
       <input type="radio" name="button" ng-model='isLocal'> Native </input>
       <input type="radio" name="button" ng-model='isLocal'> Tourist </input>
+
+      <a class="expanded hollow button" href="#">Register</a>
     </ul>
   </div>
+</div>
+</div>
+
+
+<<<<<<< HEAD
+  <div class="row">
+  <h3 class="large-12 columns">My Google Maps Demo</h3>
+   <div class="row" id="map"></div>
+   <script class="large-12 columns">
+   function initMap() {
+     var map = new google.maps.Map(document.getElementById('map'), {
+       center: {lat: -34.397, lng: 150.644},
+       zoom: 20
+    });
+     var infoWindow = new google.maps.InfoWindow({map: map});
+
+     //* HTML5 geolocation.
+    if (navigator.geolocation) {
+       navigator.geolocation.getCurrentPosition(function(position) {
+         var pos = {
+           lat: position.coords.latitude,
+           lng: position.coords.longitude,
+         };
+
+         infoWindow.setPosition(pos);
+         infoWindow.setContent('Location You is here!!!');
+         map.setCenter(pos);
+       }, function() {
+         handleLocationError(true, infoWindow, map.getCenter());
+       });
+     } else {
+       // Browser doesn't support Geolocation
+       handleLocationError(false, infoWindow, map.getCenter());
+     }
+     }
+
+     function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+     infoWindow.setPosition(pos);
+     infoWindow.setContent(browserHasGeolocation ?
+                           'Error: The Geolocation service failed.' :
+                           'Error: Your browser doesn\'t support geolocation.');
+     }
+   </script>
+ </div>
+
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdGq0n-cnI--cZyb9gc73KTxEr_mYFVCM&callback=initMap"
+    async defer>
+  </script>
+
+
+
+=======
+>>>>>>> ce07f85e3005a613b5c5e79c90e88611094aeab1
 
 
 <!--
