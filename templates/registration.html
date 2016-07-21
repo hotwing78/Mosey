@@ -1,21 +1,29 @@
 
+
+
 <div class = 'tempContainer' id="regContainerMain">
   <div class = 'tempHeader' id="regHeader"></div>
   <div class="row">
-  <div class = 'tempBody small-2 medium-3 large-4 columns' id="regBody">
-    <h1>Please fill in all fields</h1>
+  <div class = 'tempBody small-6 columns' id="regBody">
+    <h3>Please fill in all fields</h3>
     <ul>
-      <li><input type="text"= ng-model='lName'  placeholder ="First Name"></li>
-      <li><input type="text"= ng-model='FName'  placeholder = 'Last Name'></li>
-      <li><input type="text"= ng-model='Email'  placeholder ='Email'></li>
-      <li><input type="text"= ng-model='UName'  placeholder='User Name'></li>
-      <li><input type="text"= ng-model='Pword'  placeholder='Password'></li>
+      <li><input type="text"  ng-model='lName'  placeholder ="First Name"></li>
+      <li><input type="text"  ng-model='FName'  placeholder = 'Last Name'></li>
+      <li><input type="text"  ng-model='Email'  placeholder ='Email'></li>
+      <li><input type="text"  ng-model='UName'  placeholder='User Name'></li>
+      <li><input type="password" name="password" ng-model='Pword'  placeholder='Password'></li>
       <input type="radio" name="button" ng-model='isLocal'> Native </input>
       <input type="radio" name="button" ng-model='isLocal'> Tourist </input>
+
+      <a class="expanded hollow button" href="#">Register</a>
     </ul>
   </div>
+</div>
+</div>
 
-  <h3>My Google Maps Demo</h3>
+
+  <div class="row">
+  <h3 class="large-12 columns">My Google Maps Demo</h3>
    <div class="row" id="map"></div>
    <script class="large-12 columns">
    function initMap() {
@@ -52,11 +60,13 @@
                            'Error: Your browser doesn\'t support geolocation.');
      }
    </script>
+ </div>
 
 
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdGq0n-cnI--cZyb9gc73KTxEr_mYFVCM&callback=initMap"
     async defer>
   </script>
+
 
 
 
