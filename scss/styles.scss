@@ -1,2 +1,18 @@
 @import 'login';
 @import 'map';
+@import 'footer';
+
+*{
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+
+// @import "foundation";
+// @import "compass";
+//
+// .my-special-button{
+// @include button();
+// background-color: #1e5799; // Old browsers
+// @include filter-gradient(#1e5799, #7db9e8, vertical); // IE6-9
+// @include background-image(linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%));
+// }
