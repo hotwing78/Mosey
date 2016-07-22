@@ -87,35 +87,16 @@ public class MoseyController {
         }
 
 
+
+
     }
 
-    @RequestMapping(path = "/", method = RequestMethod.GET)
-    public String home(Model model, HttpSession session) throws Exception {
+    @RequestMapping(path = "/mosey", method = RequestMethod.GET)
+    public String home(double lat, double lng) throws Exception {
 
-        String username = (String) session.getAttribute("username");
-        if (username != null) {
-            model.addAttribute("user", username);
 
-        }
-        GeoApiContext context = new GeoApiContext().
-                setApiKey("AIzaSyDdGq0n-cnI--cZyb9gc73KTxEr_mYFVCM");
-        GeocodingResult[] results = GeocodingApi.geocode(
-                context,
-                "Pearlz").await();
-        System.out.println(
-                results[0].formattedAddress);
-        int size = 0;
-        while (size< results.length) {
-            System.out.println(results[size]);
-            size++;
-        }
-        LatLng ll = new LatLng(32.7784801,-79.9271972);
-        NearbySearchRequest a = new NearbySearchRequest(context);
 
-        PlacesSearchResponse result  =  a.location(ll).radius(50).await();
-        System.out.println(result);
-        //NearbySearchRequest
-        return "home";
+        return lat + " " + lng;
     }
 
     @RequestMapping(path = "/login", method = RequestMethod.POST)
