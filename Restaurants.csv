@@ -1,50 +1,50 @@
-Category,Price,Venue,Description,Local’s Take
-Seafood,$,Pearlz,"Affordable, fresh seafood and oysters in the heart of the French Quarter",Great Happy Hour -  try an oyster shooter or a margarita with a Grand Ma floater from Nate 
-Seafood,$$$,The Ordinary,Filler,Local Filler
-Seafood,$$,The Darling,Filler,Local Filler
-Seafood,$$,Leon’s,Filler,Local Filler
-Seafood,$$$,Halls Chophouse,Filler,Local Filler
-Seafood,$$$,167 Raw,Filler,Local Filler
-Asian,$$,O-Ku,Filler,Local Filler
-Asian,$$,Xiao Bao Biscuit,Always changing asian fusion menu in an old 1960’s gas station,"If at peak hours, get there early. Space is limited and waits can get lengthy"
-Asian,$$,Lee Lee’s Hot Kitchen,Filler,Local Filler
-Asian,$$,Basil,Filler,Local Filler
-Asian,$,Bon Bahn Mi,Filler,Local Filler
-Bar Food,$,Tattooed Moose,"Don’t let the Sharpie graffiti covered walls scare you away, Tmoose is amazing",Get the duck club and a side of duck fat fries - maybe the best hangover cure in Charleston
-Bar Food,$$,Craftsman,"48 beers on tap and a knowledgable staff, in addition to eccentric yet delicious food",Go on a Sunday  - half off large format beers
-Bar Food,$,The Griffon,"$20,000+ in singles line the walls of the French Quarter Dive with great fried food and cheap beer",The fish and chips are maybe the best in Charleston. Start with one of the craft beers on tap and then hide your pride and switch to $2.50 PBRs or Hi-Lifes
-Bar Food,$,The Alley,"Enjoy bowling, arcade games and skeeball and tasty bar food at this eclectic East Side locale",Local Filler
-Southern,$$$,Slightly North of Broad,Filler,Local Filler
-Southern,$$$,High Cotton,Filler,Local Filler
-Southern,$$$,Magnolias,Filler,Local Filler
-Southern,$$,Poogan’s Porch,Filler,Local Filler
-Southern,$$,Leon’s,Filler,Local Filler
-Southern,$$,Husk,Filler,Local Filler
-Southern,$,Callie’s Hot Little Biscuit,Filler,Local Filler
-Steakhouse,$$,Burwells,Filler,Local Filler
-Steakhouse,$$$,Oak,Filler,Local Filler
-Steakhouse,$$$,Halls Chophouse,Filler,Local Filler
-New American,$$$,Edmund’s Oast,Filler,Local Filler
-New American,$$$,FIG,Filler,Local Filler
-New American,$$$,The Macintosh,Filler,Local Filler
-New American,$$$,The Grocery,Filler,Local Filler
-Barbeque,$$,Smoke,Filler,Local Filler
-Barbeque,$,Lewis BBQ,Filler,Local Filler
-Barbeque,$,Hometeam BBQ,Filler,Local Filler
-Italian,$$,Indaco,Filler,Local Filler
-Italian,$$$,Tratoria Lucca,Filler,Local Filler
-Italian,$$,Pane e Vino,Filler,Local Filler
-Italian,$,D’Allesandros,Filler,Local Filler
-Italian,$$,Monza,Filler,Local Filler
-Mexican,$,Santi’s,Filler,Local Filler
-Mexican,$$,Taco Boy,Filler,Local Filler
-Mexican,$,Taco Spot,Filler,Local Filler
-Mexican,$$$,Minero,Filler,Local Filler
-French,$,Fast and French,Filler,Local Filler
-French,$,Normandy Cafe,Filler,Local Filler
-French,$$$,Rue de Jean,Filler,Local Filler
-French,$$$,Chez Nous,Filler,Local Filler
-,,,,
-,,,,
-,,,,
-,,,,
+Category,Price,Venue,Comments,Local’s Take,Place_id
+Seafood,$,Pearlz,Affordable fresh seafood and oysters in the heart of the French Quarter,Great Happy Hour -  try an oyster shooter or a margarita with a Grand Ma floater from Nate ,ChIJme9CjA56_ogRvZLv87-ntPQ
+Seafood,$$$,The Ordinary,Filler,Local Filler,ChIJo6qF8ml6_ogR5F95YKKS2yY
+Seafood,$$,The Darling,Filler,Local Filler,ChIJRW_dOWp6_ogRzit_Kq-oOlI
+Seafood,$$,Leon,Filler,Local Filler,ChIJ180tuFx6_ogRLrajxAiAgYQ
+Seafood,$$$,Halls Chophouse,Filler,Local Filler,ChIJ06i6Dmt6_ogRGLIqrt_VSgg
+Seafood,$$$,167 Raw,Filler,Local Filler,ChIJqy-VNw16_ogRH6keqaJynwQ
+Asian,$$,O-Ku,Filler,Local Filler,Filler
+Asian,$$,Xiao Bao Biscuit,Always changing asian fusion menu in an old 1960’s gas station,If at peak hours get there early. Space is limited and waits can get lengthy,Filler
+Asian,$$,Lee Lee’s Hot Kitchen,Filler,Local Filler,Filler
+Asian,$$,Basil,Filler,Local Filler,Filler
+Asian,$,Bon Bahn Mi,Filler,Local Filler,Filler
+Bar Food,$,Tattooed Moose,Don’t let the Sharpie graffiti covered walls scare you away - Tmoose is amazing,Get the duck club and a side of duck fat fries - maybe the best hangover cure in Charleston,Filler
+Bar Food,$$,Craftsman,48 beers on tap and a knowledgable staff in addition to eccentric yet delicious food,Go on a Sunday  - half off large format beers,Filler
+Bar Food,$,The Griffon,$20000+ in singles line the walls of the French Quarter Dive with great fried food and cheap beer,The fish and chips are maybe the best in Charleston. Start with one of the craft beers on tap and then hide your pride and switch to $2.50 PBRs or Hi-Lifes,ChIJ9Z_HoQ56_ogRkCcnnuO7kWU
+Bar Food,$,The Alley,Enjoy bowling arcade games and skeeball and tasty bar food at this eclectic East Side locale,Local Filler,Filler
+Southern,$$$,Slightly North of Broad,Filler,Local Filler,Filler
+Southern,$$$,High Cotton,Filler,Local Filler,Filler
+Southern,$$$,Magnolias,Filler,Local Filler,Filler
+Southern,$$,Poogan’s Porch,Filler,Local Filler,Filler
+Southern,$$,Leon’s,Filler,Local Filler,Filler
+Southern,$$,Husk,Filler,Local Filler,Filler
+Southern,$,Callie’s Hot Little Biscuit,Filler,Local Filler,Filler
+Steakhouse,$$,Burwells,Filler,Local Filler,Filler
+Steakhouse,$$$,Oak,Filler,Local Filler,Filler
+Steakhouse,$$$,Halls Chophouse,Filler,Local Filler,Filler
+New American,$$$,Edmund’s Oast,Filler,Local Filler,Filler
+New American,$$$,FIG,Filler,Local Filler,Filler
+New American,$$$,The Macintosh,Filler,Local Filler,Filler
+New American,$$$,The Grocery,Filler,Local Filler,Filler
+Barbeque,$$,Smoke,Filler,Local Filler,Filler
+Barbeque,$,Lewis BBQ,Filler,Local Filler,Filler
+Barbeque,$,Hometeam BBQ,Filler,Local Filler,Filler
+Italian,$$,Indaco,Filler,Local Filler,Filler
+Italian,$$$,Tratoria Lucca,Filler,Local Filler,Filler
+Italian,$$,Pane e Vino,Filler,Local Filler,Filler
+Italian,$,D’Allesandros,Filler,Local Filler,Filler
+Italian,$$,Monza,Filler,Local Filler,Filler
+Mexican,$,Santi’s,Filler,Local Filler,Filler
+Mexican,$$,Taco Boy,Filler,Local Filler,Filler
+Mexican,$,Taco Spot,Filler,Local Filler,Filler
+Mexican,$$$,Minero,Filler,Local Filler,Filler
+French,$,Fast and French,Filler,Local Filler,Filler
+French,$,Normandy Cafe,Filler,Local Filler,Filler
+French,$$$,Rue de Jean,Filler,Local Filler,Filler
+French,$$$,Chez Nous,Filler,Local Filler,Filler
+,,,,,Filler
+,,,,,Filler
+,,,,,Filler
+,,,,,Filler

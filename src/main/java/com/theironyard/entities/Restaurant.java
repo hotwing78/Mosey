@@ -28,12 +28,37 @@ public class Restaurant {
     @Column(nullable = false)
     String localstake;
 
+    @Column
+    String address;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Restaurant(String category, String price, String name, String description, String localstake, String address) {
+        this.category = category;
+        this.price = price;
+        this.name = name;
+        this.description = description;
+        this.localstake = localstake;
+        this.address = address;
+    }
+
     public Restaurant(String category, String price, String name, String description, String localstake) {
         this.category = category;
         this.price = price;
         this.name = name;
         this.description = description;
         this.localstake = localstake;
+    }
+
+    public Restaurant(int id, String address) {
+        this.id = id;
+        this.address = address;
     }
 
     public Restaurant() {
