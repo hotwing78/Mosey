@@ -1,11 +1,26 @@
-* {
+.top-bar {
   font-family: 'Source Sans Pro', sans-serif; }
 
 .top-bar {
-  background-color: rgba(236, 88, 64, 0.32); }
+  background-color: rgba(236, 88, 64, 0.32);
+  margin-bottom: 1em; }
+
+.top-bar ul {
+  background-color: #f9cac2; }
+
+.menu li a {
+  font-size: 1.3em;
+  color: gray; }
 
 .menu li a img {
-  width: 40%; }
+  width: 40%;
+  padding: 0px; }
+
+.menu li .name {
+  padding: 0px; }
+
+.menu .active a {
+  background-color: gray; }
 
 #map {
   width: 100%;
