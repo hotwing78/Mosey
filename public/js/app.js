@@ -51,6 +51,8 @@ app.config(['$routeProvider', function($routeProvider){
 },{"./controllers/mapController.js":1,"./controllers/users.js":2,"./services/mapServices.js":4,"./services/users.js":5}],4:[function(require,module,exports){
 module.exports = function(app) {
     app.factory('Markers', ['$http', function($http) {
+        let lat;
+        let lng;
         var map = new GMaps({
             div: '#map',
             lat: -22.043333,
@@ -60,14 +62,16 @@ module.exports = function(app) {
             getLocations: function() {
                 GMaps.geolocate({
                     success: function(position) {
-                        let lat = position.coords.latitude
-                        let lng = position.coords.longitude
-                        $http({
-                            url: '/',
-                            method: 'Post',
-                            data: lat,lng
-                        });
-                        map.setCenter(lat, lng);
+                        lat = position.coords.latitude
+                        lng = position.coords.longitude
+                        let center = {
+                            lat: lat,
+                            lng: lng
+                        }
+                        let newCenter = JSON.stringify(center)
+
+                        postData(center);
+                        map.setCenter(lat,lng);
                         map.addMarker({
                             lat: lat,
                             lng: lng,
@@ -89,6 +93,14 @@ module.exports = function(app) {
                     always: function() {
                         alert("Done!");
                     }
+                });
+
+            },
+            postData: function(data) {
+                let post = $http({
+                    url: '/',
+                    method: 'Post',
+                    data: data
                 });
 
             }
