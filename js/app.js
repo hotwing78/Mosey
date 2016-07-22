@@ -27,6 +27,6 @@ app.config(['$routeProvider', function($routeProvider){
       templateUrl: 'templates/reviews.html'
     })
     .when('/', {
-      redirectTo: '/home',
+      redirectTo: '/mosey',
     })
 }])

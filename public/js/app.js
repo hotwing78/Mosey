@@ -44,7 +44,7 @@ app.config(['$routeProvider', function($routeProvider){
       templateUrl: 'templates/reviews.html'
     })
     .when('/', {
-      redirectTo: '/home',
+      redirectTo: '/mosey',
     })
 }])
 
@@ -60,17 +60,24 @@ module.exports = function(app) {
             getLocations: function() {
                 GMaps.geolocate({
                     success: function(position) {
-                        map.setCenter(position.coords.latitude, position.coords.longitude);
+                        let lat = position.coords.latitude
+                        let lng = position.coords.longitude
+                        $http({
+                            url: '/',
+                            method: 'Post',
+                            data: lat,lng
+                        });
+                        map.setCenter(lat, lng);
                         map.addMarker({
-                            lat: position.coords.latitude,
-                            lng: position.coords.longitude,
+                            lat: lat,
+                            lng: lng,
                             title: 'Damon',
                             click: function(e) {
                                 alert('You clicked in this marker');
                             }
                         });
                         console.log(position.coords.latitude + ' ' + position.coords.longitude);
-                        console.log(map.center.latitude);
+
                         map.setZoom(20)
                     },
                     error: function(error) {
