@@ -1,5 +1,7 @@
 package com.theironyard.entities;
 
+import com.google.maps.model.LatLng;
+
 import javax.persistence.*;
 
 /**
@@ -31,12 +33,34 @@ public class Restaurant {
     @Column
     String address;
 
+    @Column (nullable = false)
+    Double lat;
+
+    @Column (nullable = false)
+    Double lng;
+
     public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Double getLat() {
+        return lat;
+    }
+
+    public void setLat(Double lat) {
+        this.lat = lat;
+    }
+
+    public Double getLng() {
+        return lng;
+    }
+
+    public void setLng(Double lng) {
+        this.lng = lng;
     }
 
     public Restaurant(String category, String price, String name, String description, String localstake, String address) {
