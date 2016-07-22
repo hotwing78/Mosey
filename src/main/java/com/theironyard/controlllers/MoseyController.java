@@ -120,11 +120,11 @@ public class MoseyController {
 
     @RequestMapping(path = "/login", method = RequestMethod.POST)
     public String login (HttpSession session, String username, String password) throws Exception {
-        User user = users.findByName(username);
+        User user = users.findByUsername(username);
         if (user == null) {
             user = new User(username, PasswordStorage.createHash(password));
             users.save(user);
-        } else if (!PasswordStorage.verifyPassword(password, user.getPasswordHash())) {
+        } else if (!PasswordStorage.verifyPassword(password, user.getPasswordhash())) {
             throw new Exception("Incorrect password");
         }
         session.setAttribute("username", username);
