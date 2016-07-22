@@ -59,6 +59,17 @@ public class Restaurant {
         return lng;
     }
 
+    public Restaurant(String category, String price, String name, String description, String localstake, String address, Double lat, Double lng) {
+        this.category = category;
+        this.price = price;
+        this.name = name;
+        this.description = description;
+        this.localstake = localstake;
+        this.address = address;
+        this.lat = lat;
+        this.lng = lng;
+    }
+
     public void setLng(Double lng) {
         this.lng = lng;
     }
