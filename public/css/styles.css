@@ -26,9 +26,8 @@
   color: gray; }
 
 @media only screen and (min-width: 40.063em) {
-  .footer .columns:nth-child(n+2) {
-    border-left: 1px solid gray;
-    min-height: 280px; } }
+  .footer .columns:nth-child(n+3) {
+    border: 1px solid gray; } }
 
 .footer-links {
   list-style-type: none; }
