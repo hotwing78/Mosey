@@ -48,7 +48,7 @@ public class MoseyController {
 
     // start h2 web server
     @PostConstruct
-    public void init() throws SQLException, FileNotFoundException {
+    public void init() throws Exception {
         Server.createWebServer().start();
 
         if (restaurants.count() == 0) {
@@ -63,8 +63,6 @@ public class MoseyController {
 
                 Restaurant restaurant = new Restaurant(columns[0], columns[1], columns[2], columns[3], columns[4]);
                 restaurants.save(restaurant);
-
-
 
 
             }
@@ -86,13 +84,36 @@ public class MoseyController {
             }
         }
 
+        Iterable<Restaurant> rests = restaurants.findAll();
+
+
+        for (Restaurant rest : rests) {
+            if (rest.getAddress() == null || rest.getLat() == null || rest.getLng() == null){
+                GeoApiContext context = new GeoApiContext()
+                        .setApiKey("AIzaSyDdGq0n-cnI--cZyb9gc73KTxEr_mYFVCM");
+                TextSearchRequest request = PlacesApi.textSearchQuery(context, rest.getName() + " Charleston");
+                PlacesSearchResponse results = request.await();
+                if (rest.getLat() == null){
+                    rest.setLat(results.results[0].geometry.location.lat);
+                }
+                if (rest.getLng() == null ) {
+                    rest.setLng(results.results[0].geometry.location.lng);
+                }
+                if (rest.getAddress() == null) {
+                    rest.setAddress(results.results[0].formattedAddress);
+                }
+                restaurants.save(rest);
+            }
+        }
+
+
 
 
 
     }
 
-    @RequestMapping(path = "/mosey", method = RequestMethod.GET)
-    public String home(double lat, double lng) throws Exception {
+    @RequestMapping(path = "/", method = RequestMethod.GET)
+    public String home(Double lat, Double lng) throws Exception {
 
 
 
