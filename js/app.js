@@ -1,24 +1,32 @@
 let app = angular.module('Mosey', ['ngRoute']);
 
 //controllers
-require('./controllers/reg.js')(app);
+require('./controllers/users.js')(app);
 require('./controllers/mapController.js')(app);
 
 //services
-require('./services/reg.js')(app);
+require('./services/users.js')(app);
 require('./services/mapServices.js')(app);
 
 app.config(['$routeProvider', function($routeProvider){
   $routeProvider
     .when('/registration', {
-      controller: 'RegController',
+      controller: 'UserController',
       templateUrl: 'templates/registration.html',
     })
-    .when('/map',{
+    .when('/login', {
+      controller: 'UserController',
+      templateUrl: 'templates/login.html',
+    })
+    .when('/mosey',{
       controller: 'mapController',
       templateUrl: 'templates/map.html'
     })
+    .when('/reviews',{
+      controller: 'ReviewsController',
+      templateUrl: 'templates/reviews.html'
+    })
     .when('/', {
-      redirectTo: '/map',
+      redirectTo: '/home',
     })
 }])

@@ -7,9 +7,9 @@ module.exports = function(app) {
 
 },{}],2:[function(require,module,exports){
 module.exports = function(app){
-  app.controller('RegController', ['$scope', '$http', '$location', 'RegService', function($scope, $http, $location, RegService){
+  app.controller('UserController', ['$scope', '$http', '$location', 'UserService', function($scope, $http, $location, UserService){
 
-    console.log('hihihihi registration controller');
+    console.log('hihihihi users controller');
 
   }])
 }
@@ -18,64 +18,82 @@ module.exports = function(app){
 let app = angular.module('Mosey', ['ngRoute']);
 
 //controllers
-require('./controllers/reg.js')(app);
+require('./controllers/users.js')(app);
 require('./controllers/mapController.js')(app);
 
 //services
-require('./services/reg.js')(app);
+require('./services/users.js')(app);
 require('./services/mapServices.js')(app);
 
 app.config(['$routeProvider', function($routeProvider){
   $routeProvider
     .when('/registration', {
-      controller: 'RegController',
+      controller: 'UserController',
       templateUrl: 'templates/registration.html',
     })
-    .when('/map',{
+    .when('/login', {
+      controller: 'UserController',
+      templateUrl: 'templates/login.html',
+    })
+    .when('/mosey',{
       controller: 'mapController',
       templateUrl: 'templates/map.html'
     })
+    .when('/reviews',{
+      controller: 'ReviewsController',
+      templateUrl: 'templates/reviews.html'
+    })
     .when('/', {
-      redirectTo: '/map',
+      redirectTo: '/home',
     })
 }])
 
-},{"./controllers/mapController.js":1,"./controllers/reg.js":2,"./services/mapServices.js":4,"./services/reg.js":5}],4:[function(require,module,exports){
+},{"./controllers/mapController.js":1,"./controllers/users.js":2,"./services/mapServices.js":4,"./services/users.js":5}],4:[function(require,module,exports){
 module.exports = function(app) {
-    app.factory('Markers',['$http', function($http) {
-            var map = new GMaps({
-                div: '#map',
-                lat: -12.043333,
-                lng: -77.028333
-            });
-            return {
-                getLocations: function() {
-                    GMaps.geolocate({
-                        success: function(position) {
-                            map.setCenter(position.coords.latitude, position.coords.longitude);
-                            map.setZoom(20)
-                        },
-                        error: function(error) {
-                            alert('Geolocation failed: ' + error.message);
-                        },
-                        not_supported: function() {
-                            alert("Your browser does not support geolocation");
-                        },
-                        always: function() {
-                            alert("Done!");
-                        }
-                    });
+    app.factory('Markers', ['$http', function($http) {
+        var map = new GMaps({
+            div: '#map',
+            lat: -22.043333,
+            lng: -77.028333
+        });
+        return {
+            getLocations: function() {
+                GMaps.geolocate({
+                    success: function(position) {
+                        map.setCenter(position.coords.latitude, position.coords.longitude);
+                        map.addMarker({
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude,
+                            title: 'Damon',
+                            click: function(e) {
+                                alert('You clicked in this marker');
+                            }
+                        });
+                        console.log(position.coords.latitude + ' ' + position.coords.longitude);
+                        console.log(map.center.latitude);
+                        map.setZoom(20)
+                    },
+                    error: function(error) {
+                        alert('Geolocation failed: ' + error.message);
+                    },
+                    not_supported: function() {
+                        alert("Your browser does not support geolocation");
+                    },
+                    always: function() {
+                        alert("Done!");
+                    }
+                });
 
-                }
             }
+        }
     }]);
 }
 
 },{}],5:[function(require,module,exports){
 
 module.exports = function(app){
-  app.factory('RegService', function($http){
-      
+  app.factory('UserService', function($http){
+
   })
 }
 

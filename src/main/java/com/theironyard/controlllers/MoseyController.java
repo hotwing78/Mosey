@@ -5,6 +5,11 @@ import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.LatLng;
 import com.google.maps.model.PlacesSearchResponse;
 import com.google.maps.model.PlacesSearchResult;
+import com.google.maps.GeoApiContext;
+import com.google.maps.GeocodingApi;
+import com.google.maps.NearbySearchRequest;
+import com.google.maps.PlaceDetailsRequest;
+import com.google.maps.model.*;
 import com.theironyard.entities.Activity;
 import com.theironyard.entities.Restaurant;
 import com.theironyard.entities.User;
@@ -23,7 +28,6 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.lang.reflect.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -44,9 +48,9 @@ public class MoseyController {
 
     // start h2 web server
     @PostConstruct
-    public void init() throws Exception {
+    public void init() throws SQLException, FileNotFoundException {
         Server.createWebServer().start();
-/*
+
         if (restaurants.count() == 0) {
             String filename = "Restaurants.csv";
             File f = new File(filename);
@@ -83,49 +87,35 @@ public class MoseyController {
         }
 
 
-
-        Iterable<Restaurant> rants = restaurants.findAll();
-
-        for (Restaurant rest:  rants) {
-            String name = rest.getName();
-            GeoApiContext context = new GeoApiContext().
-                    setApiKey("AIzaSyDdGq0n-cnI--cZyb9gc73KTxEr_mYFVCM");
-
-            LatLng ll = new LatLng(32.7784801,-79.9271972);
-
-            TextSearchRequest request = PlacesApi.textSearchQuery(context, name + " Charleston");
-            PlacesSearchResponse result = request.await();
-
-
-
-
-
-*/
-
-
-            //System.out.println(result);
-            //System.out.println(results);
-            //rest.setAddress(results);
-            //restaurants.save(rest);
-
-       // }
-
     }
 
-    @RequestMapping(path = "/mosey", method = RequestMethod.GET)
-    public String home(/*Model model, HttpSession session, */double lat, double lng) throws Exception {
+    @RequestMapping(path = "/", method = RequestMethod.GET)
+    public String home(Model model, HttpSession session) throws Exception {
 
-        /*String username = (String) session.getAttribute("username");
+        String username = (String) session.getAttribute("username");
         if (username != null) {
             model.addAttribute("user", username);
 
         }
-        */
+        GeoApiContext context = new GeoApiContext().
+                setApiKey("AIzaSyDdGq0n-cnI--cZyb9gc73KTxEr_mYFVCM");
+        GeocodingResult[] results = GeocodingApi.geocode(
+                context,
+                "Pearlz").await();
+        System.out.println(
+                results[0].formattedAddress);
+        int size = 0;
+        while (size< results.length) {
+            System.out.println(results[size]);
+            size++;
+        }
+        LatLng ll = new LatLng(32.7784801,-79.9271972);
+        NearbySearchRequest a = new NearbySearchRequest(context);
 
-
-
-
-        return lat + " " + lng;
+        PlacesSearchResponse result  =  a.location(ll).radius(50).await();
+        System.out.println(result);
+        //NearbySearchRequest
+        return "home";
     }
 
     @RequestMapping(path = "/login", method = RequestMethod.POST)
