@@ -48,3 +48,5 @@ fabric.properties
 
 # All node_modules:
 .node_modules/
+
+*.rtf

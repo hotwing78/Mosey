@@ -28,6 +28,7 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -51,6 +52,14 @@ public class MoseyController {
     public void init() throws Exception {
         Server.createWebServer().start();
 
+        File file = new File("API.csv");
+
+        Scanner fscan  = new Scanner(file);
+
+        String APIkey = fscan.nextLine();
+
+
+
         if (restaurants.count() == 0) {
             String filename = "Restaurants.csv";
             File f = new File(filename);
@@ -59,9 +68,20 @@ public class MoseyController {
             while (filescanner.hasNext()) {
                 String line = filescanner.nextLine();
                 String[] columns = line.split("\\,");
-                //int size = columns.length;
+                GeoApiContext context = new GeoApiContext()
+                        .setApiKey(APIkey);
+                TextSearchRequest request = PlacesApi.textSearchQuery(context, columns[2] + " Charleston");
+                PlacesSearchResponse results = request.await();
 
-                Restaurant restaurant = new Restaurant(columns[0], columns[1], columns[2], columns[3], columns[4]);
+
+                Restaurant restaurant = new Restaurant(columns[0],
+                        columns[1],
+                        columns[2],
+                        columns[3],
+                        columns[4],
+                        results.results[0].formattedAddress,
+                        results.results[0].geometry.location.lat,
+                        results.results[0].geometry.location.lng);
                 restaurants.save(restaurant);
 
 
@@ -79,7 +99,7 @@ public class MoseyController {
                 //int size = columns.length;
 
                 Activity activity = new Activity(columns[0], columns[1], Boolean.valueOf(columns[2]), columns[3], columns[4]);
-                activities.save(activity);
+
 
             }
         }
@@ -90,7 +110,7 @@ public class MoseyController {
         for (Restaurant rest : rests) {
             if (rest.getAddress() == null || rest.getLat() == null || rest.getLng() == null){
                 GeoApiContext context = new GeoApiContext()
-                        .setApiKey("AIzaSyDdGq0n-cnI--cZyb9gc73KTxEr_mYFVCM");
+                        .setApiKey(" ");
                 TextSearchRequest request = PlacesApi.textSearchQuery(context, rest.getName() + " Charleston");
                 PlacesSearchResponse results = request.await();
                 if (rest.getLat() == null){
