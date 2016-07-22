@@ -1,12 +1,15 @@
 package com.theironyard.controlllers;
 
-import com.google.maps.GeoApiContext;
-import com.google.maps.GeocodingApi;
-import com.google.maps.NearbySearchRequest;
+import com.google.maps.*;
 import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.LatLng;
 import com.google.maps.model.PlacesSearchResponse;
 import com.google.maps.model.PlacesSearchResult;
+import com.google.maps.GeoApiContext;
+import com.google.maps.GeocodingApi;
+import com.google.maps.NearbySearchRequest;
+import com.google.maps.PlaceDetailsRequest;
+import com.google.maps.model.*;
 import com.theironyard.entities.Activity;
 import com.theironyard.entities.Restaurant;
 import com.theironyard.entities.User;
@@ -84,45 +87,25 @@ public class MoseyController {
         }
 
 
+
+
     }
 
-    @RequestMapping(path = "/", method = RequestMethod.GET)
-    public String home(Model model, HttpSession session) throws Exception {
+    @RequestMapping(path = "/mosey", method = RequestMethod.GET)
+    public String home(double lat, double lng) throws Exception {
 
-        String username = (String) session.getAttribute("username");
-        if (username != null) {
-            model.addAttribute("user", username);
 
-        }
 
-        GeoApiContext context = new GeoApiContext().
-                setApiKey("AIzaSyDdGq0n-cnI--cZyb9gc73KTxEr_mYFVCM");
-        GeocodingResult[] results = GeocodingApi.geocode(
-                context,
-                "Pearlz").await();
-                System.out.println(
-                        results[0].formattedAddress);
-        int size = 0;
-        while (size< results.length) {
-            System.out.println(results[size]);
-            size++;
-        }
-        LatLng ll = new LatLng(32.7784801,-79.9271972);
-        NearbySearchRequest a = new NearbySearchRequest(context);
-
-        PlacesSearchResponse result  =  a.location(ll).radius(50).await();
-        System.out.println(result);
-        //NearbySearchRequest
-        return "home";
+        return lat + " " + lng;
     }
 
     @RequestMapping(path = "/login", method = RequestMethod.POST)
     public String login (HttpSession session, String username, String password) throws Exception {
-        User user = users.findByName(username);
+        User user = users.findByUsername(username);
         if (user == null) {
             user = new User(username, PasswordStorage.createHash(password));
             users.save(user);
-        } else if (!PasswordStorage.verifyPassword(password, user.getPasswordHash())) {
+        } else if (!PasswordStorage.verifyPassword(password, user.getPasswordhash())) {
             throw new Exception("Incorrect password");
         }
         session.setAttribute("username", username);
