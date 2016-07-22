@@ -3,10 +3,8 @@ package com.theironyard.controlllers;
 import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
 import com.google.maps.NearbySearchRequest;
-import com.google.maps.model.GeocodingResult;
-import com.google.maps.model.LatLng;
-import com.google.maps.model.PlacesSearchResponse;
-import com.google.maps.model.PlacesSearchResult;
+import com.google.maps.PlaceDetailsRequest;
+import com.google.maps.model.*;
 import com.theironyard.entities.Activity;
 import com.theironyard.entities.Restaurant;
 import com.theironyard.entities.User;
@@ -14,6 +12,7 @@ import com.theironyard.services.ActivityRepository;
 import com.theironyard.services.RestaurantRepository;
 import com.theironyard.services.UserRepository;
 import com.theironyard.utils.PasswordStorage;
+import org.h2.index.Index;
 import org.h2.tools.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -27,7 +26,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
+
+import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 
 /**
  * Created by hoseasandstrom on 7/19/16.
@@ -61,9 +64,6 @@ public class MoseyController {
                 Restaurant restaurant = new Restaurant(columns[0], columns[1], columns[2], columns[3], columns[4]);
                 restaurants.save(restaurant);
 
-
-
-
             }
         }
 
@@ -94,14 +94,13 @@ public class MoseyController {
             model.addAttribute("user", username);
 
         }
-
         GeoApiContext context = new GeoApiContext().
                 setApiKey("AIzaSyDdGq0n-cnI--cZyb9gc73KTxEr_mYFVCM");
         GeocodingResult[] results = GeocodingApi.geocode(
                 context,
                 "Pearlz").await();
-                System.out.println(
-                        results[0].formattedAddress);
+        System.out.println(
+                results[0].formattedAddress);
         int size = 0;
         while (size< results.length) {
             System.out.println(results[size]);
@@ -116,13 +115,13 @@ public class MoseyController {
         return "home";
     }
 
+
     @RequestMapping(path = "/login", method = RequestMethod.POST)
     public String login (HttpSession session, String username, String password) throws Exception {
-        User user = users.findByName(username);
+        User user = users.findByUsername(username);
         if (user == null) {
-            user = new User(username, PasswordStorage.createHash(password));
-            users.save(user);
-        } else if (!PasswordStorage.verifyPassword(password, user.getPasswordHash())) {
+            return "redirect:/register";
+        } else if (!PasswordStorage.verifyPassword(password, user.getPasswordhash())) {
             throw new Exception("Incorrect password");
         }
         session.setAttribute("username", username);
@@ -130,6 +129,17 @@ public class MoseyController {
         return "redirect:/";
     }
 
+    @RequestMapping(path = "/register", method = RequestMethod.POST)
+    public String register (HttpSession session, String firstname,
+                            String lastname, String email, String username,
+                            String password, boolean isnative) throws PasswordStorage.CannotPerformOperationException {
+        User user = users.findByUsername(username);
+        if (user == null) {
+            user = new User(firstname, lastname, email, username, PasswordStorage.createHash(password), isnative);
+            users.save(user);
+        }
+        return "redirect:/";
+    }
 
 
 }
