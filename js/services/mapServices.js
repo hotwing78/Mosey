@@ -13,10 +13,9 @@ module.exports = function(app) {
             lng: -77.028333
         });
         return {
-          postData: function() {
-               $http.post('/',{
-                  lat: lat,
-                  lng: lng,
+          postData: function(newCenter) {
+               $http.post('/mosey',{
+                  center: newCenter;
               });
 
           },

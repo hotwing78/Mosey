@@ -51,6 +51,11 @@ public class Activity {
         this.lng = lng;
     }
 
+    public Activity(int id, String address) {
+        this.id = id;
+        this.address = address;
+    }
+
     public int getId() {
         return id;
     }
