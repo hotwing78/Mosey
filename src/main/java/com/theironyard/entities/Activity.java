@@ -27,15 +27,28 @@ public class Activity {
     @Column(nullable = false)
     String comment;
 
-    public Activity(String category, String price, boolean isoutside, String activityname, String comment) {
+    @Column
+    String address;
+
+    @Column (nullable = false)
+    Double lat;
+
+    @Column (nullable = false)
+    Double lng;
+
+
+    public Activity() {
+    }
+
+    public Activity(String category, String price, boolean isoutside, String activityname, String comment, String address, Double lat, Double lng) {
         this.category = category;
         this.price = price;
         this.isoutside = isoutside;
         this.activityname = activityname;
         this.comment = comment;
-    }
-
-    public Activity() {
+        this.address = address;
+        this.lat = lat;
+        this.lng = lng;
     }
 
     public int getId() {
@@ -76,6 +89,30 @@ public class Activity {
 
     public void setActivityname(String activityname) {
         this.activityname = activityname;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Double getLat() {
+        return lat;
+    }
+
+    public void setLat(Double lat) {
+        this.lat = lat;
+    }
+
+    public Double getLng() {
+        return lng;
+    }
+
+    public void setLng(Double lng) {
+        this.lng = lng;
     }
 
     public String getComment() {
