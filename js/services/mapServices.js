@@ -1,25 +1,30 @@
 module.exports = function(app) {
     app.factory('Markers', ['$http', function($http) {
-        let lat;
-        let lng;
+        let lat = '';
+        let lng= '';
+        let center = {
+            lat: lat,
+            lng: lng
+        };
+        let newCenter = JSON.stringify(center);
         var map = new GMaps({
             div: '#map',
             lat: -22.043333,
             lng: -77.028333
         });
         return {
+          postData: function() {
+               $http.post('/',{
+                  lat: lat,
+                  lng: lng,
+              });
+
+          },
             getLocations: function() {
                 GMaps.geolocate({
                     success: function(position) {
                         lat = position.coords.latitude
                         lng = position.coords.longitude
-                        let center = {
-                            lat: lat,
-                            lng: lng
-                        }
-                        let newCenter = JSON.stringify(center)
-
-                        postData(center);
                         map.setCenter(lat,lng);
                         map.addMarker({
                             lat: lat,
@@ -44,15 +49,8 @@ module.exports = function(app) {
                     }
                 });
 
-            },
-            postData: function(data) {
-                let post = $http({
-                    url: '/',
-                    method: 'Post',
-                    data: data
-                });
-
             }
+
         }
     }]);
 }
