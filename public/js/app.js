@@ -36,7 +36,7 @@ app.config(['$routeProvider', function($routeProvider){
       controller: 'UserController',
       templateUrl: 'templates/login.html',
     })
-    .when('/mosey',{
+    .when('/',{
       controller: 'mapController',
       templateUrl: 'templates/map.html'
     })
@@ -44,8 +44,8 @@ app.config(['$routeProvider', function($routeProvider){
       controller: 'ReviewsController',
       templateUrl: 'templates/reviews.html'
     })
-    .when('/', {
-      redirectTo: '/mosey',
+    //.when('/', {
+    //  redirectTo: '/mosey',
     })
 }])
 

@@ -152,12 +152,12 @@ public class MoseyController {
         }
     }
 
-    @RequestMapping(path = "/", method = RequestMethod.GET)
-    public String home(Double lat, Double lng) throws Exception {
+    @RequestMapping(path = "/mosey", method = RequestMethod.GET)
+    public String home(String newCenter) throws Exception {
 
 
 
-        return lat + " " + lng;
+        return newCenter;
     }
 
     @RequestMapping(path = "/login", method = RequestMethod.POST)
