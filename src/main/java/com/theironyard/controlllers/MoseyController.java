@@ -58,8 +58,6 @@ public class MoseyController {
 
         String APIkey = fscan.nextLine();
 
-
-
         if (restaurants.count() == 0) {
             String filename = "Restaurants.csv";
             File f = new File(filename);
@@ -96,17 +94,24 @@ public class MoseyController {
             while (filescanner.hasNext()) {
                 String line = filescanner.nextLine();
                 String[] columns = line.split("\\,");
-                //int size = columns.length;
-
-                Activity activity = new Activity(columns[0], columns[1], Boolean.valueOf(columns[2]), columns[3], columns[4]);
-
+                GeoApiContext context = new GeoApiContext()
+                        .setApiKey(APIkey);
+                TextSearchRequest request = PlacesApi.textSearchQuery(context, columns[2] + " Charleston");
+                PlacesSearchResponse results = request.await();
+                Activity activity = new Activity(columns[0],
+                        columns[1],
+                        Boolean.valueOf(columns[2]),
+                        columns[3],
+                        columns[4],
+                        results.results[0].formattedAddress,
+                        results.results[0].geometry.location.lat,
+                        results.results[0].geometry.location.lng);
+                activities.save(activity);
 
             }
         }
 
         Iterable<Restaurant> rests = restaurants.findAll();
-
-
         for (Restaurant rest : rests) {
             if (rest.getAddress() == null || rest.getLat() == null || rest.getLng() == null){
                 GeoApiContext context = new GeoApiContext()
@@ -126,10 +131,25 @@ public class MoseyController {
             }
         }
 
-
-
-
-
+        Iterable<Activity> actvs = activities.findAll();
+        for (Activity actv : actvs) {
+            if (actv.getAddress() == null || actv.getLat() == null || actv.getLng() == null){
+                GeoApiContext context = new GeoApiContext()
+                        .setApiKey(" ");
+                TextSearchRequest request = PlacesApi.textSearchQuery(context, actv.getActivityname() + " Charleston");
+                PlacesSearchResponse results = request.await();
+                if (actv.getLat() == null){
+                    actv.setLat(results.results[0].geometry.location.lat);
+                }
+                if (actv.getLng() == null ) {
+                    actv.setLng(results.results[0].geometry.location.lng);
+                }
+                if (actv.getAddress() == null) {
+                    actv.setAddress(results.results[0].formattedAddress);
+                }
+                activities.save(actv);
+            }
+        }
     }
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
