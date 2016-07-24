@@ -36,7 +36,7 @@ app.config(['$routeProvider', function($routeProvider){
     })
     .when('/login', {
       controller: 'UserController',
-      templateUrl: 'templates/login.html',
+      templateUrl: 'templates/logIn.html',
     })
     .when('/mosey',{
       controller: 'mapController',
@@ -58,7 +58,7 @@ app.config(['$routeProvider', function($routeProvider){
 },{"./controllers/mapController.js":1,"./controllers/users.js":2,"./services/mapServices.js":4,"./services/users.js":5}],4:[function(require,module,exports){
 module.exports = function(app) {
     app.factory('Markers', ['$http', function($http) {
-       let eats = [];
+       let food = [];
         var map = new GMaps({
             div: '#map',
             lat: 32.79222,
@@ -74,8 +74,13 @@ module.exports = function(app) {
                 console.table(response);
                 Array.from(response).forEach(function(){
                   if(response.Category === 'Seafood'){
+<<<<<<< HEAD
                      eats.push(response.Name);
                      console.table(eats);
+=======
+                     food.push(response.Name);
+                     console.log(response.Name);
+>>>>>>> 6c3d541f4cf1672403e1a2b618251b32e7e94bff
                   }
                 });
               });
@@ -130,6 +135,21 @@ module.exports = function(app) {
 module.exports = function(app){
   app.factory('UserService', function($http){
 
+    let username = "";
+    let usersArray = [];
+
+    return {
+
+      createUser: function(name,password){
+        username = name;
+        console.log(username, "IS LOGGING IN");
+
+        $http({
+          method: 'POST',
+          url: ''
+        })
+      }
+    }
   })
 }
 
