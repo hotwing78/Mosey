@@ -7,19 +7,20 @@ module.exports = function(app) {
             lng: -79.9404072,
         });
         return {
-            getResturants: function(){
+            getRestaurants: function(){
               $http({
-                url: '/resturants',
+                url: '/restaurants',
                 method:'get'
               }).then(function(results){
                 let response = results.data;
                 response.forEach(function(){
                   if(response.Category === 'Seafood'){
                      eats.push(response.Name);
+                     console.log(response.Name);
                   }
                 });
               });
-              return eats;
+
             },
             setMarker: function() {
                 map.addMarker({
