@@ -184,22 +184,27 @@ public class MoseyController {
     @RequestMapping(path = "/reviews", method = RequestMethod.POST)
     public void addReview(HttpSession session, @RequestBody Review review) throws Exception {
         String username = (String) session.getAttribute("username");
-        //if (username == null) {
-        //    throw new Exception("You must be registered to leave a review.");
-        //}
+        if (username == null) {
+            throw new Exception("You must be registered to leave a review.");
+        }
 
-       // User user = users.findByUsername(username);
-       // if (user == null) {
-       //     throw new Exception("Invalid username");
-        //}
+        User user = users.findByUsername(username);
+        if (user == null) {
+            throw new Exception("Invalid username");
+        }
 
-        Restaurant res = restaurants.findOne(review.getId());
+        Restaurant res = restaurants.findOne(review.getRestaurantid());
         if (res == null) {
             throw new Exception("Invalid selection");
         }
-
         review.setRestaurant(res);
+        reviews.save(review);
 
+        Activity act = activities.findOne(review.getActivityid());
+        if (act == null) {
+            throw new Exception("Invalid selection");
+        }
+        review.setActivity(act);
         reviews.save(review);
     }
 
