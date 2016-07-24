@@ -67,7 +67,7 @@ module.exports = function(app) {
         return {
             getRestaurants: function(){
               $http({
-                url: '/restaurants',
+                url: '/#/restaurants',
                 method:'get'
               }).then(function(results){
                 let response = results.data;
