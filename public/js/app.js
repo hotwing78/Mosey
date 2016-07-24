@@ -44,6 +44,10 @@ app.config(['$routeProvider', function($routeProvider){
       controller: 'ReviewsController',
       templateUrl: 'templates/reviews.html'
     })
+    .when('/chat',{
+      // controller: 'ReviewsController',
+      templateUrl: 'templates/chat.html'
+    })
     .when('/', {
       redirectTo: '/mosey',
     })

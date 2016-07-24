@@ -1,0 +1,74 @@
+<!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+<!-- includes -->
+<!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+<script src="/bower_components/angular/angular.js"></script>
+<script src="/bower_components/angular-chat/angular-chat.js"></script>
+<!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+<!-- configuration -->
+<!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+<script>
+angular.module('chat').constant( 'config', {
+    //
+    //
+    "pubnub": {
+        "publish-key"   : "pub-c-2eda95db-d053-43f9-b0a5-419ac84ff634",
+        "subscribe-key" : "sub-c-1c37bc80-51d1-11e6-bfbb-02ee2ddab7fe"
+    }
+} );
+</script>
+
+<!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+<!-- controller -->
+<!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+<script>
+var chat = angular.module( 'BasicChat', ['chat'] );
+chat.controller( 'chat', [ 'Messages', '$scope',
+function( Messages, $scope ) {
+    // Message Inbox
+    $scope.messages = [];
+
+    // Receive Messages
+    Messages.receive(function(message){
+        $scope.messages.push(message);
+    });
+
+    // Send Messages
+    $scope.send = function() {
+        Messages.send({ data : $scope.textbox });
+    };
+} ] );
+</script>
+
+<!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+<!-- view -->
+<!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+<div class="chat-container" ng-controller="BasicController as chat">
+
+    <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+    <!-- Chat Messages -->
+    <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+    <div class="chat-messages">
+        <div class="chat-header">
+            <div class="angularjs-chat-logo"></div>
+            AngularJS Chat
+        </div>
+        <div ng-repeat="message in chat.messages">
+            <div class="sent-message-{{ message.self }}">
+                <span class="username">{{ message.user.name }}:</span>
+                {{ message.data }}
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+
+    <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+    <!-- User Input -->
+    <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+    <form ng-submit="chat.send()" class="chat-input">
+        <input type="text" ng-model="chat.textbox" autofocus>
+        <input type="submit" class="send-icon" value=" ">
+        <input type="submit" value=" "
+            class="sent-indicator {{ chat.status }}">
+    </form>
+
+</div>
