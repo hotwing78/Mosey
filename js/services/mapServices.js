@@ -6,29 +6,26 @@ module.exports = function(app) {
             lng: -77.028333
         });
         return {
-            setMarker: function(){
-              map.addMarker({
-                  lat: 32.79222,
-                  lng: -79.9404072,
-                  title: 'Damon',
-                  click: function(e) {
-                      alert('You clicked in this marker');
-                  }
-              });
-            },
             getLocations: function() {
                 GMaps.geolocate({
                     success: function(position) {
-                        map.setCenter(lat, lng);
-
+                        map.setCenter(lat,lng);
                         map.addMarker({
-                            lat: lat,
-                            lng: lng,
+                            lat: 32.79222,
+                            lng: -79.9404072,
                             title: 'Damon',
                             click: function(e) {
                                 alert('You clicked in this marker');
                             }
                         });
+                        map.addMarker({
+                                                    lat: lat,
+                                                    lng: lng,
+                                                    title: 'Damon',
+                                                    click: function(e) {
+                                                        alert('You clicked in this marker');
+                                                    }
+                                                    });
                         console.log(position.coords.latitude + ' ' + position.coords.longitude);
 
                         map.setZoom(20)
