@@ -27,7 +27,7 @@ app.config(['$routeProvider', function($routeProvider){
       templateUrl: 'templates/reviews.html'
     })
     .when('/chat',{
-      // controller: 'ReviewsController',
+      controller: 'BasicController',
       templateUrl: 'templates/chat.html'
     })
     .when('/', {
