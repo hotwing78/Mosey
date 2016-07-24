@@ -1,6 +1,6 @@
 module.exports = function(app) {
     app.factory('Markers', ['$http', function($http) {
-       let eats = [];
+       let food = [];
         var map = new GMaps({
             div: '#map',
             lat: 32.79222,
@@ -9,13 +9,13 @@ module.exports = function(app) {
         return {
             getRestaurants: function(){
               $http({
-                url: '/#/restaurants',
+                url: '/food',
                 method:'get'
               }).then(function(results){
                 let response = results.data;
                 response.forEach(function(){
                   if(response.Category === 'Seafood'){
-                     eats.push(response.Name);
+                     food.push(response.Name);
                      console.log(response.Name);
                   }
                 });
