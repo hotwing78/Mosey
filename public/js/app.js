@@ -78,13 +78,21 @@ module.exports = function(app) {
                         lng = position.coords.longitude
                         map.setCenter(lat,lng);
                         map.addMarker({
-                            lat: lat,
-                            lng: lng,
+                            lat: 32.79222,
+                            lng: -79.9404072,
                             title: 'Damon',
                             click: function(e) {
                                 alert('You clicked in this marker');
                             }
                         });
+                        map.addMarker({
+                                                    lat: lat,
+                                                    lng: lng,
+                                                    title: 'Damon',
+                                                    click: function(e) {
+                                                        alert('You clicked in this marker');
+                                                    }
+                                                    });
                         console.log(position.coords.latitude + ' ' + position.coords.longitude);
 
                         map.setZoom(20)
