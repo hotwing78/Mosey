@@ -107,7 +107,6 @@ module.exports = function(app) {
 }
 
 },{}],5:[function(require,module,exports){
-
 module.exports = function(app){
   app.factory('UserService', function($http){
 

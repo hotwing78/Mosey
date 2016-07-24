@@ -54,5 +54,8 @@
   .footer-links li {
     margin-top: 0.5em; }
 
+.inline-list {
+  list-style: none; }
+
 * {
   font-family: 'Source Sans Pro', sans-serif; }
