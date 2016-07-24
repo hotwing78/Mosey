@@ -22,6 +22,11 @@
 .menu .active a {
   background-color: gray; }
 
+.menu #logo {
+  padding: 0;
+  justify-content: center;
+  text-align: center; }
+
 #map {
   width: 100%;
   height: 900px; }
