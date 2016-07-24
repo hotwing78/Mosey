@@ -9,14 +9,15 @@ module.exports = function(app) {
         return {
             getRestaurants: function(){
               $http({
-                url: '/restaurants',
+                url: '/food',
                 method:'get'
               }).then(function(results){
                 let response = results.data;
-                response.forEach(function(){
+                console.table(response);
+                Array.from(response).forEach(function(){
                   if(response.Category === 'Seafood'){
                      eats.push(response.Name);
-                     console.log(response.Name);
+                     console.table(eats);
                   }
                 });
               });
