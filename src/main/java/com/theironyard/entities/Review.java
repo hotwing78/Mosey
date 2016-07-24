@@ -21,20 +21,31 @@ public class Review {
     @ManyToOne
     Activity activity;
 
+    @Transient
+    Integer activityid;
+
     @ManyToOne
     Restaurant restaurant;
+
+    @Transient
+    Integer restaurantid;
+
+    @ManyToOne
+    User user;
 
     public Review() {
     }
 
-    public Review(String activityreview, Activity activity) {
+    public Review(String activityreview, Activity activity, User user) {
         this.activityreview = activityreview;
         this.activity = activity;
+        this.user = user;
     }
 
-    public Review(String restaurantreview, Restaurant restaurant) {
+    public Review(String restaurantreview, Restaurant restaurant, User user) {
         this.restaurantreview = restaurantreview;
         this.restaurant = restaurant;
+        this.user = user;
     }
 
     public int getId() {
@@ -75,5 +86,29 @@ public class Review {
 
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
+    }
+
+    public Integer getActivityid() {
+        return activityid;
+    }
+
+    public void setActivityid(Integer activityid) {
+        this.activityid = activityid;
+    }
+
+    public Integer getRestaurantid() {
+        return restaurantid;
+    }
+
+    public void setRestaurantid(Integer restaurantid) {
+        this.restaurantid = restaurantid;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

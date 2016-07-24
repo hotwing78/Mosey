@@ -6,7 +6,6 @@ module.exports = function(app) {
             lng: -77.028333
         });
         return {
-
             getLocations: function() {
                 GMaps.geolocate({
                     success: function(position) {
