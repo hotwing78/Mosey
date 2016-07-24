@@ -103,7 +103,7 @@ public class MoseyController {
                 String[] columns = line.split("\\,");
                 GeoApiContext context = new GeoApiContext()
                         .setApiKey(APIkey);
-                TextSearchRequest request = PlacesApi.textSearchQuery(context, columns[2] + " Charleston");
+                TextSearchRequest request = PlacesApi.textSearchQuery(context, columns[1] + " Charleston");
                 PlacesSearchResponse results = request.await();
                 Activity activity = new Activity(columns[0],
                         columns[1],
@@ -180,6 +180,12 @@ public class MoseyController {
 
         return "redirect:/";
     }
+
+    @RequestMapping (path = "/restaurants", method = RequestMethod.GET)
+    public Iterable<Restaurant> getRests () {
+        return restaurants.findAll();
+    }
+
 
     @RequestMapping(path = "/reviews", method = RequestMethod.POST)
     public void addReview(HttpSession session, @RequestBody Review review) throws Exception {
