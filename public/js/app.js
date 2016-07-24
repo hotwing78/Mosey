@@ -2,7 +2,7 @@
 module.exports = function(app) {
         app.controller('mapController',['$http','Markers',function($http,Markers) {
             Markers.getLocations();
-          //  Markers.postData();
+            Markers.setMarker();
         }]);
       }
 
@@ -52,47 +52,35 @@ app.config(['$routeProvider', function($routeProvider){
 },{"./controllers/mapController.js":1,"./controllers/users.js":2,"./services/mapServices.js":4,"./services/users.js":5}],4:[function(require,module,exports){
 module.exports = function(app) {
     app.factory('Markers', ['$http', function($http) {
-        let lat = '';
-        let lng= '';
-        let center = {
-            lat: lat,
-            lng: lng
-        };
-        let newCenter = JSON.stringify(center);
         var map = new GMaps({
             div: '#map',
             lat: -22.043333,
             lng: -77.028333
         });
         return {
-         // postData: function(newCenter) {
-              // $http.post('/mosey',{
-               //   center: newCenter
-            //  });
-
-         // },
+            setMarker: function(){
+              map.addMarker({
+                  lat: 32.79222,
+                  lng: -79.9404072,
+                  title: 'Damon',
+                  click: function(e) {
+                      alert('You clicked in this marker');
+                  }
+              });
+            },
             getLocations: function() {
                 GMaps.geolocate({
                     success: function(position) {
-                        lat = position.coords.latitude
-                        lng = position.coords.longitude
-                        map.setCenter(lat,lng);
+                        map.setCenter(lat, lng);
+
                         map.addMarker({
-                            lat: 32.79222,
-                            lng: -79.9404072,
+                            lat: lat,
+                            lng: lng,
                             title: 'Damon',
                             click: function(e) {
                                 alert('You clicked in this marker');
                             }
                         });
-                        map.addMarker({
-                                                    lat: lat,
-                                                    lng: lng,
-                                                    title: 'Damon',
-                                                    click: function(e) {
-                                                        alert('You clicked in this marker');
-                                                    }
-                                                    });
                         console.log(position.coords.latitude + ' ' + position.coords.longitude);
 
                         map.setZoom(20)
