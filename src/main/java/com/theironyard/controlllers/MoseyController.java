@@ -12,14 +12,17 @@ import com.google.maps.PlaceDetailsRequest;
 import com.google.maps.model.*;
 import com.theironyard.entities.Activity;
 import com.theironyard.entities.Restaurant;
+import com.theironyard.entities.Review;
 import com.theironyard.entities.User;
 import com.theironyard.services.ActivityRepository;
 import com.theironyard.services.RestaurantRepository;
+import com.theironyard.services.ReviewRepository;
 import com.theironyard.services.UserRepository;
 import com.theironyard.utils.PasswordStorage;
 import org.h2.tools.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,6 +49,10 @@ public class MoseyController {
 
     @Autowired
     ActivityRepository activities;
+
+    @Autowired
+    ReviewRepository reviews;
+
 
     // start h2 web server
     @PostConstruct
@@ -174,6 +181,26 @@ public class MoseyController {
         return "redirect:/";
     }
 
+    @RequestMapping(path = "/reviews", method = RequestMethod.POST)
+    public void addReview(HttpSession session, @RequestBody Review review) throws Exception {
+        String username = (String) session.getAttribute("username");
+        //if (username == null) {
+        //    throw new Exception("You must be registered to leave a review.");
+        //}
 
+       // User user = users.findByUsername(username);
+       // if (user == null) {
+       //     throw new Exception("Invalid username");
+        //}
+
+        Restaurant res = restaurants.findOne(review.getId());
+        if (res == null) {
+            throw new Exception("Invalid selection");
+        }
+
+        review.setRestaurant(res);
+
+        reviews.save(review);
+    }
 
 }
