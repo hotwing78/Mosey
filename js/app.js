@@ -16,7 +16,7 @@ app.config(['$routeProvider', function($routeProvider){
     })
     .when('/login', {
       controller: 'UserController',
-      templateUrl: 'templates/login.html',
+      templateUrl: 'templates/logIn.html',
     })
     .when('/mosey',{
       controller: 'mapController',
