@@ -13,12 +13,12 @@ module.exports = function(app) {
             lng: -77.028333
         });
         return {
-          postData: function(newCenter) {
-               $http.post('/mosey',{
-                  center: newCenter
-              });
+          //postData: function(newCenter) {
+          //     $http.post('/mosey',{
+          //        center: newCenter
+          //    });
 
-          },
+          //},
             getLocations: function() {
                 GMaps.geolocate({
                     success: function(position) {
