@@ -36,7 +36,7 @@ app.config(['$routeProvider', function($routeProvider){
     })
     .when('/login', {
       controller: 'UserController',
-      templateUrl: 'templates/login.html',
+      templateUrl: 'templates/logIn.html',
     })
     .when('/mosey',{
       controller: 'mapController',
@@ -129,6 +129,21 @@ module.exports = function(app) {
 module.exports = function(app){
   app.factory('UserService', function($http){
 
+    let username = "";
+    let usersArray = [];
+
+    return {
+
+      createUser: function(name,password){
+        username = name;
+        console.log(username, "IS LOGGING IN");
+
+        $http({
+          method: 'POST',
+          url: ''
+        })
+      }
+    }
   })
 }
 

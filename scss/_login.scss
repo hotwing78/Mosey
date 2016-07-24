@@ -1,15 +1,24 @@
-.top-bar {
+body {
+  background-color: white;
+}
+nav .top-bar {
   font-family: 'Source Sans Pro', sans-serif;
 }
 
-
 .top-bar {
-    background-color: rgba(236, 88, 64, 0.32);
-    margin-bottom: 1em;
+  background-color: #292c2f;
+  text-align: center;
+  font-size: 1.2rem;
+  padding: 1rem;
+  font-family: 'Source Sans Pro', sans-serif;
+  margin-bottom: 5%;
 }
 
 .top-bar ul {
-    background-color: #f9cac2;}
+  background-color: #292c2f;
+  text-align: center;
+  font-size: 1.2rem;
+  padding: 1rem;}
 
 
 .menu li{
@@ -17,8 +26,12 @@
     font-size: 1.3em;
     color: gray;
   }
+  a:hover {
+    font-size: 1.3em;
+    color: white;
+  }
   a img {
-    width: 40%;
+    width: 70%;
     padding: 0px;
   }
 }
@@ -27,11 +40,6 @@
   padding: 0px;
 }
 
-.menu .active {
-  a {
-  background-color: gray;
-}
-}
 
 .menu #logo {
   padding: 0;
@@ -40,7 +48,7 @@
 
 }
 
-@keyframes top-bar {
+@keyframes logo {
     0%   { transform: translate(-100px,0px);                    opacity: 0 }
     42%  { transform: translate(-80px,0px);                     opacity: 0.8 }
     60%  { transform: translate(3px,0px)     scale(0.96,1.04);  opacity: 1 }
@@ -48,4 +56,56 @@
     80%  { transform: translate(-2px,0px);                      opacity: 1 }
     90%  { transform: translate(1px,0px);                       opacity: 1 }
     100% { transform: translate(0px,0px);                       opacity: 1 }
+}
+
+
+
+/* Styles for Login */
+.auth-plain {
+  padding-right: 0px;
+  padding-left: 0px;
+  padding-top: 0px;
+}
+
+.left-solid {
+margin-top: 0px;
+margin-bottom: 0px;
+}
+
+.signup-panel {
+  border-radius: 5px;
+  padding: 15px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  background: #fff;
+}
+
+.signup-panel a{
+  color: #fff;
+}
+
+.signup-panel i {
+  font-size: 30px;
+  line-height: 50px;
+  color: #999;
+}
+.signup-panel form input, .signup-panel form span {
+  height: 50px;
+}
+.signup-panel .welcome {
+  font-size: 26px;
+  text-align: center;
+  margin-left: 0;
+}
+.signup-panel p {
+  font-size: 13px;
+  font-weight: 200;
+  text-align: center;
+}
+.signup-panel .button {
+  margin-left: 35%;
+}
+
+.newusers {
+  background: #fff;
 }

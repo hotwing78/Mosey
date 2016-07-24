@@ -1,23 +1,37 @@
+<div id="myModal" class="reveal-modal remove-whitespace" data-reveal>
 <div class="row">
-    <div class="large-6 columns">
-        <div class='tempContainer' id="logContainerMain">
-            <div class='tempHeader' id="logHeader"></div>
-            <div class='tempBody' id="logBody">
-
-                <ul>
-                    <h3>Please fill in all fields</h3>
-                    <li>
-                        <input type="text"=n g-model='UName' placeholder='User Name'>
-                    </li>
-                    <li>
-                        <input type="text"=n g-model='Pword' placeholder='Password'>
-                    </li>
-                    <button class="expanded hollow button">Login!</button>
-                    <span id="regLink"><h3>First time? Register <a href="#registration">Here</a></h3></span>
-                    <div class="row">
-                </ul>
-
+    <div class="large-6 columns auth-plain">
+      <div class="signup-panel left-solid">
+        <p class="welcome">Registered Users</p>
+        <form>
+          <div class="row collapse">
+            <div class="small-2  columns">
+              <span class="prefix"><i class="fi-torso-female"></i></span>
             </div>
-        </div>
+            <div class="small-10  columns">
+              <input type="text" placeholder="username" ng-model="name">
+            </div>
+          </div>
+          <div class="row collapse">
+            <div class="small-2 columns ">
+              <span class="prefix"><i class="fi-lock"></i></span>
+            </div>
+            <div class="small-10 columns ">
+              <input type="password" placeholder="password" ng-model="password">
+            </div>
+          </div>
+        </form>
+        <a href="#" class="hollow button" ng-click="login()">Log In </a>
+      </div>
     </div>
+
+    <div class="large-6 columns auth-plain">
+    	<div class="signup-panel newusers">
+    		<p class="welcome"> New User?</p>
+    		<p>By creating an account with us, you will be able to move through the checkout process faster, view and track your orders, and more.</p><br>
+    		<a href="#registration" class=" hollow button ">Sign Up</a></br>
+    	</div>
+    </div>
+
+   </div>
 </div>
