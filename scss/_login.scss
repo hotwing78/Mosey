@@ -3,8 +3,6 @@
 }
 
 
-
-
 .top-bar {
     background-color: rgba(236, 88, 64, 0.32);
     margin-bottom: 1em;
@@ -33,4 +31,11 @@
   a {
   background-color: gray;
 }
+}
+
+.menu #logo {
+  padding: 0;
+  justify-content: center;
+  text-align: center;
+
 }

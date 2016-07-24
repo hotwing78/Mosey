@@ -15,7 +15,7 @@ module.exports = function(app) {
         return {
           postData: function(newCenter) {
                $http.post('/mosey',{
-                  center: newCenter;
+                  center: newCenter
               });
 
           },
