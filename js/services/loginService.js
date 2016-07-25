@@ -1,5 +1,5 @@
 module.exports = function(app){
-  app.factory('UserService', function($http){
+  app.factory('loginService', function($http){
 
     let username = "";
     let usersArray = [];
@@ -9,7 +9,7 @@ module.exports = function(app){
       getUser: function(){
           $http({
             method: 'GET',
-            url: '/login',
+            url: '/users',
           }).then(function(response){
             console.log('getttting', response);
             console.log(response.data);
@@ -27,6 +27,9 @@ module.exports = function(app){
           method: 'POST',
           url: '/login',
           data: {
+            firstname: firstname,
+            lastname: lastname,
+            email: email,
             username: name,
             password: password,
           }
