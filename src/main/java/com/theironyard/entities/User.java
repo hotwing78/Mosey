@@ -26,7 +26,7 @@ public class User {
 
     @Column(nullable = false)
     public
-    String passwordhash;
+    String password;
 
     @Column(nullable = false)
     boolean isnative;
@@ -34,17 +34,17 @@ public class User {
     public User() {
     }
 
-    public User(String username, String passwordhash) {
+    public User(String username, String password) {
         this.username = username;
-        this.passwordhash = passwordhash;
+        this.password = password;
     }
 
-    public User(String firstname, String lastname, String email, String username, String passwordhash, boolean isnative) {
+    public User(String firstname, String lastname, String email, String username, String password, boolean isnative) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.username = username;
-        this.passwordhash = passwordhash;
+        this.password = password;
         this.isnative = isnative;
     }
 
@@ -88,12 +88,12 @@ public class User {
         this.username = username;
     }
 
-    public String getPasswordhash() {
-        return passwordhash;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPasswordhash(String passwordhash) {
-        this.passwordhash = passwordhash;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public boolean isnative() {
