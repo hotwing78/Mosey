@@ -7,10 +7,7 @@ import com.theironyard.entities.Activity;
 import com.theironyard.entities.Restaurant;
 import com.theironyard.entities.Review;
 import com.theironyard.entities.User;
-import com.theironyard.services.ActivityRepository;
-import com.theironyard.services.RestaurantRepository;
-import com.theironyard.services.ReviewRepository;
-import com.theironyard.services.UserRepository;
+import com.theironyard.services.*;
 import com.theironyard.utils.PasswordStorage;
 import org.h2.tools.Server;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +37,9 @@ public class MoseyController {
 
     @Autowired
     ReviewRepository reviews;
+
+    @Autowired
+    ItineraryRespository itineraries;
 
 
     // start h2 web server
