@@ -9,7 +9,7 @@ module.exports = function(app){
           username = username;
           return $http({
             method: 'POST',
-            url: '/register',
+            url: '/#/register',
             data: {
               username: username,
               password: password,
