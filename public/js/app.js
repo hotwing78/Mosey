@@ -14,7 +14,7 @@ module.exports = function(app){
     $scope.register = function(){
       console.log(`${$scope.firstname} is in the system`);
       loginService.registerUser($scope.firstname, $scope.lastname, $scope.email, $scope.username, $scope.password, $scope.isLocal);
-    //  $location.path('/mosey');
+     $location.path('/#/mosey');
     };
 
 
@@ -43,15 +43,26 @@ module.exports = function(app) {
 }
 
 },{}],3:[function(require,module,exports){
+module.exports = function(app){
+  app.controller('reviewsController', ['$scope', '$http', '$location', 'reviewsService', function($scope, $http, $location, reviewsService){
+
+    console.log('hihihihi reviews controller');
+
+  }])
+}
+
+},{}],4:[function(require,module,exports){
 let app = angular.module('Mosey', ['ngRoute']);
 
 //controllers
 require('./controllers/loginController.js')(app);
 require('./controllers/mapController.js')(app);
+require('./controllers/reviewsController.js')(app);
 
 //services
 require('./services/loginService.js')(app);
 require('./services/mapServices.js')(app);
+require('./services/reviewsService.js')(app);
 
 app.config(['$routeProvider', function($routeProvider){
   $routeProvider
@@ -76,7 +87,7 @@ app.config(['$routeProvider', function($routeProvider){
     })
 }])
 
-},{"./controllers/loginController.js":1,"./controllers/mapController.js":2,"./services/loginService.js":4,"./services/mapServices.js":5}],4:[function(require,module,exports){
+},{"./controllers/loginController.js":1,"./controllers/mapController.js":2,"./controllers/reviewsController.js":3,"./services/loginService.js":5,"./services/mapServices.js":6,"./services/reviewsService.js":7}],5:[function(require,module,exports){
 module.exports = function(app){
   app.factory('loginService', function($http){
 
@@ -117,7 +128,7 @@ module.exports = function(app){
   })
 }
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 module.exports = function(app) {
     app.factory('Markers', ['$http', function($http) {
         let food = {};
@@ -179,4 +190,11 @@ module.exports = function(app) {
     }]);
 }
 
-},{}]},{},[3])
+},{}],7:[function(require,module,exports){
+module.exports = function(app){
+  app.factory('reviewsService', function($http){
+    console.log('memem');
+  })
+}
+
+},{}]},{},[4])

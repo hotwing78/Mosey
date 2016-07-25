@@ -1,5 +1,5 @@
 module.exports = function(app){
-  app.factory('ReviewsService', function($http){
+  app.factory('reviewsService', function($http){
     console.log('memem');
   })
 }
