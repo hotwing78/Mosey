@@ -68,13 +68,39 @@ app.config(['$routeProvider', function($routeProvider){
 },{"./controllers/mapController.js":1,"./controllers/users.js":2,"./services/mapServices.js":4,"./services/users.js":5}],4:[function(require,module,exports){
 module.exports = function(app) {
     app.factory('Markers', ['$http', function($http) {
+<<<<<<< HEAD
+        let food = [];
+=======
        let food = [];
+<<<<<<< HEAD
+       let activity = [];
+>>>>>>> d240ee94a81a54054f6880f7f3a7e408c8b46144
+=======
+>>>>>>> d3ea5551dedf3516579d689f73bd385614fc7e12
         var map = new GMaps({
             div: '#map',
             lat: 32.79222,
             lng: -79.9404072,
         });
         return {
+<<<<<<< HEAD
+            getRestaurants: function() {
+                $http({
+                    url: '/food',
+                    method: 'get'
+                }).then(function(results) {
+                    let response = results.data;
+                    console.table(response);
+                    map.addMarker({
+                        lat: response[0].lat,
+                        lng: response[0].lng,
+                        title: response[0].name,
+                        click: function(e) {
+                            alert('You clicked on the '+ response[0].name + ' marker');
+                        }
+                    });
+
+=======
             getRestaurants: function(){
               $http({
                 url: '/food',
@@ -87,8 +113,8 @@ module.exports = function(app) {
                      food.push(response.Name);
                      marker.setMap(map);
                   }
+>>>>>>> d240ee94a81a54054f6880f7f3a7e408c8b46144
                 });
-              });
 
             },
             setMarker: function() {

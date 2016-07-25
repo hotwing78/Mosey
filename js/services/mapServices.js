@@ -1,26 +1,30 @@
 module.exports = function(app) {
     app.factory('Markers', ['$http', function($http) {
-       let food = [];
+        let food = [];
         var map = new GMaps({
             div: '#map',
             lat: 32.79222,
             lng: -79.9404072,
         });
         return {
-            getRestaurants: function(){
-              $http({
-                url: '/food',
-                method:'get'
-              }).then(function(results){
-                let response = results.data;
-                console.table(response);
-                response.forEach(function(){
-                  if(response.Category === 'Seafood'){
-                     food.push(response.Name);
-                     marker.setMap(map);
-                  }
+
+            getRestaurants: function() {
+                $http({
+                    url: '/food',
+                    method: 'get'
+                }).then(function(results) {
+                    let response = results.data;
+                    console.table(response);
+                    map.addMarker({
+                        lat: response[0].lat,
+                        lng: response[0].lng,
+                        title: response[0].name,
+                        click: function(e) {
+                            alert('You clicked on the '+ response[0].name + ' marker');
+                        }
+                    });
+
                 });
-              });
 
             },
             setMarker: function() {
