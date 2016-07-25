@@ -2,16 +2,17 @@ module.exports = function(app){
   app.controller('loginController', ['$scope', '$http', '$location', 'loginService', function($scope, $http, $location, loginService){
 
     console.log('hihihihi users controller');
+    console.log('CLICKED REGGI');
 
-    $scope.name="";
-    $scope.password="";
-    $scope.usersArray = loginService.getUser();
+    $scope.username = '';
+    $scope.password = '';
 
-    $scope.login = function(){
-      console.log(`${scope.name} is in the systemmm`);
-      UserService.createUser($scope.name,$scope.password);
-      $location.path('/login');
-    }
+    $scope.register = function(){
+      console.log(`${$scope.username} is in the system`);
+      loginService.registerUser($scope.username, $scope.password);
+      $location.path('/register');
+    };
 
-  }])
+
+  }]);
 }
