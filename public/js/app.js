@@ -2,16 +2,19 @@
 module.exports = function(app){
   app.controller('loginController', ['$scope', '$http', '$location', 'loginService', function($scope, $http, $location, loginService){
 
-    console.log('hihihihi users controller');
     console.log('CLICKED REGGI');
 
+    $scope.firstname = '';
+    $scope.lastname = '';
+    $scope.email = '';
     $scope.username = '';
     $scope.password = '';
+    $scope.isLocal = '';
 
     $scope.register = function(){
-      console.log(`${$scope.username} is in the system`);
-      loginService.registerUser($scope.username, $scope.password);
-      $location.path('/register');
+      console.log(`${$scope.firstname} is in the system`);
+      loginService.registerUser($scope.firstname, $scope.lastname, $scope.email, $scope.username, $scope.password, $scope.isLocal);
+    //  $location.path('/#/register');
     };
 
 
@@ -66,18 +69,27 @@ app.config(['$routeProvider', function($routeProvider){
 module.exports = function(app){
   app.factory('loginService', function($http){
 
+    let firstname = "";
+    let lastname = "";
+    let email = "";
     let username = "";
+    let password = "";
+    let isLocal = true;
 
     return {
 
-      registerUser: function(username,password){
-          username = username;
-          return $http({
+      registerUser: function(firstname, lastname, email, username, password, isLocal){
+
+          $http({
             method: 'POST',
-            url: '/#/register',
+            url: '/register',
             data: {
+              firstname: firstname,
+              lastname: lastname,
+              email: email,
               username: username,
               password: password,
+              isLocal: true,
             }
           }).then(function(response){
             console.log('getttting', response);
