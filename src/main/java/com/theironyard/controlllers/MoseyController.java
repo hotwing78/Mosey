@@ -65,6 +65,13 @@ public class MoseyController {
 
         String APIkey = fscan.nextLine();
 
+       /* LatLng ll = new LatLng (0,0);
+        LatLng ll2 = new LatLng(1,1);
+        GeoApiContext cntx = new GeoApiContext().setApiKey(APIkey);
+        DistanceMatrixApiRequest distance = new DistanceMatrixApiRequest(cntx);
+
+        DistanceMatrix a = distance.origins(ll).destinations(ll2).await();*/
+
         if (restaurants.count() == 0) {
             String filename = "Restaurants.csv";
             File f = new File(filename);
@@ -88,8 +95,6 @@ public class MoseyController {
                         results.results[0].geometry.location.lat,
                         results.results[0].geometry.location.lng);
                 restaurants.save(restaurant);
-
-
             }
         }
 
@@ -171,13 +176,26 @@ public class MoseyController {
     public String login (HttpSession session, String username, String password) throws Exception {
         User user = users.findByUsername(username);
         if (user == null) {
-            user = new User(username, PasswordStorage.createHash(password));
-            users.save(user);
+            return null;
         } else if (!PasswordStorage.verifyPassword(password, user.getPasswordhash())) {
             throw new Exception("Incorrect password");
         }
         session.setAttribute("username", username);
 
+        return "redirect:/";
+    }
+
+    @RequestMapping(path = "/register", method = RequestMethod.POST)
+    public String register (HttpSession session, String username, String password, String email, String lastname, String firstname, boolean isLocal) throws Exception {
+        User user = users.findByUsername(username);
+        if (user == null) {
+            user = new User (firstname, lastname, email, username, PasswordStorage.createHash(password), isLocal);
+            users.save(user);
+        } else {
+            return null;
+        }
+
+        session.setAttribute("username", username);
         return "redirect:/";
     }
 
@@ -226,5 +244,8 @@ public class MoseyController {
         review.setActivity(act);
         reviews.save(review);
     }
+
+
+
 
 }
