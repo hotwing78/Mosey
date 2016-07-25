@@ -181,6 +181,11 @@ public class MoseyController {
         return "redirect:/";
     }
 
+    @RequestMapping(path="/login", method = RequestMethod.GET)
+    public Iterable<User> getUsers () {
+        return users.findAll();
+    }
+
     @RequestMapping (path = "/food", method = RequestMethod.GET)
     public Iterable<Restaurant> getRests () {
 
