@@ -96,7 +96,7 @@ public class MoseyController {
                 String[] columns = line.split("\\,");
                 GeoApiContext context = new GeoApiContext()
                         .setApiKey(APIkey);
-                TextSearchRequest request = PlacesApi.textSearchQuery(context, columns[1] + " Charleston");
+                TextSearchRequest request = PlacesApi.textSearchQuery(context, columns[3] + " Charleston");
                 PlacesSearchResponse results = request.await();
                 Activity activity = new Activity(columns[0],
                         columns[1],
