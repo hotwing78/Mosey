@@ -13,10 +13,10 @@ module.exports = function(app) {
                 method:'get'
               }).then(function(results){
                 let response = results.data;
+                console.table(response);
                 response.forEach(function(){
                   if(response.Category === 'Seafood'){
                      food.push(response.Name);
-                     console.log(response.Name);
                      marker.setMap(map);
                   }
                 });
