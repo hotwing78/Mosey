@@ -1,22 +1,12 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-module.exports = function(app) {
-        app.controller('mapController',['$http','Markers',function($http,Markers) {
-            Markers.getLocations();
-            Markers.setMarker();
-            Markers.getRestaurants();
-
-        }]);
-      }
-
-},{}],2:[function(require,module,exports){
 module.exports = function(app){
-  app.controller('UserController', ['$scope', '$http', '$location', 'UserService', function($scope, $http, $location, UserService){
+  app.controller('loginController', ['$scope', '$http', '$location', 'loginService', function($scope, $http, $location, loginService){
 
     console.log('hihihihi users controller');
 
     $scope.name="";
     $scope.password="";
-    $scope.usersArray = UserService.getUser();
+    $scope.usersArray = loginService.getUser();
 
     $scope.login = function(){
       console.log(`${scope.name} is in the systemmm`);
@@ -27,15 +17,25 @@ module.exports = function(app){
   }])
 }
 
+},{}],2:[function(require,module,exports){
+module.exports = function(app) {
+        app.controller('mapController',['$http','Markers',function($http,Markers) {
+            Markers.getLocations();
+            Markers.setMarker();
+            Markers.getRestaurants();
+
+        }]);
+      }
+
 },{}],3:[function(require,module,exports){
 let app = angular.module('Mosey', ['ngRoute']);
 
 //controllers
-require('./controllers/users.js')(app);
+require('./controllers/loginController.js')(app);
 require('./controllers/mapController.js')(app);
 
 //services
-require('./services/users.js')(app);
+require('./services/loginService.js')(app);
 require('./services/mapServices.js')(app);
 
 app.config(['$routeProvider', function($routeProvider){
@@ -45,7 +45,7 @@ app.config(['$routeProvider', function($routeProvider){
       templateUrl: 'templates/registration.html',
     })
     .when('/login', {
-      controller: 'UserController',
+      controller: 'loginController',
       templateUrl: 'templates/logIn.html',
     })
     .when('/mosey',{
@@ -53,7 +53,7 @@ app.config(['$routeProvider', function($routeProvider){
       templateUrl: 'templates/map.html'
     })
     .when('/reviews',{
-      controller: 'ReviewsController',
+      controller: 'reviewsController',
       templateUrl: 'templates/reviews.html'
     })
     // .when('/chat',{
@@ -65,7 +65,56 @@ app.config(['$routeProvider', function($routeProvider){
     })
 }])
 
-},{"./controllers/mapController.js":1,"./controllers/users.js":2,"./services/mapServices.js":4,"./services/users.js":5}],4:[function(require,module,exports){
+},{"./controllers/loginController.js":1,"./controllers/mapController.js":2,"./services/loginService.js":4,"./services/mapServices.js":5}],4:[function(require,module,exports){
+module.exports = function(app){
+  app.factory('loginService', function($http){
+
+    let username = "";
+    let usersArray = [];
+
+    return {
+
+      getUser: function(){
+          $http({
+            method: 'GET',
+            url: '/users',
+          }).then(function(response){
+            console.log('getttting', response);
+            console.log(response.data);
+            let userList = response.data
+            angular.copy(userList, usersArray)
+          })
+          return usersArray;
+      },
+
+      createUser: function(name,password){
+        username = name;
+        console.log(username, "IS LOGGING IN");
+
+        $http({
+          method: 'POST',
+          url: '/login',
+          data: {
+            firstname: firstname,
+            lastname: lastname,
+            email: email,
+            username: name,
+            password: password,
+          }
+        }).then(function(response){
+          console.log(username);
+          console.log('this is what is returning', response);
+        })
+      },
+
+      getUserName: function(){
+        return username;
+      }
+    }
+  })
+}
+
+},{}],5:[function(require,module,exports){
 module.exports = function(app) {
     app.factory('Markers', ['$http', function($http) {
         let food = [];
@@ -138,52 +187,6 @@ module.exports = function(app) {
 
         }
     }]);
-}
-
-},{}],5:[function(require,module,exports){
-module.exports = function(app){
-  app.factory('UserService', function($http){
-
-    let username = "";
-    let usersArray = [];
-
-    return {
-
-      getUser: function(){
-          $http({
-            method: 'GET',
-            url: '/login',
-          }).then(function(response){
-            console.log('getttting', response);
-            console.log(response.data);
-            let userList = response.data
-            angular.copy(userList, usersArray)
-          })
-          return usersArray;
-      },
-
-      createUser: function(name,password){
-        username = name;
-        console.log(username, "IS LOGGING IN");
-
-        $http({
-          method: 'POST',
-          url: '/login',
-          data: {
-            username: name,
-            password: password,
-          }
-        }).then(function(response){
-          console.log(username);
-          console.log('this is what is returning', response);
-        })
-      },
-
-      getUserName: function(){
-        return username;
-      }
-    }
-  })
 }
 
 },{}]},{},[3])

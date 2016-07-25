@@ -1,11 +1,11 @@
 let app = angular.module('Mosey', ['ngRoute']);
 
 //controllers
-require('./controllers/users.js')(app);
+require('./controllers/loginController.js')(app);
 require('./controllers/mapController.js')(app);
 
 //services
-require('./services/users.js')(app);
+require('./services/loginService.js')(app);
 require('./services/mapServices.js')(app);
 
 app.config(['$routeProvider', function($routeProvider){
@@ -15,7 +15,7 @@ app.config(['$routeProvider', function($routeProvider){
       templateUrl: 'templates/registration.html',
     })
     .when('/login', {
-      controller: 'UserController',
+      controller: 'loginController',
       templateUrl: 'templates/logIn.html',
     })
     .when('/mosey',{
@@ -23,7 +23,7 @@ app.config(['$routeProvider', function($routeProvider){
       templateUrl: 'templates/map.html'
     })
     .when('/reviews',{
-      controller: 'ReviewsController',
+      controller: 'reviewsController',
       templateUrl: 'templates/reviews.html'
     })
     // .when('/chat',{
