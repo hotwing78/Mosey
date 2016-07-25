@@ -1,27 +1,21 @@
 
 
+<div class="row">
+  <div class="large-12 columns auth-plain">
+    <div class="row">
+    <div class="signup-panel newusers">
+      <p class="welcome"> Register to Mosey</p>
+      <input type="text"  ng-model='firstname'  placeholder ="First Name">
+      <input type="text"  ng-model='lastname'  placeholder = 'Last Name'>
+      <input type="text"  ng-model='email'  placeholder ='Email'>
+      <input type="text"  ng-model='username'  placeholder='User Name'>
+      <input type="password" name="password" ng-model='password'  placeholder='Password'>
+      <input type="radio" name="button" ng-model='islocal'> Native </input>
+      <input type="radio" name="button" ng-model='istourist'> Tourist </input>
 
-<div class = 'tempContainer' id="regContainerMain">
-  <div class = 'tempHeader' id="regHeader"></div>
-  <div class="row">
-  <div class = 'tempBody small-6 columns' id="regBody">
-    <h3>Please fill in all fields</h3>
-    <ul>
-      <li><input type="text"  ng-model='lName'  placeholder ="First Name"></li>
-      <li><input type="text"  ng-model='FName'  placeholder = 'Last Name'></li>
-      <li><input type="text"  ng-model='Email'  placeholder ='Email'></li>
-      <li><input type="text"  ng-model='UName'  placeholder='User Name'></li>
-      <li><input type="password" name="password" ng-model='Pword'  placeholder='Password'></li>
-      <input type="radio" name="button" ng-model='isLocal'> Native </input>
-      <input type="radio" name="button" ng-model='isLocal'> Tourist </input>
 
-      <a class="expanded hollow button" href="#">Register</a>
-    </ul>
+      <a href="#registration" class="hollow button" ng-click='register()'>Register</a></br>
+    </div>
+  </div>
   </div>
 </div>
-</div>
-
-
-
-
-  
