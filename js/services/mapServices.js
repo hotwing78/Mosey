@@ -1,43 +1,33 @@
 module.exports = function(app) {
     app.factory('Markers', ['$http', function($http) {
-        let food = [];
+        let food = {};
         var map = new GMaps({
             div: '#map',
             lat: 32.79222,
             lng: -79.9404072,
         });
         return {
-
-            getRestaurants: function() {
-                $http({
-                    url: '/food',
-                    method: 'get'
-                }).then(function(results) {
-                    let response = results.data;
-                    console.table(response);
-                    map.addMarker({
-                        lat: response[0].lat,
-                        lng: response[0].lng,
-                        title: response[0].name,
-                        click: function(e) {
-                            alert('You clicked on the '+ response[0].name + ' marker');
-                        }
-                    });
-
-                });
-
-            },
-            setMarker: function() {
+            setMarker: function(x, y, name) {
                 map.addMarker({
-
-                    lat: 32.79222,
-                    lng: -79.9404072,
-                    title: 'Damon',
+                    lat: x,
+                    lng: y,
+                    title: name,
                     click: function(e) {
-                        alert('You clicked in this marker');
+                        alert('You clicked on the ' + name + ' marker');
                     }
                 });
             },
+            getRestaurants: function() {
+                var promise = $http({
+                    url: '/food',
+                    method: 'get'
+                }).then(function(results) {
+                  return results.data;
+                });
+                return promise;
+
+            },
+
             getLocations: function() {
                 GMaps.geolocate({
                     success: function(position) {
@@ -60,9 +50,6 @@ module.exports = function(app) {
                     },
                     not_supported: function() {
                         alert("Your browser does not support geolocation");
-                    },
-                    always: function() {
-                        alert("Done!");
                     }
                 });
 
