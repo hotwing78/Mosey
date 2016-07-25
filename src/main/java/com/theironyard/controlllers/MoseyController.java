@@ -1,15 +1,8 @@
 package com.theironyard.controlllers;
 
 import com.google.maps.*;
-import com.google.maps.model.GeocodingResult;
-import com.google.maps.model.LatLng;
 import com.google.maps.model.PlacesSearchResponse;
-import com.google.maps.model.PlacesSearchResult;
 import com.google.maps.GeoApiContext;
-import com.google.maps.GeocodingApi;
-import com.google.maps.NearbySearchRequest;
-import com.google.maps.PlaceDetailsRequest;
-import com.google.maps.model.*;
 import com.theironyard.entities.Activity;
 import com.theironyard.entities.Restaurant;
 import com.theironyard.entities.Review;
@@ -21,7 +14,6 @@ import com.theironyard.services.UserRepository;
 import com.theironyard.utils.PasswordStorage;
 import org.h2.tools.Server;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,10 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpSession;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -108,7 +96,7 @@ public class MoseyController {
                 String[] columns = line.split("\\,");
                 GeoApiContext context = new GeoApiContext()
                         .setApiKey(APIkey);
-                TextSearchRequest request = PlacesApi.textSearchQuery(context, columns[1] + " Charleston");
+                TextSearchRequest request = PlacesApi.textSearchQuery(context, columns[3] + " Charleston");
                 PlacesSearchResponse results = request.await();
                 Activity activity = new Activity(columns[0],
                         columns[1],
@@ -177,7 +165,7 @@ public class MoseyController {
         User user = users.findByUsername(username);
         if (user == null) {
             return null;
-        } else if (!PasswordStorage.verifyPassword(password, user.getPasswordhash())) {
+        } else if (!PasswordStorage.verifyPassword(password, user.getPassword())) {
             throw new Exception("Incorrect password");
         }
         session.setAttribute("username", username);
@@ -186,17 +174,13 @@ public class MoseyController {
     }
 
     @RequestMapping(path = "/register", method = RequestMethod.POST)
-    public String register (HttpSession session, String username, String password, String email, String lastname, String firstname, boolean isLocal) throws Exception {
-        User user = users.findByUsername(username);
-        if (user == null) {
-            user = new User (firstname, lastname, email, username, PasswordStorage.createHash(password), isLocal);
-            users.save(user);
-        } else {
-            return null;
+    public void register (HttpSession session, @RequestBody User user) throws Exception {
+        User regi = users.findByUsername(user.getUsername());
+        if (regi == null) {
+            regi = new User(user.getFirstname(), user.getLastname(), user.getEmail(), user.getUsername(), PasswordStorage.createHash(user.getPassword()), user.isnative());
+            users.save(regi);
+            session.setAttribute("username", user.getUsername());
         }
-
-        session.setAttribute("username", username);
-        return "redirect:/";
     }
 
     @RequestMapping(path="/users", method = RequestMethod.GET)
