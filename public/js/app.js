@@ -58,13 +58,19 @@ app.config(['$routeProvider', function($routeProvider){
 },{"./controllers/mapController.js":1,"./controllers/users.js":2,"./services/mapServices.js":4,"./services/users.js":5}],4:[function(require,module,exports){
 module.exports = function(app) {
     app.factory('Markers', ['$http', function($http) {
+<<<<<<< HEAD
         let food = [];
+=======
+       let food = [];
+       let activity = [];
+>>>>>>> d240ee94a81a54054f6880f7f3a7e408c8b46144
         var map = new GMaps({
             div: '#map',
             lat: 32.79222,
             lng: -79.9404072,
         });
         return {
+<<<<<<< HEAD
             getRestaurants: function() {
                 $http({
                     url: '/food',
@@ -81,6 +87,20 @@ module.exports = function(app) {
                         }
                     });
 
+=======
+            getRestaurants: function(){
+              $http({
+                url: '/food',
+                method:'get'
+              }).then(function(results){
+                let response = results.data;
+                response.forEach(function(){
+                  if(response.Category === 'Seafood'){
+                     food.push(response.Name);
+                     console.log(response.Name);
+                     marker.setMap(map);
+                  }
+>>>>>>> d240ee94a81a54054f6880f7f3a7e408c8b46144
                 });
 
             },

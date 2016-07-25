@@ -7,6 +7,7 @@ module.exports = function(app) {
             lng: -79.9404072,
         });
         return {
+
             getRestaurants: function() {
                 $http({
                     url: '/food',
