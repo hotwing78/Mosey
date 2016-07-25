@@ -1,9 +1,4 @@
-body {
-  background-color: white;
-}
-nav .top-bar {
-  font-family: 'Source Sans Pro', sans-serif;
-}
+
 
 .top-bar {
   background-color: #292c2f;
@@ -62,9 +57,7 @@ nav .top-bar {
 
 /* Styles for Login */
 .auth-plain {
-  padding-right: 0px;
-  padding-left: 0px;
-  padding-top: 0px;
+  padding: 5%;
 }
 
 .left-solid {
@@ -85,7 +78,7 @@ margin-bottom: 0px;
 }
 
 .signup-panel i {
-  font-size: 30px;
+  font-size: 2.2em;
   line-height: 50px;
   color: #999;
 }
@@ -93,19 +86,26 @@ margin-bottom: 0px;
   height: 50px;
 }
 .signup-panel .welcome {
-  font-size: 26px;
+  font-size: 1.5em;
   text-align: center;
   margin-left: 0;
 }
 .signup-panel p {
-  font-size: 13px;
+  font-size: 1rem;
   font-weight: 200;
   text-align: center;
 }
 .signup-panel .button {
-  margin-left: 35%;
+  text-align: center;
+  justify-content: center;
+  width: 100%;
 }
 
 .newusers {
   background: #fff;
+}
+
+
+.signup-panel .newusers{
+  text-align: center;
 }
