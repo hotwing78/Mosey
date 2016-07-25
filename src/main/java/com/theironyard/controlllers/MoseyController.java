@@ -186,17 +186,13 @@ public class MoseyController {
     }
 
     @RequestMapping(path = "/register", method = RequestMethod.POST)
-    public String register (HttpSession session, String username, String password, String email, String lastname, String firstname, boolean isLocal) throws Exception {
-        User user = users.findByUsername(username);
-        if (user == null) {
-            user = new User (firstname, lastname, email, username, PasswordStorage.createHash(password), isLocal);
-            users.save(user);
-        } else {
-            return null;
+    public void register (HttpSession session, @RequestBody User user) throws Exception {
+        User regi = users.findByUsername(user.getUsername());
+        if (regi == null) {
+            regi = new User(user.getFirstname(), user.getLastname(), user.getEmail(), user.getUsername(), PasswordStorage.createHash(user.getPasswordhash()), user.isnative());
+            users.save(regi);
+            session.setAttribute("username", user.getUsername());
         }
-
-        session.setAttribute("username", username);
-        return "redirect:/";
     }
 
     @RequestMapping(path="/users", method = RequestMethod.GET)
