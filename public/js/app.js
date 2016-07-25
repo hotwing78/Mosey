@@ -14,6 +14,16 @@ module.exports = function(app){
 
     console.log('hihihihi users controller');
 
+    $scope.name="";
+    $scope.password="";
+    $scope.usersArray = UserService.getUser();
+
+    $scope.login = function(){
+      console.log(`${scope.name} is in the systemmm`);
+      UserService.createUser($scope.name,$scope.password);
+      $location.path('/login');
+    }
+
   }])
 }
 
@@ -62,8 +72,11 @@ module.exports = function(app) {
         let food = [];
 =======
        let food = [];
+<<<<<<< HEAD
        let activity = [];
 >>>>>>> d240ee94a81a54054f6880f7f3a7e408c8b46144
+=======
+>>>>>>> d3ea5551dedf3516579d689f73bd385614fc7e12
         var map = new GMaps({
             div: '#map',
             lat: 32.79222,
@@ -94,10 +107,10 @@ module.exports = function(app) {
                 method:'get'
               }).then(function(results){
                 let response = results.data;
+                console.table(response);
                 response.forEach(function(){
                   if(response.Category === 'Seafood'){
                      food.push(response.Name);
-                     console.log(response.Name);
                      marker.setMap(map);
                   }
 >>>>>>> d240ee94a81a54054f6880f7f3a7e408c8b46144
@@ -158,14 +171,38 @@ module.exports = function(app){
 
     return {
 
+      getUser: function(){
+          $http({
+            method: 'GET',
+            url: '/login',
+          }).then(function(response){
+            console.log('getttting', response);
+            console.log(response.data);
+            let userList = response.data
+            angular.copy(userList, usersArray)
+          })
+          return usersArray;
+      },
+
       createUser: function(name,password){
         username = name;
         console.log(username, "IS LOGGING IN");
 
         $http({
           method: 'POST',
-          url: ''
+          url: '/login',
+          data: {
+            username: name,
+            password: password,
+          }
+        }).then(function(response){
+          console.log(username);
+          console.log('this is what is returning', response);
         })
+      },
+
+      getUserName: function(){
+        return username;
       }
     }
   })
