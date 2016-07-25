@@ -1,12 +1,23 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 module.exports = function(app) {
-        app.controller('mapController',['$http','Markers',function($http,Markers) {
-            Markers.getLocations();
-            Markers.setMarker();
-            Markers.getRestaurants();
+    app.controller('mapController', ['$scope', 'Markers', function($scope, Markers) {
+        var food = [];
 
-        }]);
-      }
+        Markers.getRestaurants().then(function(promise){
+          food = promise;
+          console.log(food[0].name);
+          for(let i = 0; i < food.length; i++){
+          Markers.setMarker(food[i].lat,food[i].lng,food[i].name)
+        }
+        });
+          console.log('Log here');
+
+        //  Markers.setMarkers(Markers.getRestaurants().);
+        // scope.$watch('food', function() {
+        //     Markers.setMarker();
+        // }, true);
+    }]);
+}
 
 },{}],2:[function(require,module,exports){
 module.exports = function(app){
@@ -68,66 +79,34 @@ app.config(['$routeProvider', function($routeProvider){
 },{"./controllers/mapController.js":1,"./controllers/users.js":2,"./services/mapServices.js":4,"./services/users.js":5}],4:[function(require,module,exports){
 module.exports = function(app) {
     app.factory('Markers', ['$http', function($http) {
-<<<<<<< HEAD
-        let food = [];
-=======
-       let food = [];
-<<<<<<< HEAD
-       let activity = [];
->>>>>>> d240ee94a81a54054f6880f7f3a7e408c8b46144
-=======
->>>>>>> d3ea5551dedf3516579d689f73bd385614fc7e12
+        let food = {};
         var map = new GMaps({
             div: '#map',
             lat: 32.79222,
             lng: -79.9404072,
         });
         return {
-<<<<<<< HEAD
-            getRestaurants: function() {
-                $http({
-                    url: '/food',
-                    method: 'get'
-                }).then(function(results) {
-                    let response = results.data;
-                    console.table(response);
-                    map.addMarker({
-                        lat: response[0].lat,
-                        lng: response[0].lng,
-                        title: response[0].name,
-                        click: function(e) {
-                            alert('You clicked on the '+ response[0].name + ' marker');
-                        }
-                    });
-
-=======
-            getRestaurants: function(){
-              $http({
-                url: '/food',
-                method:'get'
-              }).then(function(results){
-                let response = results.data;
-                console.table(response);
-                response.forEach(function(){
-                  if(response.Category === 'Seafood'){
-                     food.push(response.Name);
-                     marker.setMap(map);
-                  }
->>>>>>> d240ee94a81a54054f6880f7f3a7e408c8b46144
-                });
-
-            },
-            setMarker: function() {
+            setMarker: function(x, y, name) {
                 map.addMarker({
-
-                    lat: 32.79222,
-                    lng: -79.9404072,
-                    title: 'Damon',
+                    lat: x,
+                    lng: y,
+                    title: name,
                     click: function(e) {
-                        alert('You clicked in this marker');
+                        alert('You clicked on the ' + name + ' marker');
                     }
                 });
             },
+            getRestaurants: function() {
+                var promise = $http({
+                    url: '/food',
+                    method: 'get'
+                }).then(function(results) {
+                  return results.data;
+                });
+                return promise;
+
+            },
+
             getLocations: function() {
                 GMaps.geolocate({
                     success: function(position) {
@@ -150,9 +129,6 @@ module.exports = function(app) {
                     },
                     not_supported: function() {
                         alert("Your browser does not support geolocation");
-                    },
-                    always: function() {
-                        alert("Done!");
                     }
                 });
 
