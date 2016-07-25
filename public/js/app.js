@@ -69,6 +69,7 @@ app.config(['$routeProvider', function($routeProvider){
 module.exports = function(app) {
     app.factory('Markers', ['$http', function($http) {
        let food = [];
+       let activity = [];
         var map = new GMaps({
             div: '#map',
             lat: 32.79222,
@@ -85,6 +86,7 @@ module.exports = function(app) {
                   if(response.Category === 'Seafood'){
                      food.push(response.Name);
                      console.log(response.Name);
+                     marker.setMap(map);
                   }
                 });
               });
