@@ -17,6 +17,7 @@ module.exports = function(app) {
                   if(response.Category === 'Seafood'){
                      food.push(response.Name);
                      console.log(response.Name);
+                     marker.setMap(map);
                   }
                 });
               });

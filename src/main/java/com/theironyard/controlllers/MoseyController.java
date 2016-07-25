@@ -188,6 +188,12 @@ public class MoseyController {
         return restaurants.findAll();
     }
 
+    @RequestMapping (path = "/activity", method = RequestMethod.GET)
+    public Iterable<Activity> getActvs () {
+
+        return activities.findAll();
+    }
+
 
     @RequestMapping(path = "/reviews", method = RequestMethod.POST)
     public void addReview(HttpSession session, @RequestBody Review review) throws Exception {
