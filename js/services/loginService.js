@@ -2,46 +2,29 @@ module.exports = function(app){
   app.factory('loginService', function($http){
 
     let username = "";
-    let usersArray = [];
 
     return {
 
-      getUser: function(){
-          $http({
-            method: 'GET',
-            url: '/users',
+      registerUser: function(username,password){
+          username = username;
+          return $http({
+            method: 'POST',
+            url: '/register',
+            data: {
+              username: username,
+              password: password,
+            }
           }).then(function(response){
             console.log('getttting', response);
             console.log(response.data);
-            let userList = response.data
-            angular.copy(userList, usersArray)
+            console.log(username);
           })
-          return usersArray;
       },
-
-      createUser: function(name,password){
-        username = name;
-        console.log(username, "IS LOGGING IN");
-
-        $http({
-          method: 'POST',
-          url: '/login',
-          data: {
-            firstname: firstname,
-            lastname: lastname,
-            email: email,
-            username: name,
-            password: password,
-          }
-        }).then(function(response){
-          console.log(username);
-          console.log('this is what is returning', response);
-        })
-      },
-
-      getUserName: function(){
+      getUsername: function(){
         return username;
-      }
+      },
+
+
     }
   })
 }

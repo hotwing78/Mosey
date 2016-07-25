@@ -11,7 +11,7 @@ require('./services/mapServices.js')(app);
 app.config(['$routeProvider', function($routeProvider){
   $routeProvider
     .when('/registration', {
-      controller: 'UserController',
+      controller: 'loginController',
       templateUrl: 'templates/registration.html',
     })
     .when('/login', {
@@ -26,10 +26,6 @@ app.config(['$routeProvider', function($routeProvider){
       controller: 'reviewsController',
       templateUrl: 'templates/reviews.html'
     })
-    // .when('/chat',{
-    //   controller: 'BasicController',
-    //   templateUrl: 'templates/chat.html'
-    // })
     .when('/', {
       redirectTo: '/mosey',
     })

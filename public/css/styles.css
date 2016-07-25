@@ -5,7 +5,7 @@
   font-size: 1.2rem;
   padding: 1rem;
   font-family: 'Source Sans Pro', sans-serif;
-  margin-bottom: 5%; }
+  margin-bottom: 1%; }
 
 .top-bar ul {
   background-color: #292c2f;
@@ -189,6 +189,11 @@
 
 .inline-list {
   list-style: none; }
+
+#registration {
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 20px; }
 
 * {
   font-family: 'Source Sans Pro', sans-serif; }

@@ -3,18 +3,19 @@ module.exports = function(app){
   app.controller('loginController', ['$scope', '$http', '$location', 'loginService', function($scope, $http, $location, loginService){
 
     console.log('hihihihi users controller');
+    console.log('CLICKED REGGI');
 
-    $scope.name="";
-    $scope.password="";
-    $scope.usersArray = loginService.getUser();
+    $scope.username = '';
+    $scope.password = '';
 
-    $scope.login = function(){
-      console.log(`${scope.name} is in the systemmm`);
-      UserService.createUser($scope.name,$scope.password);
-      $location.path('/login');
-    }
+    $scope.register = function(){
+      console.log(`${$scope.username} is in the system`);
+      loginService.registerUser($scope.username, $scope.password);
+      $location.path('/register');
+    };
 
-  }])
+
+  }]);
 }
 
 },{}],2:[function(require,module,exports){
@@ -41,7 +42,7 @@ require('./services/mapServices.js')(app);
 app.config(['$routeProvider', function($routeProvider){
   $routeProvider
     .when('/registration', {
-      controller: 'UserController',
+      controller: 'loginController',
       templateUrl: 'templates/registration.html',
     })
     .when('/login', {
@@ -56,10 +57,6 @@ app.config(['$routeProvider', function($routeProvider){
       controller: 'reviewsController',
       templateUrl: 'templates/reviews.html'
     })
-    // .when('/chat',{
-    //   controller: 'BasicController',
-    //   templateUrl: 'templates/chat.html'
-    // })
     .when('/', {
       redirectTo: '/mosey',
     })
@@ -70,46 +67,29 @@ module.exports = function(app){
   app.factory('loginService', function($http){
 
     let username = "";
-    let usersArray = [];
 
     return {
 
-      getUser: function(){
-          $http({
-            method: 'GET',
-            url: '/users',
+      registerUser: function(username,password){
+          username = username;
+          return $http({
+            method: 'POST',
+            url: '/register',
+            data: {
+              username: username,
+              password: password,
+            }
           }).then(function(response){
             console.log('getttting', response);
             console.log(response.data);
-            let userList = response.data
-            angular.copy(userList, usersArray)
+            console.log(username);
           })
-          return usersArray;
       },
-
-      createUser: function(name,password){
-        username = name;
-        console.log(username, "IS LOGGING IN");
-
-        $http({
-          method: 'POST',
-          url: '/login',
-          data: {
-            firstname: firstname,
-            lastname: lastname,
-            email: email,
-            username: name,
-            password: password,
-          }
-        }).then(function(response){
-          console.log(username);
-          console.log('this is what is returning', response);
-        })
-      },
-
-      getUserName: function(){
+      getUsername: function(){
         return username;
-      }
+      },
+
+
     }
   })
 }
