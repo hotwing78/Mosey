@@ -14,6 +14,16 @@ module.exports = function(app){
 
     console.log('hihihihi users controller');
 
+    $scope.name="";
+    $scope.password="";
+    $scope.usersArray = UserService.getUser();
+
+    $scope.login = function(){
+      console.log(`${scope.name} is in the systemmm`);
+      UserService.createUser($scope.name,$scope.password);
+      $location.path('/login');
+    }
+
   }])
 }
 
@@ -130,8 +140,22 @@ module.exports = function(app){
   app.factory('UserService', function($http){
 
     let username = "";
+    let usersArray = [];
 
     return {
+
+      getUser: function(){
+          $http({
+            method: 'GET',
+            url: '/login',
+          }).then(function(response){
+            console.log('getttting', response);
+            console.log(response.data);
+            let userList = response.data
+            angular.copy(userList, usersArray)
+          })
+          return usersArray;
+      },
 
       createUser: function(name,password){
         username = name;
@@ -139,7 +163,7 @@ module.exports = function(app){
 
         $http({
           method: 'POST',
-          url: '/#/login',
+          url: '/login',
           data: {
             username: name,
             password: password,
