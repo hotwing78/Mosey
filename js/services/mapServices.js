@@ -74,19 +74,6 @@ module.exports = function(app) {
                         method:'post',
                         data: position
                       });
-                        map.setCenter(position.coords.latitude, position.coords.longitude);
-
-                        map.addMarker({
-                            lat: position.coords.latitude,
-                            lng: position.coords.longitude,
-                            title: 'Damon',
-                            click: function(e) {
-                                alert('You clicked in this marker');
-                            }
-                        });
-                        console.log(position.coords.latitude + ' ' + position.coords.longitude);
-
-                        map.setZoom(20)
                     },
                     error: function(error) {
                         alert('Geolocation failed: ' + error.message);
