@@ -16,96 +16,63 @@
   <div class="row">
     <div class="large-12 columns">
       <div class="panel">
-        <h1>Read the Reviews</h1>
+        <h2>Read the Reviews</h2>
       </div>
     </div>
-  </div>
-  <!-- End Header and Nav -->
-
 
     <!-- Main Feed -->
-    <!-- This has been source ordered to come first in the markup (and on small devices) but to be to the right of the nav on larger screens -->
-    <div class="large-9 columns">
-
-      <!-- Feed Entry -->
+    <div class="large-12 columns">
       <div class="row">
-        <div class="large-2 columns small-3"><img src="http://placehold.it/80x80&text=[img]" /></div>
-        <div class="large-10 columns">
+        <div class="large-12 columns">
           <p><strong>Some Person said:</strong> Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong.</p>
-          <ul class="inline-list">
-            <li><a href="">Reply</a></li>
-          </ul>
-
-
-          <h6>2 Comments</h6>
           <div class="row">
-            <div class="large-2 columns small-3"><img src="http://placehold.it/50x50&text=[img]" /></div>
-            <div class="large-10 columns"><p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit</p></div>
-          </div>
-          <div class="row">
-            <div class="large-2 columns small-3"><img src="http://placehold.it/50x50&text=[img]" /></div>
-            <div class="large-10 columns"><p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit</p></div>
+            <div class="large-12 columns"><p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit</p></div>
           </div>
         </div>
       </div>
-      <!-- End Feed Entry -->
 
-
-      <!-- Feed Entry -->
       <div class="row">
-        <div class="large-2 columns small-3"><img src="http://placehold.it/80x80&text=[img]" /></div>
-        <div class="large-10 columns">
+        <div class="large-12 columns">
           <p><strong>Some Person said:</strong> Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong.</p>
-          <ul class="inline-list">
-            <li><a href="">Reply</a></li>
-          </ul>
+
         </div>
       </div>
-      <!-- End Feed Entry -->
 
       <hr />
 
-      <!-- Feed Entry -->
       <div class="row">
-        <div class="large-2 columns small-3"><img src="http://placehold.it/80x80&text=[img]" /></div>
-        <div class="large-10 columns">
+        <div class="large-12 columns">
           <p><strong>Some Person said:</strong> Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong.</p>
-          <ul class="inline-list">
-            <li><a href="">Reply</a></li>
-          </ul>
 
-
-          <h6>2 Comments</h6>
           <div class="row">
-            <div class="large-2 columns small-3"><img src="http://placehold.it/50x50&text=[img]" /></div>
-            <div class="large-10 columns"><p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit</p></div>
+            <div class="large-12 columns"><p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit</p></div>
           </div>
         </div>
-      </div>
-      <!-- End Feed Entry -->
 
+      </div>
     </div>
 
-
   </div>
-
 
 
   <!-- Start Compose Message -->
 <div class="row">
-			<div class="center title">Compose Message</div>
-			<span class="left"><a zf-close="compose" href="#">Cancel</a></span>
-			<span class="right"><a href="#">Send</a></span>
-
-		<div class="grid-content">
-			<label>Input Label
-        <input type="text" placeholder="large-4.columns" />
-      </label>
-			<label>Textarea Label
-        <textarea placeholder="small-12.columns"></textarea>
-      </label>
-		</div>
-</div>
+  <section id="reviewlist">
+   <ul>
+    <p><strong>{{ username }}: </strong> {{ newreview}} </p>
+      <li ng-repeat="review in list">
+        <p> Review: {{ review.message }}</p>
+      </li>
+    </ul>
+  </section>
 
 
-<!-- End Compose Message -->
+    <div class="large-12 columns" id="writereview">
+        <textarea rows="4.5" placeholder="Tell us about your experience..." ng-model='newreview'></textarea>
+    </div>
+    <div class="small-12 columns">
+      <button type="button" class=" hollow button" ng-click='review()'>Review</a>
+    </div>
+
+
+  </div>

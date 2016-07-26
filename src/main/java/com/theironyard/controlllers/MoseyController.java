@@ -1,12 +1,11 @@
 package com.theironyard.controlllers;
 
 import com.google.maps.*;
+import com.google.maps.model.DistanceMatrix;
+import com.google.maps.model.LatLng;
 import com.google.maps.model.PlacesSearchResponse;
 import com.google.maps.GeoApiContext;
-import com.theironyard.entities.Activity;
-import com.theironyard.entities.Restaurant;
-import com.theironyard.entities.Review;
-import com.theironyard.entities.User;
+import com.theironyard.entities.*;
 import com.theironyard.services.*;
 import com.theironyard.utils.PasswordStorage;
 import org.h2.tools.Server;
@@ -17,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -52,14 +53,18 @@ public class MoseyController {
         Scanner fscan  = new Scanner(file);
 
         String APIkey = fscan.nextLine();
+/*
+        LatLng ll = new LatLng(restaurants.findOne(5).getLat(), restaurants.findOne(5).getLng());
+        LatLng ll2 = new LatLng(restaurants.findOne(6).getLat(), restaurants.findOne(6).getLng());
 
-       /* LatLng ll = new LatLng (0,0);
-        LatLng ll2 = new LatLng(1,1);
+
+
         GeoApiContext cntx = new GeoApiContext().setApiKey(APIkey);
-        DistanceMatrixApiRequest distance = new DistanceMatrixApiRequest(cntx);
+        DistanceMatrix matrix = DistanceMatrixApi.newRequest(cntx).destinations(ll).origins(ll2).await();
 
-        DistanceMatrix a = distance.origins(ll).destinations(ll2).await();*/
-
+        double feet = matrix.rows[0].elements[0].distance.inMeters * 3.281;
+        System.out.printf("The distance is %f feet", feet);
+*/
         if (restaurants.count() == 0) {
             String filename = "Restaurants.csv";
             File f = new File(filename);
@@ -161,16 +166,14 @@ public class MoseyController {
     }
 
     @RequestMapping(path = "/login", method = RequestMethod.POST)
-    public String login (HttpSession session, String username, String password) throws Exception {
-        User user = users.findByUsername(username);
-        if (user == null) {
-            return null;
-        } else if (!PasswordStorage.verifyPassword(password, user.getPassword())) {
+    public void login (HttpSession session, @RequestBody User user) throws Exception {
+        User dummy = users.findByUsername(user.getUsername());
+        if (dummy == null ) {
+            throw new Exception("Username does not exist! Please register");
+        } else if (!PasswordStorage.verifyPassword(user.getPassword(), dummy.getPassword())) {
             throw new Exception("Incorrect password");
         }
-        session.setAttribute("username", username);
-
-        return "redirect:/";
+        session.setAttribute("username", user.getUsername());
     }
 
     @RequestMapping(path = "/register", method = RequestMethod.POST)
@@ -229,7 +232,16 @@ public class MoseyController {
         reviews.save(review);
     }
 
+    @RequestMapping(path = "/itinerary", method = RequestMethod.POST)
+    public String getItinerary(HttpSession session, @RequestBody Itinerary itinerary) {
+        return "itinerary";
+    }
 
+    @RequestMapping(path = "/logout", method = RequestMethod.GET)
+    public void logout(HttpSession session, HttpServletResponse response) throws IOException {
+        session.invalidate();
+        response.sendRedirect("/");
+    }
 
 
 }

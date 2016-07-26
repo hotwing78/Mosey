@@ -15,8 +15,6 @@ public class Itinerary {
 
     private Set<User> users = new HashSet<User>();
 
-
-
     public void addUser(User user) {
         this.users.add(user);
     }
@@ -56,5 +54,14 @@ public class Itinerary {
 
     public void setUsers(Set<User> users) {
         this.users = users;
+    }
+
+    @Override
+    public String toString() {
+        return "Itinerary{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", users=" + users +
+                '}';
     }
 }

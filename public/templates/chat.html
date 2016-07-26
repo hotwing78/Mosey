@@ -42,12 +42,3 @@ chat.controller( 'chat', [ 'Messages', '$scope', function( Messages, $scope ) {
 <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
 <!-- view -->
 <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
-<div ng-controller="chat">
-       <div ng-repeat="message in messages">
-           {{ message.user.name }}:
-           {{ message.data }}
-       </div>
-       <form ng-submit="send()">
-           <input ng-model="textbox">
-       </form>
-   </div>

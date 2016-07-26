@@ -3,10 +3,12 @@ let app = angular.module('Mosey', ['ngRoute']);
 //controllers
 require('./controllers/loginController.js')(app);
 require('./controllers/mapController.js')(app);
+require('./controllers/reviewsController.js')(app);
 
 //services
 require('./services/loginService.js')(app);
 require('./services/mapServices.js')(app);
+require('./services/reviewsService.js')(app);
 
 app.config(['$routeProvider', function($routeProvider){
   $routeProvider

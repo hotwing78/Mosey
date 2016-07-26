@@ -31,7 +31,6 @@ module.exports = function(app) {
                     click: function(e) {
                         itenerary.push(point);
                         console.log(itenerary);
-                        alert('You clicked on the ' + point.name + ' marker');
                     }
                 });
 
@@ -74,6 +73,7 @@ module.exports = function(app) {
                         method:'post',
                         data: position
                       });
+                        map.setCenter(position.coords.latitude, position.coords.longitude);
                     },
                     error: function(error) {
                         alert('Geolocation failed: ' + error.message);
