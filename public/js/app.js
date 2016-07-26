@@ -135,6 +135,20 @@ module.exports = function(app){
             console.log(username);
           })
       },
+
+      loginUser: function(username,password){
+        $http({
+          method: 'POST',
+          url: '/login',
+          data: {
+            username: username,
+            password: password,
+          }
+          }).then(function(response){
+            console.log('user login', response);
+        })
+      },
+
       getUsername: function(){
         return username;
       },
