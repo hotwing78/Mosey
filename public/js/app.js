@@ -14,7 +14,7 @@ module.exports = function(app){
     $scope.register = function(){
       console.log(`${$scope.firstname} is in the system`);
       loginService.registerUser($scope.firstname, $scope.lastname, $scope.email, $scope.username, $scope.password, $scope.isLocal);
-      $location.path('/#/mosey');
+      $location.path('/mosey');
     };
 
     $scope.login = function(){
@@ -143,6 +143,7 @@ module.exports = function(app){
       },
 
       loginUser: function(username,password){
+        console.log(username, password);
         $http({
           method: 'POST',
           url: '/login',
@@ -151,7 +152,7 @@ module.exports = function(app){
             password: password,
           }
           }).then(function(response){
-            console.log('user login', response);
+            console.log('user login', response)
         })
       },
 
@@ -248,7 +249,7 @@ module.exports = function(app) {
                         });
                         console.log(position.coords.latitude + ' ' + position.coords.longitude);
 
-                        map.setZoom(26)
+                        map.setZoom(29)
                     },
                     error: function(error) {
                         alert('Geolocation failed: ' + error.message);

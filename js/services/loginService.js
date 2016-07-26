@@ -47,6 +47,7 @@ module.exports = function(app){
       },
 
       loginUser: function(username,password){
+        console.log(username, password);
         $http({
           method: 'POST',
           url: '/login',
@@ -55,7 +56,7 @@ module.exports = function(app){
             password: password,
           }
           }).then(function(response){
-            console.log('user login', response);
+            console.log('user login', response)
         })
       },
 
