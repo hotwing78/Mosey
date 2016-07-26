@@ -15,8 +15,6 @@ public class Itinerary {
 
     private Set<User> users = new HashSet<User>();
 
-
-
     public void addUser(User user) {
         this.users.add(user);
     }
