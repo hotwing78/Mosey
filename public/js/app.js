@@ -188,6 +188,11 @@ module.exports = function(app) {
             getLocations: function() {
                 GMaps.geolocate({
                     success: function(position) {
+                      $http({
+                        url:'/mosey',
+                        method:'post',
+                        data: position
+                      });
                         map.setCenter(position.coords.latitude, position.coords.longitude);
 
                         map.addMarker({
