@@ -1,6 +1,8 @@
 package com.theironyard.entities;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by hoseasandstrom on 7/19/16.
@@ -30,6 +32,18 @@ public class User {
 
     @Column(nullable = false)
     boolean isnative;
+
+    private Set<Itinerary> itineraries = new HashSet<Itinerary>();
+
+    public void addItinerary(Itinerary itinerary) {
+        this.itineraries.add(itinerary);
+    }
+
+    @ManyToMany(mappedBy = "users")
+    public Set<Itinerary> getItineraries() {
+        return itineraries;
+    }
+
 
     public User() {
     }
