@@ -72,7 +72,7 @@ module.exports = function(app) {
                       let lng = position.coords.longitude;
                       $http({
                         url:'/mosey',
-                        method:'post',
+                        method:'POST',
                         data:{
                           lat:lat,
                           lng:lng,
