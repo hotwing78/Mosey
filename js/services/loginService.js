@@ -8,7 +8,23 @@ module.exports = function(app){
     let password = "";
     let isLocal = true;
 
+    let usersArray = [];
+
     return {
+
+      getUser: function(){
+        console.log("here");
+        $http({
+          method: 'GET',
+          url: '/users',
+        }).then(function(response){
+          console.log('YAY USER', response);
+          console.log(response.data);
+          let userList = response.data
+          angular.copy(userList, usersArray)
+        })
+          return usersArray;
+      },
 
       registerUser: function(firstname, lastname, email, username, password, isLocal){
 
@@ -29,6 +45,21 @@ module.exports = function(app){
             console.log(username);
           })
       },
+
+      loginUser: function(username,password){
+        console.log(username, password);
+        $http({
+          method: 'POST',
+          url: '/login',
+          data: {
+            username: username,
+            password: password,
+          }
+          }).then(function(response){
+            console.log('user login', response)
+        })
+      },
+
       getUsername: function(){
         return username;
       },
