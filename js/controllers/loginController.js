@@ -13,7 +13,13 @@ module.exports = function(app){
     $scope.register = function(){
       console.log(`${$scope.firstname} is in the system`);
       loginService.registerUser($scope.firstname, $scope.lastname, $scope.email, $scope.username, $scope.password, $scope.isLocal);
-     $location.path('/#/mosey');
+      $location.path('/#/mosey');
+    };
+
+    $scope.login = function(){
+      console.log("logging in!", $scope.username, $scope.password);
+      loginService.loginUser($scope.username, $scope.password);
+      // $location.path('/mosey');
     };
 
 

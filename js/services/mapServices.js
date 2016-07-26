@@ -81,7 +81,7 @@ module.exports = function(app) {
                         });
                         console.log(position.coords.latitude + ' ' + position.coords.longitude);
 
-                        map.setZoom(20)
+                        map.setZoom(26)
                     },
                     error: function(error) {
                         alert('Geolocation failed: ' + error.message);

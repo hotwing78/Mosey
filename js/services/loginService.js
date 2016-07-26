@@ -8,7 +8,7 @@ module.exports = function(app){
     let password = "";
     let isLocal = true;
 
-    let usersArray = []
+    let usersArray = [];
 
     return {
 
@@ -19,7 +19,7 @@ module.exports = function(app){
           url: '/users',
         }).then(function(response){
           console.log('YAY USER', response);
-          console.log(response);
+          console.log(response.data);
           let userList = response.data
           angular.copy(userList, usersArray)
         })
