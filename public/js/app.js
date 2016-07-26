@@ -156,6 +156,7 @@ module.exports = function(app) {
 
             },//End of setMarker******************************************************************
 
+          /* This is where I make a call to the server to get the available eats in town*/
             getRestaurants: function() {
                 var promise = $http({
                     url: '/food',
@@ -167,6 +168,7 @@ module.exports = function(app) {
 
             },//End of getRestaurants************************************************************
 
+            /* This is where I make a call to the server to get the available events*/
             getEvents: function() {
                 var promise = $http({
                     url: '/activity',
@@ -182,6 +184,7 @@ module.exports = function(app) {
                 return itenerary;
             },//End of getItenerary***************************************************************
 
+            /*This is where I set the available activities to points on the map*/
             getLocations: function() {
                 GMaps.geolocate({
                     success: function(position) {
