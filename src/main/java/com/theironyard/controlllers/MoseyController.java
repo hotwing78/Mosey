@@ -22,6 +22,7 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -46,28 +47,24 @@ public class MoseyController {
     ItineraryRespository itineraries;
 
 
+    String APIkey = APIreader();
+
+    public MoseyController() throws FileNotFoundException {
+    }
+
     // start h2 web server
     @PostConstruct
     public void init() throws Exception {
         Server.createWebServer().start();
 
-        File file = new File("API.csv");
-
-        Scanner fscan  = new Scanner(file);
-
-        String APIkey = fscan.nextLine();
-/*
-        LatLng ll = new LatLng(restaurants.findOne(5).getLat(), restaurants.findOne(5).getLng());
-        LatLng ll2 = new LatLng(restaurants.findOne(6).getLat(), restaurants.findOne(6).getLng());
 
 
 
-        GeoApiContext cntx = new GeoApiContext().setApiKey(APIkey);
-        DistanceMatrix matrix = DistanceMatrixApi.newRequest(cntx).destinations(ll).origins(ll2).await();
 
-        double feet = matrix.rows[0].elements[0].distance.inMeters * 3.281;
-        System.out.printf("The distance is %f feet", feet);
-*/
+
+
+
+
         if (restaurants.count() == 0) {
             String filename = "Restaurants.csv";
             File f = new File(filename);
@@ -241,5 +238,21 @@ public class MoseyController {
         response.sendRedirect("/");
     }
 
+
+    public double distance (LatLng origin, LatLng dest) throws Exception {
+        GeoApiContext context = new GeoApiContext().setApiKey(APIkey);
+        DistanceMatrix matrix = DistanceMatrixApi.newRequest(context).destinations(dest).origins(origin).await();
+
+        double feet = matrix.rows[0].elements[0].distance.inMeters * 3.281;
+        return feet;
+    }
+
+    public String APIreader () throws FileNotFoundException {
+        File file = new File("API.csv");
+
+        Scanner fscan  = new Scanner(file);
+
+        return fscan.nextLine();
+    }
 
 }
