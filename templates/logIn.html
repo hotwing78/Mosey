@@ -1,38 +1,44 @@
 <div class="row">
     <div class="large-6 columns auth-plain">
-      <div class="signup-panel left-solid">
-        <p class="welcome">Registered Users</p>
-        <form>
-          <div class="row collapse">
-            <div class="small-2  columns">
-              <span class="prefix"><i class="fi-torso-female"></i></span>
-            </div>
-            <div class="small-10  columns">
-              <input type="text" placeholder="username" ng-model="username">
-            </div>
-          </div>
-          <div class="row collapse">
-            <div class="small-2 columns ">
-              <span class="prefix"><i class="fi-lock"></i></span>
-            </div>
-            <div class="small-10 columns ">
-              <input type="password" placeholder="password" ng-model="password">
-              <a $event.preventDefault() class="hollow button" ng-click="login()">Log In </a>
-            </div>
-          </div>
-        </form>
+        <div class="signup-panel left-solid">
+            <p class="welcome">Registered Users</p>
+            <form>
+                <div class="row collapse">
+                    <div class="small-2  columns">
+                        <span class="prefix"><i class="fi-torso-female"></i></span>
+                    </div>
+                    <div class="small-10  columns">
+                        <input type="text" placeholder="username" ng-model="username">
+                    </div>
+                </div>
+                <div class="row collapse">
+                    <div class="small-2 columns ">
+                        <span class="prefix"><i class="fi-lock"></i></span>
+                    </div>
+                    <div class="small-10 columns ">
+                        <input type="password" placeholder="password" ng-model="password">
+                    </div>
+                    <div class="small-12 columns">
+                      <br><a $event.preventDefault() class="hollow button" ng-click="login()">Log In </a></br>
+                    </div>
+                    <div class="small-12 columns ">
+                      <a $event.preventDefault() class="expand hollow button" ng-click="logout()">Log Out </a>
+                    </div>
+                </div>
+            </form>
+        </div>
 
-      </div>
     </div>
 
     <div class="large-6 columns auth-plain">
-      <div class="row">
-    	<div class="signup-panel newusers">
-    		<p class="welcome"> New User?</p>
-    		<p>By creating an account with us, you will be able to move through the checkout process faster, view and track your orders, and more.</p><br>
-    		<a href="#/registration" class="hollow button">Sign Up</a></br>
-    	</div>
+        <div class="row">
+            <div class="signup-panel newusers">
+                <p class="welcome"> New User?</p>
+                <p>By creating an account with us, you will be able to move through the checkout process faster, view and track your orders, and more.</p>
+                <br><a href="#/registration" class="hollow button">Sign Up</a></br>
+            </div>
+        </div>
     </div>
-   </div>
+
 
 </div>
