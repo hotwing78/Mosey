@@ -68,10 +68,15 @@ module.exports = function(app) {
             getLocations: function() {
                 GMaps.geolocate({
                     success: function(position) {
+                      let lat = position.coords.latitude;
+                      let lng = position.coords.longitude;
                       $http({
                         url:'/mosey',
                         method:'post',
-                        data: position
+                        data:{
+                          lat:lat,
+                          lng:lng,
+                        }
                       });
                         map.setCenter(position.coords.latitude, position.coords.longitude);
                     },
