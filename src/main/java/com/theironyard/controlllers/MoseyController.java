@@ -154,8 +154,8 @@ public class MoseyController {
         }
     }
 
-    @RequestMapping(path = "/mosey", method = RequestMethod.GET)
-    public Object home(@RequestBody Object position) throws Exception {
+    @RequestMapping(path = "/mosey", method = RequestMethod.POST)
+    public Object home(@RequestBody Object data)  {
         //Restaurant dest = restaurants.findFirstByName(destination);
         //convert new center to LatLng
         //LatLng origin = new LatLng(0,0);
@@ -164,7 +164,7 @@ public class MoseyController {
 
 
         //return distance(origin, dest);
-        return position;
+        return data;
     }
 
     @RequestMapping(path = "/login", method = RequestMethod.POST)
