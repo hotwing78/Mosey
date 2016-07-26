@@ -5,10 +5,7 @@ import com.google.maps.model.DistanceMatrix;
 import com.google.maps.model.LatLng;
 import com.google.maps.model.PlacesSearchResponse;
 import com.google.maps.GeoApiContext;
-import com.theironyard.entities.Activity;
-import com.theironyard.entities.Restaurant;
-import com.theironyard.entities.Review;
-import com.theironyard.entities.User;
+import com.theironyard.entities.*;
 import com.theironyard.services.*;
 import com.theironyard.utils.PasswordStorage;
 import org.h2.tools.Server;
@@ -234,6 +231,11 @@ public class MoseyController {
         }
         review.setActivity(act);
         reviews.save(review);
+    }
+
+    @RequestMapping(path = "/itinerary", method = RequestMethod.POST)
+    public String getItinerary(HttpSession session, @RequestBody Itinerary itinerary) {
+        return "itinerary";
     }
 
     @RequestMapping(path = "/logout", method = RequestMethod.GET)

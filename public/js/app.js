@@ -30,7 +30,7 @@ module.exports = function(app){
 },{}],2:[function(require,module,exports){
 module.exports = function(app) {
     app.controller('mapController', ['$scope', 'Markers', function($scope, Markers) {
-        //$scope.myItenerary = Markers.getItenerary();
+        // $scope.itenerary = Markers.getItenerary();
 
         Markers.getRestaurants().then(function(promise){
           let food = promise;
@@ -243,6 +243,11 @@ module.exports = function(app) {
             getLocations: function() {
                 GMaps.geolocate({
                     success: function(position) {
+                      $http({
+                        url:'/mosey',
+                        method:'post',
+                        data: position
+                      });
                         map.setCenter(position.coords.latitude, position.coords.longitude);
 
                         map.addMarker({
