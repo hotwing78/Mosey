@@ -1,12 +1,11 @@
 module.exports = function(app) {
     app.controller('mapController', ['$scope', 'Markers', function($scope, Markers) {
-        var food = [];
+        //$scope.myItenerary = Markers.getItenerary();
 
         Markers.getRestaurants().then(function(promise){
-          food = promise;
-          console.log(food[0].name);
+          let food = promise;
           for(let i = 0; i < food.length; i++){
-          Markers.setMarker(food[i].lat,food[i].lng,food[i].name)
+          Markers.setMarker(food[i])
         }
         });
           console.log('Log here');

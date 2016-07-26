@@ -24,13 +24,12 @@ module.exports = function(app){
 },{}],2:[function(require,module,exports){
 module.exports = function(app) {
     app.controller('mapController', ['$scope', 'Markers', function($scope, Markers) {
-        var food = [];
+        //$scope.myItenerary = Markers.getItenerary();
 
         Markers.getRestaurants().then(function(promise){
-          food = promise;
-          console.log(food[0].name);
+          let food = promise;
           for(let i = 0; i < food.length; i++){
-          Markers.setMarker(food[i].lat,food[i].lng,food[i].name)
+          Markers.setMarker(food[i])
         }
         });
           console.log('Log here');
@@ -148,34 +147,72 @@ module.exports = function(app){
 },{}],6:[function(require,module,exports){
 module.exports = function(app) {
     app.factory('Markers', ['$http', function($http) {
-        let food = {};
+        var itenerary = [];
+
         var map = new GMaps({
             div: '#map',
             lat: 32.79222,
             lng: -79.9404072,
         });
+
+        // var goldStar = {
+        //   path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
+        //   fillColor: 'yellow',
+        //   fillOpacity: 0.8,
+        //   scale: .1,
+        //   strokeColor: 'gold',
+        //   strokeWeight: 14
+        // };
         return {
-            setMarker: function(x, y, name) {
+
+            getLocationName: function() {
+                return name;
+            },//End of getLocationName************************************************************
+
+            setMarker: function(point) {
                 map.addMarker({
-                    lat: x,
-                    lng: y,
-                    title: name,
+                    lat: point.lat,
+                    lng: point.lng,
+                    title: point.name,
+                    // icon: goldStar,
                     click: function(e) {
-                        alert('You clicked on the ' + name + ' marker');
+                        itenerary.push(point);
+                        console.log(itenerary);
+                        alert('You clicked on the ' + point.name + ' marker');
                     }
                 });
-            },
+
+            },//End of setMarker******************************************************************
+
+          /* This is where I make a call to the server to get the available eats in town*/
             getRestaurants: function() {
                 var promise = $http({
                     url: '/food',
                     method: 'get'
                 }).then(function(results) {
-                  return results.data;
+                    return results.data;
                 });
                 return promise;
 
-            },
+            },//End of getRestaurants************************************************************
 
+            /* This is where I make a call to the server to get the available events*/
+            getEvents: function() {
+                var promise = $http({
+                    url: '/activity',
+                    method: 'get'
+                }).then(function(results) {
+                    return results.data;
+                });
+                return promise;
+
+            },//End of getEvent******************************************************************
+
+            getItenerary: function() {
+                return itenerary;
+            },//End of getItenerary***************************************************************
+
+            /*This is where I set the available activities to points on the map*/
             getLocations: function() {
                 GMaps.geolocate({
                     success: function(position) {
@@ -201,10 +238,10 @@ module.exports = function(app) {
                     }
                 });
 
-            }
+            }//End of getLocations**************************************************************
 
-        }
-    }]);
+        }//End of return*****************************
+    }]);//End of end of app.Factory************************************************************
 }
 
 },{}],7:[function(require,module,exports){
