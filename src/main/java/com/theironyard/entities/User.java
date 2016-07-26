@@ -33,16 +33,16 @@ public class User {
     @Column(nullable = false)
     boolean isnative;
 
-    private Set<Itinerary> itineraries = new HashSet<Itinerary>();
+    //private Set<Itinerary> itineraries = new HashSet<Itinerary>();
 
-    public void addItinerary(Itinerary itinerary) {
-        this.itineraries.add(itinerary);
-    }
+    //public void addItinerary(Itinerary itinerary) {
+    //    this.itineraries.add(itinerary);
+    //}
 
-    @ManyToMany(mappedBy = "users")
-    public Set<Itinerary> getItineraries() {
-        return itineraries;
-    }
+   // @ManyToMany(mappedBy = "users")
+   // public Set<Itinerary> getItineraries() {
+   //     return itineraries;
+   // }
 
 
     public User() {

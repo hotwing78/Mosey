@@ -72,11 +72,11 @@ module.exports = function(app) {
                       let lng = position.coords.longitude;
                       $http({
                         url:'/mosey',
-                        method:'POST',
+                        method:'post',
                         data:{
                           lat:lat,
                           lng:lng,
-                        }
+                          }
                       });
                         map.setCenter(position.coords.latitude, position.coords.longitude);
                     },
