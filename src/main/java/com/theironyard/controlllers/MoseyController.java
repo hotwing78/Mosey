@@ -158,11 +158,15 @@ public class MoseyController {
     }
 
     @RequestMapping(path = "/mosey", method = RequestMethod.GET)
-    public String home(String newCenter) throws Exception {
+    public double home(String newCenter, String destination) throws Exception {
+        Restaurant dest = restaurants.findFirstByName(destination);
+        //convert new center to LatLng
+        LatLng origin = new LatLng(0,0);
+        LatLng destLL = new LatLng(dest.getLat(), dest.getLng());
 
 
 
-        return newCenter;
+        return distance(origin, destLL);
     }
 
     @RequestMapping(path = "/login", method = RequestMethod.POST)
