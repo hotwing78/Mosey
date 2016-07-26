@@ -1,6 +1,8 @@
 package com.theironyard.controlllers;
 
 import com.google.maps.*;
+import com.google.maps.model.DistanceMatrix;
+import com.google.maps.model.LatLng;
 import com.google.maps.model.PlacesSearchResponse;
 import com.google.maps.GeoApiContext;
 import com.theironyard.entities.Activity;
@@ -17,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -52,14 +56,18 @@ public class MoseyController {
         Scanner fscan  = new Scanner(file);
 
         String APIkey = fscan.nextLine();
+/*
+        LatLng ll = new LatLng(restaurants.findOne(5).getLat(), restaurants.findOne(5).getLng());
+        LatLng ll2 = new LatLng(restaurants.findOne(6).getLat(), restaurants.findOne(6).getLng());
 
-       /* LatLng ll = new LatLng (0,0);
-        LatLng ll2 = new LatLng(1,1);
+
+
         GeoApiContext cntx = new GeoApiContext().setApiKey(APIkey);
-        DistanceMatrixApiRequest distance = new DistanceMatrixApiRequest(cntx);
+        DistanceMatrix matrix = DistanceMatrixApi.newRequest(cntx).destinations(ll).origins(ll2).await();
 
-        DistanceMatrix a = distance.origins(ll).destinations(ll2).await();*/
-
+        double feet = matrix.rows[0].elements[0].distance.inMeters * 3.281;
+        System.out.printf("The distance is %f feet", feet);
+*/
         if (restaurants.count() == 0) {
             String filename = "Restaurants.csv";
             File f = new File(filename);
@@ -229,7 +237,11 @@ public class MoseyController {
         reviews.save(review);
     }
 
-
+    @RequestMapping(path = "/logout", method = RequestMethod.GET)
+    public void logout(HttpSession session, HttpServletResponse response) throws IOException {
+        session.invalidate();
+        response.sendRedirect("/");
+    }
 
 
 }
