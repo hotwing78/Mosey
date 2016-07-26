@@ -44,8 +44,9 @@ module.exports = function(app) {
 
 },{}],3:[function(require,module,exports){
 module.exports = function(app){
-  app.controller('reviewsController', ['$scope', '$http', '$location', 'reviewsService', function($scope, $http, $location, reviewsService){
+  app.controller('reviewsController', ['$scope', '$http', '$location', 'reviewsService', 'loginService', function($scope, $http, $location, reviewsService, loginService){
 
+    $scope.username = loginService.getUser();
     console.log('hihihihi reviews controller');
 
   }])
@@ -98,7 +99,23 @@ module.exports = function(app){
     let password = "";
     let isLocal = true;
 
+    let usersArray = []
+
     return {
+
+      getUser: function(){
+        console.log("here");
+        $http({
+          method: 'GET',
+          url: '/users',
+        }).then(function(response){
+          console.log('YAY USER', response);
+          console.log(response);
+          let userList = response.data
+          angular.copy(userList, usersArray)
+        })
+          return usersArray;
+      },
 
       registerUser: function(firstname, lastname, email, username, password, isLocal){
 
@@ -194,6 +211,10 @@ module.exports = function(app) {
 module.exports = function(app){
   app.factory('reviewsService', function($http){
     console.log('memem');
+
+    return {
+      
+    }
   })
 }
 

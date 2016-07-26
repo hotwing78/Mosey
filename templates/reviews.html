@@ -56,10 +56,20 @@
 
 
   <!-- Start Compose Message -->
-  <div class="row">
-    <div class="large-12 columns">
-        <textarea rows="4.5" id="message" placeholder="Message"></textarea>
-        <a href="#/reviews" class="extend hollow button" ng-click='review()'>Review</a>
+<div class="row">
+  <section id="reviewlist">
+   <ul>
+    <p><strong>{{ username }}: </strong> {{ newreview}} </p>
+      <li ng-repeat="review in list">
+        <p> Review: {{ review.message }}</p>
+      </li>
+    </ul>
+  </section>
+
+
+    <div class="large-12 columns" id="writereview">
+        <textarea rows="4.5" placeholder="Tell us about your experience..." ng-model='newreview'></textarea>
+        <button type="button" class="extend hollow button" ng-click='review()'>Review</a>
     </div>
 
 
