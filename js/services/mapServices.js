@@ -31,7 +31,6 @@ module.exports = function(app) {
                     click: function(e) {
                         itenerary.push(point);
                         console.log(itenerary);
-                        alert('You clicked on the ' + point.name + ' marker');
                     }
                 });
 
@@ -75,18 +74,6 @@ module.exports = function(app) {
                         data: position
                       });
                         map.setCenter(position.coords.latitude, position.coords.longitude);
-
-                        map.addMarker({
-                            lat: position.coords.latitude,
-                            lng: position.coords.longitude,
-                            title: 'Damon',
-                            click: function(e) {
-                                alert('You clicked in this marker');
-                            }
-                        });
-                        console.log(position.coords.latitude + ' ' + position.coords.longitude);
-
-                        map.setZoom(29)
                     },
                     error: function(error) {
                         alert('Geolocation failed: ' + error.message);
