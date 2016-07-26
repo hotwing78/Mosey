@@ -4,6 +4,44 @@
 @import 'reviews';
 @import 'registration';
 
-*{
+body {
   font-family: 'Source Sans Pro', sans-serif;
+}
+
+.columns, h2, p, h1, h3, h4, h5, h6 {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.signup-panel .button {
+    font-size: 1em;
+    text-align: center;
+    justify-content: center;
+    width: 100%;
+    border-color: #292c2f;
+    color: #ef3e36;
+  }
+
+.signup-panel .button:hover {
+  font-size: 1em;
+
+    border-color: white;
+    color: #292c2f;
+  }
+
+  .button.hollow {
+    font-size: 1em;
+    text-align: center;
+    justify-content: center;
+    width: 100%;
+    border-color: #292c2f;
+    color: #ef3e36;
+  }
+  .button.hollow:hover {
+    font-size: 1em;
+    border-color: white;
+    color: #292c2f;
+  }
+
+.menu a:active {
+    color: white;
 }

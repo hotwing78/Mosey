@@ -153,6 +153,12 @@ module.exports = function(app){
           }
           }).then(function(response){
             console.log('user login', response)
+            console.log('NAME IS', username)
+            if (password !== null && response.config.data.password === password){
+              alert('Hey ' + response.config.data.username + ' is in the system!');
+            } else {
+              alert('Hey' + response.config.data.username + 'create an account')
+            }
         })
       },
 
