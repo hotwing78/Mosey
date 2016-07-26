@@ -169,16 +169,14 @@ public class MoseyController {
     }
 
     @RequestMapping(path = "/login", method = RequestMethod.POST)
-    public String login (HttpSession session, String username, String password) throws Exception {
-        User user = users.findByUsername(username);
-        if (user == null) {
-            return null;
-        } else if (!PasswordStorage.verifyPassword(password, user.getPassword())) {
+    public void login (HttpSession session, @RequestBody User user) throws Exception {
+        User dummy = users.findByUsername(user.getUsername());
+        if (dummy == null ) {
+            throw new Exception("Username does not exist! Please register");
+        } else if (!PasswordStorage.verifyPassword(user.getPassword(), dummy.getPassword())) {
             throw new Exception("Incorrect password");
         }
-        session.setAttribute("username", username);
-
-        return "redirect:/";
+        session.setAttribute("username", user.getUsername());
     }
 
     @RequestMapping(path = "/register", method = RequestMethod.POST)
