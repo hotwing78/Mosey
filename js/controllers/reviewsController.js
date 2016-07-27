@@ -5,18 +5,18 @@ module.exports = function(app){
     $scope.username = loginService.getUsername();
     $scope.errorMessage = '';
 
-    $scope.review = function(){
+    $scope.addReview = function(){
       console.log(`send new review ${$scope.reviewText}`);
       return $http({
         method: 'POST',
         url: '/reviews',
         data: {
           comment: $scope.reviewText,
-          username: 'teammosey',
+          username: 'teammosey'
         }
       }).then(function(response){
         console.log('pina colada', response);
-        reviewsService.getAllReviews();
+        return reviewsService.getAllReviews();
       })
     };
 

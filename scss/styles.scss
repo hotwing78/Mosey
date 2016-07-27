@@ -39,8 +39,11 @@ body {
     text-align: center;
     justify-content: center;
     width: 100%;
-    border-color: #292c2f;
+    border-color: white;
+    border-radius: .1em;
     color: #ef3e36;
+    background-color:  rgba(255,255,255,.65);
+
   }
   .button.hollow:hover {
     font-size: 1em;
