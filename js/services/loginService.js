@@ -10,7 +10,7 @@ module.exports = function(app) {
 
         let usersArray = [];
 
-        let currentUser = {};
+        var currentUser = {};
 
         return {
 
@@ -55,7 +55,7 @@ module.exports = function(app) {
                   console.log('we are logging in')
                   if (response.config.data.username ===username){
                     console.log(response.config.data.username);
-                    angular.copy(response.config.data.username, currentUser)
+                    currentUser = response.config.data.username;
                   }
                   return currentUser
                 })

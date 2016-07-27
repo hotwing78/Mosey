@@ -67,18 +67,18 @@ module.exports = function(app){
     $scope.username = loginService.getUsername();
     $scope.errorMessage = '';
 
-    $scope.review = function(){
+    $scope.addReview = function(){
       console.log(`send new review ${$scope.reviewText}`);
       return $http({
         method: 'POST',
         url: '/reviews',
         data: {
           comment: $scope.reviewText,
-          username: 'teammosey',
+          username: 'teammosey'
         }
       }).then(function(response){
         console.log('pina colada', response);
-        reviewsService.getAllReviews();
+        return reviewsService.getAllReviews();
       })
     };
 
@@ -135,7 +135,7 @@ module.exports = function(app) {
 
         let usersArray = [];
 
-        let currentUser = {};
+        var currentUser = {};
 
         return {
 
@@ -180,7 +180,7 @@ module.exports = function(app) {
                   console.log('we are logging in')
                   if (response.config.data.username ===username){
                     console.log(response.config.data.username);
-                    angular.copy(response.config.data.username, currentUser)
+                    currentUser = response.config.data.username;
                   }
                   return currentUser
                 })
