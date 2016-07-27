@@ -17,20 +17,19 @@ module.exports = function(app) {
           strokeWeight: 14
         };
 
-        var infoWindowContent = '<button>Click to add!</button';
         return {
 
             getLocationName: function() {
                 return name;
             },//End of getLocationName************************************************************
 
-            setMarker: function(point) {
+            setMarker: function(point,content) {
                 map.addMarker({
                     lat: point.lat,
                     lng: point.lng,
                     title: point.name,
                     infoWindow: {
-                    content: point.name + infoWindowContent,
+                    content: content(point),
                     click: function(e) {
                       $http({
                         url: '/itinerary',

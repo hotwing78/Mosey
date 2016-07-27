@@ -45,13 +45,23 @@ module.exports = function(app){
 
 },{}],2:[function(require,module,exports){
 module.exports = function(app) {
-    app.controller('mapController', ['$scope', 'Markers', function($scope, Markers) {
-        // $scope.itenerary = Markers.getItenerary();
+    app.controller('mapController', ['$scope','$compile', 'Markers', function($scope,$compile, Markers) {
+
+        $scope.random = function(){
+          console.log('clicked');
+        };
         Markers.getLocation();
         Markers.getRestaurants().then(function(promise){
           let food = promise;
           for(let i = 0; i < food.length; i++){
-          Markers.setMarker(food[i])
+          Markers.setMarker(food[i],function(point) {
+
+            var htmlElement =  '<div ng-click="random()" >'
+            + point.name + ' ADD' +'</div>'
+            var compiled = $compile(htmlElement)($scope)
+            return compiled[0];
+
+          })
         }
         });
           console.log('Log here');
@@ -193,20 +203,19 @@ module.exports = function(app) {
           strokeWeight: 14
         };
 
-        var infoWindowContent = '<button>Click to add!</button';
         return {
 
             getLocationName: function() {
                 return name;
             },//End of getLocationName************************************************************
 
-            setMarker: function(point) {
+            setMarker: function(point,content) {
                 map.addMarker({
                     lat: point.lat,
                     lng: point.lng,
                     title: point.name,
                     infoWindow: {
-                    content: point.name + infoWindowContent,
+                    content: content(point),
                     click: function(e) {
                       $http({
                         url: '/itinerary',
