@@ -47,7 +47,7 @@ module.exports = function(app){
 module.exports = function(app) {
     app.controller('mapController', ['$scope', 'Markers', function($scope, Markers) {
         // $scope.itenerary = Markers.getItenerary();
-        Markers.getLocations();
+        Markers.getLocation();
         Markers.getRestaurants().then(function(promise){
           let food = promise;
           for(let i = 0; i < food.length; i++){
@@ -246,7 +246,7 @@ module.exports = function(app) {
             },//End of getItenerary***************************************************************
 
             /*This is where I set the available activities to points on the map*/
-            getLocations: function() {
+            getLocation: function() {
                 GMaps.geolocate({
                     success: function(position) {
                       let lat = position.coords.latitude;
@@ -264,11 +264,6 @@ module.exports = function(app) {
                           lng: lng,
                           title: 'user',
                           icon: goldStar,
-                          // icon: goldStar,
-                          click: function(e) {
-                              itinerary.push(point);
-                              console.log(itinerary);
-                          }
                       });
                         map.setCenter(position.coords.latitude, position.coords.longitude);
                     },
