@@ -40,6 +40,9 @@ public class MoseyController {
     @Autowired
     ReviewRepository reviews;
 
+    @Autowired
+    CommentRepository comments;
+
     /* @Autowired
     ItineraryRespository itineraries; */
 
@@ -52,6 +55,9 @@ public class MoseyController {
     @PostConstruct
     public void init() throws Exception {
         Server.createWebServer().start();
+
+
+
 
         //creating restaurants table from csv and allowing for missing content
         if (restaurants.count() == 0) {
@@ -224,11 +230,18 @@ public class MoseyController {
         return activities.findAll();
     }
 
+    @RequestMapping(path = "/savedreviews", method = RequestMethod.GET)
+    public Iterable<Comment> getReviews () {
+        return comments.findAll();
+    }
+
 
     @RequestMapping(path = "/reviews", method = RequestMethod.POST)
     //need to add conditional for only for tourists
-    public void addReview(HttpSession session, @RequestBody Review review) throws Exception {
-        String username = (String) session.getAttribute("username");
+    public void addReview(HttpSession session, @RequestBody Comment comment) throws Exception {
+
+
+       /* String username = (String) session.getAttribute("username");
         if (username == null) {
             throw new Exception("You must be registered to leave a review.");
         }
@@ -250,7 +263,12 @@ public class MoseyController {
             throw new Exception("Invalid selection");
         }
         review.setActivity(act);
+
         reviews.save(review);
+
+        */
+        comments.save(comment);
+
     }
     //show info for itinerary
     @RequestMapping(path = "/itinerary", method = RequestMethod.POST)
