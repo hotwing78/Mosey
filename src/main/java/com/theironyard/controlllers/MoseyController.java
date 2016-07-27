@@ -240,8 +240,9 @@ public class MoseyController {
     }
 
     @RequestMapping(path = "/itinerary", method = RequestMethod.POST)
-    public void getItinerary(HttpSession session, @RequestBody Restaurant restaurant) {
+    public Object getItinerary(HttpSession session, @RequestBody Object restaurant) {
 
+        return restaurant;
     }
 
     @RequestMapping(path = "/logout", method = RequestMethod.GET)
