@@ -1,7 +1,7 @@
 module.exports = function(app) {
     app.controller('mapController', ['$scope', 'Markers', function($scope, Markers) {
         // $scope.itenerary = Markers.getItenerary();
-        Markers.getLocations();
+        Markers.getLocation();
         Markers.getRestaurants().then(function(promise){
           let food = promise;
           for(let i = 0; i < food.length; i++){
