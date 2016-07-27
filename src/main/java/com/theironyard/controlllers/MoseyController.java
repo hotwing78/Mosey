@@ -241,11 +241,11 @@ public class MoseyController {
     public void addReview(HttpSession session, @RequestBody Comment comment) throws Exception {
 
 
-       /* String username = (String) session.getAttribute("username");
+        String username = (String) session.getAttribute("username");
         if (username == null) {
             throw new Exception("You must be registered to leave a review.");
         }
-
+/*
         User user = users.findByUsername(username);
         if (user == null) {
             throw new Exception("Invalid username");
