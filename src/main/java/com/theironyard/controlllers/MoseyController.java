@@ -21,6 +21,8 @@ import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 /**
@@ -155,15 +157,19 @@ public class MoseyController {
     }
 
     @RequestMapping(path = "/mosey", method = RequestMethod.POST)
-    public Object home(@RequestBody Object data)  {
+    public void home(HttpSession session, @RequestBody HashMap data)  {
         //Restaurant dest = restaurants.findOne(1);
         //convert new center to LatLng
         //LatLng origin = new LatLng(0,0);
         //LatLng destLL = new LatLng(dest.getLat(), dest.getLng());
         //LatLng dest = new LatLng(1,1);
 
+        double lat = (double) data.get("lat");
+        double lng = (double) data.get("lng");
+        LatLng origin = new LatLng(lat, lng);
+        session.setAttribute("origin", origin);
 
-        return data;
+
     }
 
     @RequestMapping(path = "/login", method = RequestMethod.POST)
@@ -234,7 +240,7 @@ public class MoseyController {
     }
 
     @RequestMapping(path = "/itinerary", method = RequestMethod.POST)
-    public String getItinerary(HttpSession session, @RequestBody Itinerary itinerary) {
+    public String getItinerary(HttpSession session, @RequestBody Restaurant restaurant) {
         return "itinerary";
     }
 
