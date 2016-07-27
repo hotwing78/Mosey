@@ -213,6 +213,7 @@ public class MoseyController {
 
 
     @RequestMapping(path = "/reviews", method = RequestMethod.POST)
+    //need to add conditional for only for tourists
     public void addReview(HttpSession session, @RequestBody Review review) throws Exception {
         String username = (String) session.getAttribute("username");
         if (username == null) {
@@ -240,6 +241,7 @@ public class MoseyController {
     }
 
     @RequestMapping(path = "/itinerary", method = RequestMethod.POST)
+    //need to add contigency of being a registered user(our hook to get them to register)
     public Object getItinerary(HttpSession session, @RequestBody Object restaurant) {
 
         return restaurant;
@@ -253,6 +255,9 @@ public class MoseyController {
 
 
     @RequestMapping(path = "/newfood", method = RequestMethod.POST)
+    //need to add a check for isNative
+    //need to add a method that only allows for this to public if 10 isNative users approve the suggestion
+    //need to add localTake field
     public void addRestaurant(HttpSession session, @RequestBody Restaurant restaurant) throws Exception {
         Iterable<Restaurant> rests = restaurants.findAll();
         for (Restaurant rest : rests) {
@@ -276,6 +281,9 @@ public class MoseyController {
     }
 
     @RequestMapping(path = "/newactivity", method = RequestMethod.POST)
+    //need to add a check for isNative
+    //need to add a method that only allows for this to public if 10 isNative users approve the suggestion
+    //need to add localTake field
     public void addActivity(HttpSession session, @RequestBody Activity activity) throws Exception {
         Iterable<Activity> actvs = activities.findAll();
         for (Activity actv : actvs) {

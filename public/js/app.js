@@ -203,7 +203,6 @@ module.exports = function(app) {
                     lat: point.lat,
                     lng: point.lng,
                     title: point.name,
-                    // icon: goldStar,
                     click: function(e) {
                       $http({
                         url: '/itinerary',
