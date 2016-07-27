@@ -168,7 +168,25 @@ public class MoseyController {
         double lng = (double) data.get("lng");
         LatLng origin = new LatLng(lat, lng);
         session.setAttribute("origin", origin);
+    }
 
+    @RequestMapping(path="/mosey", method = RequestMethod.GET)
+    public double hover(HttpSession session, Object venue) throws Exception {
+
+        LatLng origin = (LatLng) session.getAttribute("origin");
+        double dist;
+
+        if (venue.getClass() == Restaurant.class) {
+            Restaurant rest = (Restaurant) venue;
+            LatLng dest = new LatLng(rest.getLat(), rest.getLng());
+            dist = distance(origin, dest);
+        }
+        else {
+            Activity activity =  (Activity) venue;
+            LatLng dest = new LatLng(activity.getLat(), activity.getLng());
+            dist = distance(origin, dest);
+        }
+        return dist;
 
     }
 
