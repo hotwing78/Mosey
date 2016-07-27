@@ -156,14 +156,13 @@ public class MoseyController {
 
     @RequestMapping(path = "/mosey", method = RequestMethod.POST)
     public Object home(@RequestBody Object data)  {
-        //Restaurant dest = restaurants.findFirstByName(destination);
+        //Restaurant dest = restaurants.findOne(1);
         //convert new center to LatLng
         //LatLng origin = new LatLng(0,0);
         //LatLng destLL = new LatLng(dest.getLat(), dest.getLng());
         //LatLng dest = new LatLng(1,1);
 
 
-        //return distance(origin, dest);
         return data;
     }
 
@@ -261,5 +260,4 @@ public class MoseyController {
 
         return fscan.nextLine();
     }
-
 }
