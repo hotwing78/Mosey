@@ -1,4 +1,4 @@
-<!-- <div class="row container">
+<div class="row container">
    <div id="signup">
       <div class="signup-screen">
          <div class="space-bot text-center">
@@ -36,32 +36,4 @@
            </div>
         </div>
     </div>
-</body> -->
-
-
-
-
-<div class="row">
-  <div class="large-12 columns auth-plain">
-    <div class="row">
-
-    <div class="signup-panel newusers">
-      <p class="welcome"> Register to Mosey</p>
-      <div ng-if="errorMessage != '' ">
-          <!-- Error Needs to be displayed -->
-          <p>{{errorMessage}}</p>
-      </div>
-      <input type="text"  ng-model='firstname'  placeholder ="First Name">
-      <input type="text"  ng-model='lastname'  placeholder = 'Last Name'>
-      <input type="text"  ng-model='email'  placeholder ='Email'>
-      <input type="text"  ng-model='username'  placeholder='User Name'>
-      <input type="password" name="password" ng-model='password'  placeholder='Password'>
-      <input type="radio" name="button" ng-model='islocal'> Native </input>
-      <input type="radio" name="button" ng-model='istourist'> Tourist </input>
-
-
-      <a $event.preventDefault() class="hollow button" ng-click='register()'>Register</a></br>
-    </div>
-  </div>
-  </div>
-</div>
+</body>
