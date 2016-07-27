@@ -1,4 +1,4 @@
-<div class="row">
+<!-- <div class="row">
 <div class="large-12 columns">
   <label>Whatcha in the mood for?</label>
   <select>
@@ -9,47 +9,28 @@
     <option value="outdoor">Outdoor Activity</option>
   </select>
 </div>
-</div>
+</div> -->
 
 
 <!-- Header and Nav -->
   <div class="row">
     <div class="large-12 columns">
       <div class="panel">
+        <h4>Welcome {{username}}!</h4>
         <h2>Read the Reviews</h2>
       </div>
     </div>
 
     <!-- Main Feed -->
     <div class="large-12 columns">
+      <hr />
       <div class="row">
         <div class="large-12 columns">
           <p><strong>Some Person said:</strong> Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong.</p>
-          <div class="row">
-            <div class="large-12 columns"><p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit</p></div>
-          </div>
         </div>
       </div>
-
-      <div class="row">
-        <div class="large-12 columns">
-          <p><strong>Some Person said:</strong> Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong.</p>
-
-        </div>
-      </div>
-
       <hr />
 
-      <div class="row">
-        <div class="large-12 columns">
-          <p><strong>Some Person said:</strong> Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong.</p>
-
-          <div class="row">
-            <div class="large-12 columns"><p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit</p></div>
-          </div>
-        </div>
-
-      </div>
     </div>
 
   </div>
@@ -57,7 +38,7 @@
 
   <!-- Start Compose Message -->
 <div class="row">
-  <section id="reviewlist">
+  <section class="newReview">
    <ul>
     <p><strong>{{ username }}: </strong> {{ newreview}} </p>
       <li ng-repeat="review in list">
@@ -67,8 +48,8 @@
   </section>
 
 
-    <div class="large-12 columns" id="writereview">
-        <textarea rows="4.5" placeholder="Tell us about your experience..." ng-model='newreview'></textarea>
+    <div class="large-12 columns" id="addReview">
+        <textarea rows="4.5" placeholder="Tell us about your experience..." ng-model='reviewText'></textarea>
     </div>
     <div class="small-12 columns">
       <button type="button" class=" hollow button" ng-click='review()'>Review</a>

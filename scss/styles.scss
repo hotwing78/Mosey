@@ -2,7 +2,6 @@
 @import 'map';
 @import 'footer';
 @import 'reviews';
-@import 'registration';
 @import 'register';
 
 body {
@@ -11,6 +10,12 @@ body {
 
 .columns, h2, p, h1, h3, h4, h5, h6 {
   font-family: 'Source Sans Pro', sans-serif;
+}
+
+.signup-panel{
+  text-align: center;
+  justify-content: center;
+  box-shadow: 0 1px 6px rgba(0,0,0,.3);
 }
 
 .signup-panel .button {
@@ -25,9 +30,8 @@ body {
 .signup-panel .button:hover {
   font-size: 1em;
   box-shadow: 0 1px 6px rgba(0,0,0,.3);
-
-    border-color: white;
-    color: #292c2f;
+  border-color: white;
+  color: #292c2f;
   }
 
   .button.hollow {

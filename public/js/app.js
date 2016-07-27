@@ -15,21 +15,17 @@ module.exports = function(app){
     $scope.register = function(){
       console.log(`${$scope.firstname} is in the system`);
       loginService.registerUser($scope.firstname, $scope.lastname, $scope.email, $scope.username, $scope.password, $scope.isLocal)
+      .then(function(response) {
+          console.log('user login', response);
+      },function(response){
+        console.log('response', response.data.message);
+        $scope.errorMessage = response.data.message;
+      });
     };
 
     $scope.login = function(){
       console.log("logging in!", $scope.username, $scope.password);
       loginService.loginUser($scope.username, $scope.password)
-      // .then(function(){
-      //   console.log('done');
-      // },function(res){
-      //   console.log('err');
-      //   console.log(res.data);
-      // },function(res){
-      //   console.log('prog');
-      // });
-
-
       .then(function(response) {
           console.log('user login', response);
       },function(response){
@@ -67,8 +63,22 @@ module.exports = function(app) {
 module.exports = function(app){
   app.controller('reviewsController', ['$scope', '$http', '$location', 'reviewsService', 'loginService', function($scope, $http, $location, reviewsService, loginService){
 
-    $scope.username = loginService.getUser();
-    console.log('hihihihi reviews controller');
+    $scope.reviewList = reviewsService.getAllReviews();
+    $scope.username = loginService.getUsername();
+    $scope.errorMessage = '';
+
+    $scope.review = function(){
+      console.log(`send new review ${$scope.reviewText}`);
+      $http({
+        method: 'POST',
+        url: '/reviews',
+        data: $scope.reviewText,
+      }).then(function(response){
+        console.log('pina colada', response);
+        reviewsService.getAllReviews();
+      })
+    };
+
 
   }])
 }
@@ -88,6 +98,9 @@ require('./services/reviewsService.js')(app);
 
 app.config(['$routeProvider', function($routeProvider){
   $routeProvider
+    .when('/', {
+    redirectTo: '/mosey',
+    })
     .when('/registration', {
       controller: 'loginController',
       templateUrl: 'templates/registration.html',
@@ -104,9 +117,6 @@ app.config(['$routeProvider', function($routeProvider){
       controller: 'reviewsController',
       templateUrl: 'templates/reviews.html'
     })
-    .when('/', {
-      redirectTo: '/mosey',
-    })
 }])
 
 },{"./controllers/loginController.js":1,"./controllers/mapController.js":2,"./controllers/reviewsController.js":3,"./services/loginService.js":5,"./services/mapServices.js":6,"./services/reviewsService.js":7}],5:[function(require,module,exports){
@@ -121,6 +131,8 @@ module.exports = function(app) {
         let isLocal = true;
 
         let usersArray = [];
+
+        let currentUser = {};
 
         return {
 
@@ -161,11 +173,18 @@ module.exports = function(app) {
                         username: username,
                         password: password,
                     }
+                }).then(function(response){
+                  console.log('we are logging in')
+                  if (response.config.data.username ===username){
+                    console.log(response.config.data.username);
+                    angular.copy(response.config.data.username, currentUser)
+                  }
+                  return currentUser
                 })
             },
 
             getUsername: function() {
-                return username;
+                return currentUser
             },
 
 
@@ -282,13 +301,27 @@ module.exports = function(app) {
 
 },{}],7:[function(require,module,exports){
 module.exports = function(app){
-  app.factory('reviewsService', function($http){
-    console.log('memem');
+  app.factory('reviewsService', ['$http', '$location', function($http, $location){
+
+
+    console.log('you on reviews service');
+
+    let allReviewsList = [];
 
     return {
-      
-    }
-  })
+      getAllReviews: function(){
+        console.log('getting reviews from server');
+        $http({
+          method: 'GET',
+          url: '/savedreviews',
+        }).then(function(response) {
+          console.log('saved reviews', response, response.data)
+            angular.copy(response.data, allReviewsList);
+        })
+        return allReviewsList
+      }
+    };
+  }]);
 }
 
 },{}]},{},[4])

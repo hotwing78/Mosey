@@ -1,8 +1,22 @@
 module.exports = function(app){
   app.controller('reviewsController', ['$scope', '$http', '$location', 'reviewsService', 'loginService', function($scope, $http, $location, reviewsService, loginService){
 
-    $scope.username = loginService.getUser();
-    console.log('hihihihi reviews controller');
+    $scope.reviewList = reviewsService.getAllReviews();
+    $scope.username = loginService.getUsername();
+    $scope.errorMessage = '';
+
+    $scope.review = function(){
+      console.log(`send new review ${$scope.reviewText}`);
+      $http({
+        method: 'POST',
+        url: '/reviews',
+        data: $scope.reviewText,
+      }).then(function(response){
+        console.log('pina colada', response);
+        reviewsService.getAllReviews();
+      })
+    };
+
 
   }])
 }
