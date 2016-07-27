@@ -272,7 +272,7 @@ public class MoseyController {
     public void addRestaurant(HttpSession session, @RequestBody Restaurant restaurant) throws Exception {
         Iterable<Restaurant> rests = restaurants.findAll();
         for (Restaurant rest : rests) {
-            if (rest.getName() != null || rest.getLocalstake() != null || rest.getAddress() == null || rest.getLat() == null || rest.getLng() == null){
+            if (rest.getName() != null && rest.getLocalstake() != null && rest.getAddress() == null || rest.getLat() == null || rest.getLng() == null){
                 GeoApiContext context = new GeoApiContext()
                         .setApiKey(" ");
                 TextSearchRequest request = PlacesApi.textSearchQuery(context, rest.getName() + " Charleston");
@@ -297,7 +297,7 @@ public class MoseyController {
     public void addActivity(HttpSession session, @RequestBody Activity activity) throws Exception {
         Iterable<Activity> actvs = activities.findAll();
         for (Activity actv : actvs) {
-            if (actv.getActivityname() != null || actv.getLocalstake() != null || actv.getAddress() == null || actv.getLat() == null || actv.getLng() == null){
+            if (actv.getActivityname() != null && actv.getLocalstake() != null && actv.getAddress() == null || actv.getLat() == null || actv.getLng() == null){
                 GeoApiContext context = new GeoApiContext()
                         .setApiKey(" ");
                 TextSearchRequest request = PlacesApi.textSearchQuery(context, actv.getActivityname() + " Charleston");
