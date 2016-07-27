@@ -40,8 +40,8 @@ public class MoseyController {
     @Autowired
     ReviewRepository reviews;
 
-    @Autowired
-    ItineraryRespository itineraries;
+  /*  @Autowired
+    ItineraryRespository itineraries;*/
 
 
     String APIkey = APIreader();

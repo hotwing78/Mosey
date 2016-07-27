@@ -32,7 +32,7 @@ public class User {
 
     @Column(nullable = false)
     boolean isnative;
-
+/*
     private Set<Itinerary> itineraries = new HashSet<Itinerary>();
 
     public void addItinerary(Itinerary itinerary) {
@@ -44,7 +44,7 @@ public class User {
         return itineraries;
     }
 
-
+*/
     public User() {
     }
 
