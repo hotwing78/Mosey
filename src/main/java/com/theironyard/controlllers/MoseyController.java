@@ -251,6 +251,54 @@ public class MoseyController {
     }
 
 
+    @RequestMapping(path = "/newfood", method = RequestMethod.POST)
+    public void addRestaurant(HttpSession session, @RequestBody Restaurant restaurant) throws Exception {
+        Iterable<Restaurant> rests = restaurants.findAll();
+        for (Restaurant rest : rests) {
+            if (rest.getName() != null || rest.getAddress() == null || rest.getLat() == null || rest.getLng() == null){
+                GeoApiContext context = new GeoApiContext()
+                        .setApiKey(" ");
+                TextSearchRequest request = PlacesApi.textSearchQuery(context, rest.getName() + " Charleston");
+                PlacesSearchResponse results = request.await();
+                if (rest.getLat() == null){
+                    rest.setLat(results.results[0].geometry.location.lat);
+                }
+                if (rest.getLng() == null ) {
+                    rest.setLng(results.results[0].geometry.location.lng);
+                }
+                if (rest.getAddress() == null) {
+                    rest.setAddress(results.results[0].formattedAddress);
+                }
+                restaurants.save(rest);
+            }
+        }
+    }
+
+    @RequestMapping(path = "/newactivity", method = RequestMethod.POST)
+    public void addActivity(HttpSession session, @RequestBody Activity activity) throws Exception {
+        Iterable<Activity> actvs = activities.findAll();
+        for (Activity actv : actvs) {
+            if (actv.getActivityname() != null || actv.getAddress() == null || actv.getLat() == null || actv.getLng() == null){
+                GeoApiContext context = new GeoApiContext()
+                        .setApiKey(" ");
+                TextSearchRequest request = PlacesApi.textSearchQuery(context, actv.getActivityname() + " Charleston");
+                PlacesSearchResponse results = request.await();
+                if (actv.getLat() == null){
+                    actv.setLat(results.results[0].geometry.location.lat);
+                }
+                if (actv.getLng() == null ) {
+                    actv.setLng(results.results[0].geometry.location.lng);
+                }
+                if (actv.getAddress() == null) {
+                    actv.setAddress(results.results[0].formattedAddress);
+                }
+                activities.save(actv);
+            }
+        }
+
+    }
+
+
     public double distance (LatLng origin, LatLng dest) throws Exception {
         GeoApiContext context = new GeoApiContext().setApiKey(APIkey);
         DistanceMatrix matrix = DistanceMatrixApi.newRequest(context).destinations(dest).origins(origin).await();
