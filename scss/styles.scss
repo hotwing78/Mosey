@@ -3,6 +3,7 @@
 @import 'footer';
 @import 'reviews';
 @import 'registration';
+@import 'register';
 
 body {
   font-family: 'Source Sans Pro', sans-serif;
@@ -23,6 +24,7 @@ body {
 
 .signup-panel .button:hover {
   font-size: 1em;
+  box-shadow: 0 1px 6px rgba(0,0,0,.3);
 
     border-color: white;
     color: #292c2f;
