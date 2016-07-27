@@ -192,26 +192,13 @@
 
 .button .hollow {
   border: 1px solid #292c2f;
-  color: #33383b; }
-
-#registration {
-  justify-content: center;
-  text-align: center;
-  margin-bottom: 20px; }
+  color: #33383b;
+  background-color: white; }
 
 body {
   min-height: 100%;
   background-color: #808080;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.3); }
-
-.text-center {
-  text-align: center; }
-
-.space-bot {
-  margin-bottom: 35px; }
-
-.space-top {
-  margin-top: 35px; }
 
 /* Title */
 h1 {
@@ -290,6 +277,11 @@ body {
 .columns, h2, p, h1, h3, h4, h5, h6 {
   font-family: 'Source Sans Pro', sans-serif; }
 
+.signup-panel {
+  text-align: center;
+  justify-content: center;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.3); }
+
 .signup-panel .button {
   font-size: 1em;
   text-align: center;
@@ -309,8 +301,10 @@ body {
   text-align: center;
   justify-content: center;
   width: 100%;
-  border-color: #292c2f;
-  color: #ef3e36; }
+  border-color: white;
+  border-radius: .1em;
+  color: #ef3e36;
+  background-color: rgba(255, 255, 255, 0.65); }
 
 .button.hollow:hover {
   font-size: 1em;

@@ -10,6 +10,8 @@ module.exports = function(app) {
 
         let usersArray = [];
 
+        var currentUser = {};
+
         return {
 
             getUser: function() {
@@ -49,11 +51,18 @@ module.exports = function(app) {
                         username: username,
                         password: password,
                     }
+                }).then(function(response){
+                  console.log('we are logging in')
+                  if (response.config.data.username ===username){
+                    console.log(response.config.data.username);
+                    currentUser = response.config.data.username;
+                  }
+                  return currentUser
                 })
             },
 
             getUsername: function() {
-                return username;
+                return currentUser
             },
 
 

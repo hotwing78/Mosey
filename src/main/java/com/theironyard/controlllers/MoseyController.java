@@ -10,10 +10,8 @@ import com.theironyard.services.*;
 import com.theironyard.utils.PasswordStorage;
 import org.h2.tools.Server;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletResponse;
@@ -42,9 +40,11 @@ public class MoseyController {
     @Autowired
     ReviewRepository reviews;
 
-  /*  @Autowired
-    ItineraryRespository itineraries;*/
+    @Autowired
+    CommentRepository comments;
 
+    /* @Autowired
+    ItineraryRespository itineraries; */
 
     String APIkey = APIreader();
 
@@ -59,11 +59,7 @@ public class MoseyController {
 
 
 
-
-
-
-
-
+        //creating restaurants table from csv and allowing for missing content
         if (restaurants.count() == 0) {
             String filename = "Restaurants.csv";
             File f = new File(filename);
@@ -90,6 +86,7 @@ public class MoseyController {
             }
         }
 
+        //creating activities table from csv and allowing for missing content
         if (activities.count() == 0) {
             String filename = "Activities.csv";
             File f = new File(filename);
@@ -115,6 +112,7 @@ public class MoseyController {
             }
         }
 
+        //using Google Maps API to populate address, lat and lng in lieu of missing content
         Iterable<Restaurant> rests = restaurants.findAll();
         for (Restaurant rest : rests) {
             if (rest.getAddress() == null || rest.getLat() == null || rest.getLng() == null){
@@ -135,6 +133,7 @@ public class MoseyController {
             }
         }
 
+        //using Google Maps API to populate address, lat and lng in lieu of missing content
         Iterable<Activity> actvs = activities.findAll();
         for (Activity actv : actvs) {
             if (actv.getAddress() == null || actv.getLat() == null || actv.getLng() == null){
@@ -156,6 +155,7 @@ public class MoseyController {
         }
     }
 
+    //receiving current location from front-end
     @RequestMapping(path = "/mosey", method = RequestMethod.POST)
     public void home(HttpSession session, @RequestBody HashMap data)  {
         //Restaurant dest = restaurants.findOne(1);
@@ -168,10 +168,28 @@ public class MoseyController {
         double lng = (double) data.get("lng");
         LatLng origin = new LatLng(lat, lng);
         session.setAttribute("origin", origin);
-
-
     }
 
+    @RequestMapping(path="/mosey", method = RequestMethod.GET)
+    public double hover(HttpSession session, Object venue) throws Exception {
+
+        LatLng origin = (LatLng) session.getAttribute("origin");
+        double dist;
+
+        if (venue.getClass() == Restaurant.class) {
+            Restaurant rest = (Restaurant) venue;
+            LatLng dest = new LatLng(rest.getLat(), rest.getLng());
+            dist = distance(origin, dest);
+        }
+        else {
+            Activity activity =  (Activity) venue;
+            LatLng dest = new LatLng(activity.getLat(), activity.getLng());
+            dist = distance(origin, dest);
+        }
+        return dist;
+
+    }
+    //user and password check(passwords are hashed)
     @RequestMapping(path = "/login", method = RequestMethod.POST)
     public void login (HttpSession session, @RequestBody User user) throws Exception {
         User dummy = users.findByUsername(user.getUsername());
@@ -183,6 +201,7 @@ public class MoseyController {
         session.setAttribute("username", user.getUsername());
     }
 
+    //registering new user
     @RequestMapping(path = "/register", method = RequestMethod.POST)
     public void register (HttpSession session, @RequestBody User user) throws Exception {
         User regi = users.findByUsername(user.getUsername());
@@ -211,15 +230,22 @@ public class MoseyController {
         return activities.findAll();
     }
 
+    @RequestMapping(path = "/savedreviews", method = RequestMethod.GET)
+    public Iterable<Comment> getReviews () {
+        return comments.findAll();
+    }
+
 
     @RequestMapping(path = "/reviews", method = RequestMethod.POST)
     //need to add conditional for only for tourists
-    public void addReview(HttpSession session, @RequestBody Review review) throws Exception {
+    public void addReview(HttpSession session, @RequestBody Comment comment) throws Exception {
+
+
         String username = (String) session.getAttribute("username");
         if (username == null) {
             throw new Exception("You must be registered to leave a review.");
         }
-
+/*
         User user = users.findByUsername(username);
         if (user == null) {
             throw new Exception("Invalid username");
@@ -237,15 +263,37 @@ public class MoseyController {
             throw new Exception("Invalid selection");
         }
         review.setActivity(act);
-        reviews.save(review);
-    }
 
+        reviews.save(review);
+
+        */
+        comments.save(comment);
+
+    }
+    //show info for itinerary
     @RequestMapping(path = "/itinerary", method = RequestMethod.POST)
     //need to add contigency of being a registered user(our hook to get them to register)
     public Object getItinerary(HttpSession session, @RequestBody Object restaurant) {
 
         return restaurant;
     }
+    /* adding to itinerary
+    @RequestMapping(path = "/itinerary/new", method = RequestMethod.POST)
+    public String itineraryAdd(Model model, HttpSession session) {
+        model.addAttribute("activity", itineraries.findAll());
+        model.addAttribute("food", itineraries.findAll());
+        model.addAttribute("users", users.findAll());
+        return "itineraryadd";
+    }
+
+    //save itinerary
+    @RequestMapping(value = "itinerary/save", method = RequestMethod.POST)
+    public String saveItinerary(Model model, Activity activity, Restaurant restaurant) {
+        Itinerary itin = new Itinerary();
+        itineraries.save(itin);
+        return "itinerarysaved";
+    } */
+
 
     @RequestMapping(path = "/logout", method = RequestMethod.GET)
     public void logout(HttpSession session, HttpServletResponse response) throws IOException {
@@ -257,11 +305,10 @@ public class MoseyController {
     @RequestMapping(path = "/newfood", method = RequestMethod.POST)
     //need to add a check for isNative
     //need to add a method that only allows for this to public if 10 isNative users approve the suggestion
-    //need to add localTake field
     public void addRestaurant(HttpSession session, @RequestBody Restaurant restaurant) throws Exception {
         Iterable<Restaurant> rests = restaurants.findAll();
         for (Restaurant rest : rests) {
-            if (rest.getName() != null || rest.getAddress() == null || rest.getLat() == null || rest.getLng() == null){
+            if (rest.getName() != null && rest.getLocalstake() != null && rest.getAddress() == null || rest.getLat() == null || rest.getLng() == null){
                 GeoApiContext context = new GeoApiContext()
                         .setApiKey(" ");
                 TextSearchRequest request = PlacesApi.textSearchQuery(context, rest.getName() + " Charleston");
@@ -283,11 +330,10 @@ public class MoseyController {
     @RequestMapping(path = "/newactivity", method = RequestMethod.POST)
     //need to add a check for isNative
     //need to add a method that only allows for this to public if 10 isNative users approve the suggestion
-    //need to add localTake field
     public void addActivity(HttpSession session, @RequestBody Activity activity) throws Exception {
         Iterable<Activity> actvs = activities.findAll();
         for (Activity actv : actvs) {
-            if (actv.getActivityname() != null || actv.getAddress() == null || actv.getLat() == null || actv.getLng() == null){
+            if (actv.getActivityname() != null && actv.getLocalstake() != null && actv.getAddress() == null || actv.getLat() == null || actv.getLng() == null){
                 GeoApiContext context = new GeoApiContext()
                         .setApiKey(" ");
                 TextSearchRequest request = PlacesApi.textSearchQuery(context, actv.getActivityname() + " Charleston");
