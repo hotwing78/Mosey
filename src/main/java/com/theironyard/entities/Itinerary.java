@@ -25,7 +25,7 @@ public class Itinerary {
 
     @Id
     @GeneratedValue
-            @Column(name = "moseyid")
+            @Column(name = "itinerary")
     public long getId(){
         return id;
     }
@@ -33,8 +33,8 @@ public class Itinerary {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "USERS_ITINERARIES",
-            joinColumns = @JoinColumn(name = "moseyid"),
-            inverseJoinColumns = @JoinColumn(name = "userid")
+            joinColumns = @JoinColumn(name = "itinerary"),
+            inverseJoinColumns = @JoinColumn(name = "username")
     )
     public Set<User> getUsers() {
         return users;

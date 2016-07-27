@@ -8,14 +8,14 @@ module.exports = function(app) {
             lng: -79.9404072,
         });
 
-        // var goldStar = {
-        //   path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
-        //   fillColor: 'yellow',
-        //   fillOpacity: 0.8,
-        //   scale: .1,
-        //   strokeColor: 'gold',
-        //   strokeWeight: 14
-        // };
+        var goldStar = {
+          path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
+          fillColor: 'yellow',
+          fillOpacity: 0.8,
+          scale: .1,
+          strokeColor: 'gold',
+          strokeWeight: 14
+        };
         return {
 
             getLocationName: function() {
@@ -72,11 +72,22 @@ module.exports = function(app) {
                       let lng = position.coords.longitude;
                       $http({
                         url:'/mosey',
-                        method:'POST',
+                        method:'post',
                         data:{
                           lat:lat,
                           lng:lng,
-                        }
+                          }
+                      });
+                      map.addMarker({
+                          lat: lat,
+                          lng: lng,
+                          title: 'user',
+                          icon: goldStar,
+                          // icon: goldStar,
+                          click: function(e) {
+                              itenerary.push(point);
+                              console.log(itenerary);
+                          }
                       });
                         map.setCenter(position.coords.latitude, position.coords.longitude);
                     },
