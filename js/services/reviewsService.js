@@ -8,7 +8,7 @@ module.exports = function(app){
 
     return {
       getAllReviews: function(){
-        console.log('getting reviews from server');
+        // console.log('getting reviews from server');
         $http({
           method: 'GET',
           url: '/savedreviews',
@@ -16,6 +16,7 @@ module.exports = function(app){
           console.log('saved reviews', response, response.data)
             angular.copy(response.data, allReviewsList);
         })
+        console.log('allReviewsList issss', allReviewsList);
         return allReviewsList
       }
     };

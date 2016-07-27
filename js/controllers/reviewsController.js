@@ -7,10 +7,13 @@ module.exports = function(app){
 
     $scope.review = function(){
       console.log(`send new review ${$scope.reviewText}`);
-      $http({
+      return $http({
         method: 'POST',
         url: '/reviews',
-        data: $scope.reviewText,
+        data: {
+          comment: $scope.reviewText,
+          username: 'teammosey',
+        }
       }).then(function(response){
         console.log('pina colada', response);
         reviewsService.getAllReviews();
