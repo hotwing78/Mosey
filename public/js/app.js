@@ -174,7 +174,7 @@ module.exports = function(app){
 },{}],6:[function(require,module,exports){
 module.exports = function(app) {
     app.factory('Markers', ['$http', function($http) {
-        var itenerary = [];
+        var itinerary = [];
 
         var map = new GMaps({
             div: '#map',
@@ -203,8 +203,13 @@ module.exports = function(app) {
                     title: point.name,
                     // icon: goldStar,
                     click: function(e) {
-                        itenerary.push(point);
-                        console.log(itenerary);
+                      $http({
+                        url: '/itinerary',
+                        method: 'post',
+                        data: point
+                      })
+                        itinerary.push(point);
+                        console.log(itinerary);
                     }
                 });
 
@@ -259,8 +264,8 @@ module.exports = function(app) {
                           icon: goldStar,
                           // icon: goldStar,
                           click: function(e) {
-                              itenerary.push(point);
-                              console.log(itenerary);
+                              itinerary.push(point);
+                              console.log(itinerary);
                           }
                       });
                         map.setCenter(position.coords.latitude, position.coords.longitude);
