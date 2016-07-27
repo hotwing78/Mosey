@@ -79,7 +79,10 @@ module.exports = function(app){
       }).then(function(response){
         console.log('pina colada', response);
         return reviewsService.getAllReviews();
-      })
+      }),function(response){
+        console.log('response', response.data.message);
+        $scope.errorMessage = response.data.message;
+      }
     };
 
 
@@ -133,8 +136,8 @@ module.exports = function(app) {
         let password = "";
         let isLocal = true;
 
-        let usersArray = [];
 
+        let usersArray = [];
         var currentUser = {};
 
         return {
