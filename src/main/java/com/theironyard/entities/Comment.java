@@ -23,6 +23,10 @@ public class Comment {
         this.comment = comment;
     }
 
+
+    public Comment() {
+    }
+
     public int getId() {
         return id;
     }
