@@ -16,6 +16,8 @@ module.exports = function(app) {
           strokeColor: 'gold',
           strokeWeight: 14
         };
+
+        var infoWindowContent = '<button>Click to add!</button';
         return {
 
             getLocationName: function() {
@@ -27,15 +29,30 @@ module.exports = function(app) {
                     lat: point.lat,
                     lng: point.lng,
                     title: point.name,
+                    infoWindow: {
+                    content: point.name + infoWindowContent,
                     click: function(e) {
                       $http({
                         url: '/itinerary',
                         method: 'post',
-                        data: point
-                      })
-                        itinerary.push(point);
-                        console.log(itinerary);
-                    }
+                        data: point,
+                      });
+                      console.log('clicked');
+
+                    },
+                    closeclick: function(e) {
+                         $("#customer-details-container").hide();
+                     }
+                    // click: function(e) {
+                    //   $http({
+                    //     url: '/itinerary',
+                    //     method: 'post',
+                    //     data: point
+                    //   })
+                    //     itinerary.push(point);
+                    //     console.log(itinerary);
+
+                  }
                 });
 
             },//End of setMarker******************************************************************
