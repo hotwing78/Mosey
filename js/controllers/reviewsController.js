@@ -39,6 +39,7 @@ module.exports = function(app) {
             data: comment,
           }).then(function(res){
             console.log(res);
+            $scope.reviewList.splice(index, 1);
           }).catch(function(response) {
               console.log('BRANDON', response);
               $scope.errorMessage = response.data.message;
@@ -48,7 +49,7 @@ module.exports = function(app) {
           // }), function(error){
           //   console.log('delete error');
           // }
-            $scope.reviewList.splice(index, 1);
+            // $scope.reviewList.splice(index, 1);
         };
 
 
