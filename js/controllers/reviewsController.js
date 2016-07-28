@@ -34,11 +34,14 @@ module.exports = function(app) {
             }
             console.log(comment);
           return $http({
-            method: 'DELETE',
+            method: 'POST',
             url: '/deletereviews',
             data: comment,
           }).then(function(res){
             console.log(res);
+          }).catch(function(response) {
+              console.log('BRANDON', response);
+              $scope.errorMessage = response.data.message;
           })
           // .then(function(response){
           //   console.log('deletttting this response: ', response);
