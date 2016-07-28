@@ -15,7 +15,7 @@ module.exports = function(app) {
                     // username: 'teammosey'
                 }
             }).catch(function(response) {
-                console.log('response', response.data.message);
+                console.log('BRANDON', response);
                 $scope.errorMessage = response.data.message;
             }).then(function(response) {
                 console.log('pina colada', response);
