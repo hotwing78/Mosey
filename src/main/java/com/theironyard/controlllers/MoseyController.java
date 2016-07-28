@@ -237,7 +237,7 @@ public class MoseyController {
             throw new Exception("You must be registered to delete a review.");
         }
 
-        if (username != comment.getUsername()) {
+        if (!(username.equals(comment.getUsername()))) {
             throw new Exception("You can't delete someone else's review!");
         }
             int id = comment.getId();
