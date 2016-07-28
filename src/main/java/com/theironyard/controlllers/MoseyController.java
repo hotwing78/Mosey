@@ -43,8 +43,8 @@ public class MoseyController {
     @Autowired
     CommentRepository comments;
 
-    /* @Autowired
-    ItineraryRespository itineraries; */
+    @Autowired
+    ItineraryRespository itineraries;
 
     String APIkey = APIreader();
 
@@ -293,9 +293,13 @@ public class MoseyController {
     //show info for itinerary
     @RequestMapping(path = "/itinerary", method = RequestMethod.POST)
     //need to add contigency of being a registered user(our hook to get them to register)
-    public Object getItinerary(HttpSession session, @RequestBody Object restaurant) {
+    public void addItinerary(HttpSession session, @RequestBody Itinerary itinerary) throws Exception {
+        String username = (String) session.getAttribute("username");
+        if (username == null) {
+            throw new Exception("You must be registered to create an itinerary");
+        }
 
-        return restaurant;
+        itineraries.save(itinerary);
     }
 
 
