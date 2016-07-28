@@ -100,16 +100,27 @@ module.exports = function(app) {
 
         $scope.deleteReview = function(index) {
             console.log(index);
-
+            var comment = {
+              id: index.id,
+              comment: index.comment,
+              username: index.username
+            }
+            console.log(comment);
           return $http({
-            method: 'DELETE',
+            method: 'POST',
             url: '/deletereviews',
-            data: index,
-          }).then(function(response){
-            console.log('deletttting this response: ', response);
-          }), function(error){
-            console.log('delete error');
-          }
+            data: comment,
+          }).then(function(res){
+            console.log(res);
+          }).catch(function(response) {
+              console.log('BRANDON', response);
+              $scope.errorMessage = response.data.message;
+          })
+          // .then(function(response){
+          //   console.log('deletttting this response: ', response);
+          // }), function(error){
+          //   console.log('delete error');
+          // }
             $scope.reviewList.splice(index, 1);
         };
 
