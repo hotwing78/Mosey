@@ -28,8 +28,9 @@
         <hr />
         <div class="large-12 columns">
           <p><strong>{{username}} said:</strong> {{review.comment}}</p>
+          <button type="button" class=" hollow button" ng-click='deleteReview(review)'>Delete</button>
 
-          <!-- <p>{{review.comment}}</p> -->
+          <p>{{review.comment}}</p>
         </div>
         <hr />
       </div>
@@ -49,7 +50,7 @@
         <textarea rows="4.5" placeholder="Tell us about your experience..." ng-model='reviewText'></textarea>
     </div>
     <div class="small-12 columns">
-      <button type="button" class=" hollow button" ng-click='addReview()'>Review</a>
+      <button type="button" class=" hollow button" ng-click='addReview()'>Review</button>
     </div>
 
 

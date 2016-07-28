@@ -14,5 +14,5 @@ module.exports = function(app) {
         // scope.$watch('food', function() {
         //     Markers.setMarker();
         // }, true);
-    }]);
-}
+    }])
+};

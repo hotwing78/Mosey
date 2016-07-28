@@ -56,8 +56,8 @@ module.exports = function(app) {
         // scope.$watch('food', function() {
         //     Markers.setMarker();
         // }, true);
-    }]);
-}
+    }])
+};
 
 },{}],3:[function(require,module,exports){
 module.exports = function(app){
@@ -83,6 +83,10 @@ module.exports = function(app){
         console.log('response', response.data.message);
         $scope.errorMessage = response.data.message;
       }
+    };
+
+    $scope.deleteReview= function(index){
+      $scope.reviewList.splice(index, 1);
     };
 
 

@@ -23,6 +23,10 @@ module.exports = function(app){
       }
     };
 
+    $scope.deleteReview= function(index){
+      $scope.reviewList.splice(index, 1);
+    };
+
 
   }])
 }
