@@ -8,8 +8,8 @@ module.exports = function(app) {
         let password = "";
         let isLocal = true;
 
-        let usersArray = [];
 
+        let usersArray = [];
         var currentUser = {};
 
         return {

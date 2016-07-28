@@ -42,60 +42,117 @@ module.exports = function(app){
 },{}],2:[function(require,module,exports){
 module.exports = function(app) {
     app.controller('mapController', ['$scope', '$compile', 'Markers', function($scope, $compile, Markers) {
+        let myCtrl = this;
+        myCtrl.tab = 'mosey';
 
         $scope.random = function() {
-          let point = Markers.getPoint();
-          Markers.intineraryAdd(point);
+            //let point = Markers.getPoint();
+            //Markers.intineraryAdd(point);
             console.log('clicked');
-
         };
-        Markers.getLocation();
-        Markers.getRestaurants().then(function(promise) {
-            let food = promise;
-            for (let i = 0; i < food.length; i++) {
-                Markers.setMarker(food[i], function(point) {
 
-                        var htmlElement = `<div class = 'info'>
-                             Name:\t${point.name}</br>
-                             Price:\t${point.price}</br>
-                             Category:\t${point.category}</br>
-                             <button ng-click ="random()">ADD</button> </div>`
-                        var compiled = $compile(htmlElement)($scope)
-                            return compiled[0];
-
-                    }) //Passing in a anonomys function that returns compiled...On the fly.
-            }
+        let map = new GMaps({
+            div: '#map',
+            lat: 32.79222,
+            lng: -79.9404072,
         });
 
+        let goldStar = {
+            path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
+            fillColor: 'yellow',
+            fillOpacity: 0.8,
+            scale: .1,
+            strokeColor: 'gold',
+            strokeWeight: 14
+        }
 
+        function content(point) {
+            var htmlElement = `<div class = 'info'>
+                            Name:\t${point.name}</br>
+                            Price:\t${point.price}</br>
+                            Category:\t${point.category}</br>
+                            <button ng-click ="random()">ADD</button>
+                            </div>`
+            var compiled = $compile(htmlElement)($scope)
+            return compiled[0];
+        }
+
+        GMaps.geolocate({
+            success: function(position) {
+                let lat = position.coords.latitude;
+                let lng = position.coords.longitude;
+                Markers.getCurrentLocation(lat, lng);
+                map.addMarker({
+                    lat: lat,
+                    lng: lng,
+                    title: 'user',
+                    icon: goldStar,
+                });
+                map.setCenter(position.coords.latitude, position.coords.longitude);
+                Markers.getRestaurants().then(function(promise) {
+                    let food = promise;
+                    food.forEach(function(point) {
+                        map.addMarker({
+                            lat: point.lat,
+                            lng: point.lng,
+                            title: point.name,
+                            infoWindow: {
+                                content: content(point),
+                            },
+                            click: function(e) {
+                                let possiblePoint = point;
+                                console.log(possiblePoint)
+                            }
+                        }); //end addMarker
+                    }); //End forEach
+                }); //End Markers.getRestaurants
+            },
+            error: function(error) {
+                alert('Geolocation failed: ' + error.message);
+            },
+            not_supported: function() {
+                alert("Your browser does not support geolocation");
+            },
+            always: function() {
+                alert("Done!");
+            }
+        });
     }]);
 }
 
 },{}],3:[function(require,module,exports){
-module.exports = function(app){
-  app.controller('reviewsController', ['$scope', '$http', '$location', 'reviewsService', 'loginService', function($scope, $http, $location, reviewsService, loginService){
+module.exports = function(app) {
+    app.controller('reviewsController', ['$scope', '$http', '$location', 'reviewsService', 'loginService', function($scope, $http, $location, reviewsService, loginService) {
 
-    $scope.reviewList = reviewsService.getAllReviews();
-    $scope.username = loginService.getUsername();
-    $scope.errorMessage = '';
+        $scope.reviewList = reviewsService.getAllReviews();
+        $scope.username = loginService.getUsername();
+        $scope.errorMessage = '';
+        $scope.addReview = function() {
+            console.log(`send new review ${$scope.reviewText}`);
+            return $http({
+                method: 'POST',
+                url: '/reviews',
+                data: {
+                    comment: $scope.reviewText
+                    // username: 'teammosey'
+                }
+            }).catch(function(response) {
+                console.log('BRANDON', response);
+                $scope.errorMessage = response.data.message;
+            }).then(function(response) {
+                console.log('pina colada', response);
+                return reviewsService.getAllReviews();
+            })
 
-    $scope.addReview = function(){
-      console.log(`send new review ${$scope.reviewText}`);
-      return $http({
-        method: 'POST',
-        url: '/reviews',
-        data: {
-          comment: $scope.reviewText,
-          username: 'teammosey'
-        }
-      }).then(function(response){
-        console.log('pina colada', response);
-        return reviewsService.getAllReviews();
-      })
-    };
+
+        };
+
+        $scope.deleteReview = function(index) {
+            $scope.reviewList.splice(index, 1);
+        };
 
 
-  }])
+    }])
 }
 
 },{}],4:[function(require,module,exports){
@@ -145,8 +202,8 @@ module.exports = function(app) {
         let password = "";
         let isLocal = true;
 
-        let usersArray = [];
 
+        let usersArray = [];
         var currentUser = {};
 
         return {
@@ -211,58 +268,36 @@ module.exports = function(app) {
 module.exports = function(app) {
     app.factory('Markers', ['$http', function($http) {
         var itinerary = [];
+        var restaurants = [];
         var possiblePoint;
-        var map = new GMaps({
-            div: '#map',
-            lat: 32.79222,
-            lng: -79.9404072,
-        });
-
-        var goldStar = {
-            path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
-            fillColor: 'yellow',
-            fillOpacity: 0.8,
-            scale: .1,
-            strokeColor: 'gold',
-            strokeWeight: 14
-        };
 
         return {
-            getPoint: function(){
-              return possiblePoint;
+          getPoint: function(){
+             return possiblePoint;
+           },
+            getEats: function() {
+                return restaurants
             },
-            intineraryAdd: function(point){
-                  console.log(point);
-                  $http({
-                      url: '/itinerary',
-                      method: 'post',
-                      data: point,
-                  });
+
+            intineraryAdd: function(point) {
+                $http({
+                    url: '/itinerary',
+                    method: 'post',
+                    data: point,
+                })
 
             },
-            getLocationName: function() {
-                return name;
-            }, //End of getLocationName************************************************************
+            getCurrentLocation: function(lat, lng) {
+                $http({
+                    url: '/mosey',
+                    method: 'post',
+                    data: {
+                        lat: lat,
+                        lng: lng,
+                    }
+                });
+            },
 
-            setMarker: function(point, content) {
-                if (point.name !== '') {
-                    map.addMarker({
-                        lat: point.lat,
-                        lng: point.lng,
-                        title: point.name,
-                        infoWindow: {
-                            content: content(point),
-                        },//infoWindow
-                        click: function(e) {
-                              possiblePoint = point;
-                              console.log(possiblePoint)
-                            }//click
-                    });//map.addMarker
-                }//if
-
-            }, //End of setMarker******************************************************************
-
-            /* This is where I make a call to the server to get the available eats in town*/
             getRestaurants: function() {
                 var promise = $http({
                     url: '/food',
@@ -271,56 +306,7 @@ module.exports = function(app) {
                     return results.data;
                 });
                 return promise;
-
-            }, //End of getRestaurants************************************************************
-
-            /* This is where I make a call to the server to get the available events*/
-            getEvents: function() {
-                var promise = $http({
-                    url: '/activity',
-                    method: 'get'
-                }).then(function(results) {
-                    return results.data;
-                });
-                return promise;
-
-            }, //End of getEvent******************************************************************
-
-            getItenerary: function() {
-                return itenerary;
-            }, //End of getItenerary***************************************************************
-
-            /*This is where I set the available activities to points on the map*/
-            getLocation: function() {
-                    GMaps.geolocate({
-                        success: function(position) {
-                            let lat = position.coords.latitude;
-                            let lng = position.coords.longitude;
-                            $http({
-                                url: '/mosey',
-                                method: 'post',
-                                data: {
-                                    lat: lat,
-                                    lng: lng,
-                                }
-                            });
-                            map.addMarker({
-                                lat: lat,
-                                lng: lng,
-                                title: 'user',
-                                icon: goldStar,
-                            });
-                            map.setCenter(position.coords.latitude, position.coords.longitude);
-                        },
-                        error: function(error) {
-                            alert('Geolocation failed: ' + error.message);
-                        },
-                        not_supported: function() {
-                            alert("Your browser does not support geolocation");
-                        }
-                    });
-
-                } //End of getLocations**************************************************************
+            }
 
         } //End of return*****************************
     }]); //End of end of app.Factory************************************************************
