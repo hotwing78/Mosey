@@ -230,7 +230,7 @@ public class MoseyController {
         return activities.findAll();
     }
 
-    @RequestMapping(path = "/deletereviews", method = RequestMethod.DELETE)
+    @RequestMapping(path = "/deletereviews", method = RequestMethod.POST)
     public void deleteReviews (HttpSession session, @RequestBody Comment comment) throws Exception {
         String username = (String) session.getAttribute("username");
         if (username == null) {
