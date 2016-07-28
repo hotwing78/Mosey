@@ -236,6 +236,10 @@ public class MoseyController {
         if (username == null) {
             throw new Exception("You must be registered to delete a review.");
         }
+
+        if (username != comment.getUsername()) {
+            throw new Exception("You can't delete someone else's review!");
+        }
             int id = comment.getId();
             comments.delete(id);
     }
@@ -245,6 +249,10 @@ public class MoseyController {
         String username = (String) session.getAttribute("username");
         if (username == null) {
             throw new Exception("You must be registered to edit a review.");
+        }
+
+        if (username != comment.getUsername()) {
+            throw new Exception("You can't edit someone else's review!");
         }
 
         comments.save(comment);
