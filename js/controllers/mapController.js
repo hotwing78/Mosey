@@ -1,18 +1,29 @@
 module.exports = function(app) {
-    app.controller('mapController', ['$scope', 'Markers', function($scope, Markers) {
-        // $scope.itenerary = Markers.getItenerary();
-        Markers.getLocation();
-        Markers.getRestaurants().then(function(promise){
-          let food = promise;
-          for(let i = 0; i < food.length; i++){
-          Markers.setMarker(food[i])
-        }
-        });
-          console.log('Log here');
+    app.controller('mapController', ['$scope', '$compile', 'Markers', function($scope, $compile, Markers) {
 
-        //  Markers.setMarkers(Markers.getRestaurants().);
-        // scope.$watch('food', function() {
-        //     Markers.setMarker();
-        // }, true);
-    }])
-};
+        $scope.random = function() {
+          let point = Markers.getPoint();
+          Markers.intineraryAdd(point);
+            console.log('clicked');
+
+        };
+        Markers.getLocation();
+        Markers.getRestaurants().then(function(promise) {
+            let food = promise;
+            for (let i = 0; i < food.length; i++) {
+                Markers.setMarker(food[i], function(point) {
+
+                        var htmlElement = `<div class = 'info'>
+                             Name:\t${point.name}</br>
+                             Price:\t${point.price}</br>
+                             Category:\t${point.category}</br>
+                             <button ng-click ="random()">ADD</button> </div>`
+                        var compiled = $compile(htmlElement)($scope)
+                            return compiled[0];
+
+                    }) //Passing in a anonomys function that returns compiled...On the fly.
+            }
+        });
+
+    }]);
+}
