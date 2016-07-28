@@ -13,9 +13,10 @@ body {
 }
 
 .signup-panel{
+  background-color: rgba(255,255,255,.65);
   text-align: center;
   justify-content: center;
-  box-shadow: 0 1px 6px rgba(0,0,0,.3);
+  box-shadow: 0 1px 6px rgba(0,0,0,.5);
 }
 
 .signup-panel .button {
@@ -23,7 +24,7 @@ body {
     text-align: center;
     justify-content: center;
     width: 100%;
-    border-color: #292c2f;
+    border-color: white;
     color: #ef3e36;
   }
 
@@ -39,8 +40,8 @@ body {
     text-align: center;
     justify-content: center;
     width: 100%;
-    border-color: white;
     border-radius: .1em;
+    border-color:  #292c2f;
     color: #ef3e36;
     background-color:  rgba(255,255,255,.65);
 
