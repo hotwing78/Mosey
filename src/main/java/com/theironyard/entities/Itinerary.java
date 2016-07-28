@@ -10,62 +10,45 @@ import java.util.Set;
 @Entity
 @Table(name = "itineraries")
 public class Itinerary {
-    private long id;
-    private String name;
-
-    private Set<User> users = new HashSet<User>();
-
-    public Itinerary() {
-
-    }
-
-    public void addUser(User user) {
-        this.users.add(user);
-    }
-
-    public Itinerary(String name) {
-        this.name = name;
-    }
-
     @Id
     @GeneratedValue
-            @Column(name = "itinerary")
-    public long getId(){
-        return id;
+    int id;
+
+    @Column(nullable = false)
+    String itinerary;
+
+    @ManyToOne
+    User users;
+
+    public Itinerary() {
     }
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "USERS_ITINERARIES",
-            joinColumns = @JoinColumn(name = "itinerary"),
-            inverseJoinColumns = @JoinColumn(name = "username")
-    )
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setUsers(Set<User> users) {
+    public Itinerary(String itinerary, User users) {
+        this.itinerary = itinerary;
         this.users = users;
     }
 
-    @Override
-    public String toString() {
-        return "Itinerary{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", users=" + users +
-                '}';
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getItinerary() {
+        return itinerary;
+    }
+
+    public void setItinerary(String itinerary) {
+        this.itinerary = itinerary;
+    }
+
+    public User getUsers() {
+        return users;
+    }
+
+    public void setUsers(User users) {
+        this.users = users;
     }
 }
