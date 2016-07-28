@@ -253,7 +253,7 @@ public class MoseyController {
             throw new Exception("You must be registered to edit a review.");
         }
 
-        if (username != comment.getUsername()) {
+        if (!(username.equals(comment.getUsername()))) {
             throw new Exception("You can't edit someone else's review!");
         }
 
