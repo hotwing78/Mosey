@@ -27,10 +27,9 @@
       <div class="row" ng-repeat="review in reviewList">
         <hr />
         <div class="large-12 columns">
-          <p><strong>{{username}} said:</strong> {{review.comment}}</p>
+          <p><strong>{{review.username}} said:</strong> {{review.comment}}</p>
           <button type="button" class=" hollow button" ng-click='deleteReview(review)'>Delete</button>
 
-          <p>{{review.comment}}</p>
         </div>
         <hr />
       </div>
