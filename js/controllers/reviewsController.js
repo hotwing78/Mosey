@@ -17,7 +17,14 @@ module.exports = function(app){
       }).then(function(response){
         console.log('pina colada', response);
         return reviewsService.getAllReviews();
-      })
+      }),function(response){
+        console.log('response', response.data.message);
+        $scope.errorMessage = response.data.message;
+      }
+    };
+
+    $scope.deleteReview= function(index){
+      $scope.reviewList.splice(index, 1);
     };
 
 
