@@ -26,6 +26,17 @@ module.exports = function(app) {
         };
 
         $scope.deleteReview = function(index) {
+            console.log(index);
+
+          return $http({
+            method: 'DELETE',
+            url: '/deletereviews',
+            data: index,
+          }).then(function(response){
+            console.log('deletttting this response: ', response);
+          }), function(error){
+            console.log('delete error');
+          }
             $scope.reviewList.splice(index, 1);
         };
 
