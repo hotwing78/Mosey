@@ -231,7 +231,7 @@ public class MoseyController {
     }
 
     @RequestMapping(path = "/deletereviews", method = RequestMethod.DELETE)
-    public void deleteReviews (HttpSession session, Comment comment) throws Exception {
+    public void deleteReviews (HttpSession session, @RequestBody Comment comment) throws Exception {
         String username = (String) session.getAttribute("username");
         if (username == null) {
             throw new Exception("You must be registered to delete a review.");
@@ -243,6 +243,8 @@ public class MoseyController {
             int id = comment.getId();
             comments.delete(id);
     }
+
+
 
     @RequestMapping(path = "/editreviews", method = RequestMethod.POST)
     public void editReviews (HttpSession session, @RequestBody Comment comment) throws Exception {
