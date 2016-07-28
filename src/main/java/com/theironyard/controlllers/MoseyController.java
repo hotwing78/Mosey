@@ -265,6 +265,7 @@ public class MoseyController {
         if (username == null) {
             throw new Exception("You must be registered to leave a review.");
         }
+        comment.setUsername(username);
 /*
         User user = users.findByUsername(username);
         if (user == null) {
