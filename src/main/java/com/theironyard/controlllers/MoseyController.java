@@ -230,6 +230,26 @@ public class MoseyController {
         return activities.findAll();
     }
 
+    @RequestMapping(path = "/deletereviews", method = RequestMethod.DELETE)
+    public void deleteReviews (HttpSession session, Comment comment) throws Exception {
+        String username = (String) session.getAttribute("username");
+        if (username == null) {
+            throw new Exception("You must be registered to delete a review.");
+        }
+            int id = comment.getId();
+            comments.delete(id);
+    }
+
+    @RequestMapping(path = "/editreviews", method = RequestMethod.POST)
+    public void editReviews (HttpSession session, @RequestBody Comment comment) throws Exception {
+        String username = (String) session.getAttribute("username");
+        if (username == null) {
+            throw new Exception("You must be registered to edit a review.");
+        }
+
+        comments.save(comment);
+    }
+
     @RequestMapping(path = "/savedreviews", method = RequestMethod.GET)
     public Iterable<Comment> getReviews () {
         return comments.findAll();
@@ -277,6 +297,8 @@ public class MoseyController {
 
         return restaurant;
     }
+
+
     /* adding to itinerary
     @RequestMapping(path = "/itinerary/new", method = RequestMethod.POST)
     public String itineraryAdd(Model model, HttpSession session) {
