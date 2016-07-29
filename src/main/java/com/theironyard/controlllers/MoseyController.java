@@ -353,25 +353,6 @@ public class MoseyController {
     }
 
 
-
-    /* adding to itinerary
-    @RequestMapping(path = "/itinerary/new", method = RequestMethod.POST)
-    public String itineraryAdd(Model model, HttpSession session) {
-        model.addAttribute("activity", itineraries.findAll());
-        model.addAttribute("food", itineraries.findAll());
-        model.addAttribute("users", users.findAll());
-        return "itineraryadd";
-    }
-
-    //save itinerary
-    @RequestMapping(value = "itinerary/save", method = RequestMethod.POST)
-    public String saveItinerary(Model model, Activity activity, Restaurant restaurant) {
-        Itinerary itin = new Itinerary();
-        itineraries.save(itin);
-        return "itinerarysaved";
-    } */
-
-
     @RequestMapping(path = "/logout", method = RequestMethod.GET)
     public void logout(HttpSession session, HttpServletResponse response) throws IOException {
         session.invalidate();
@@ -382,8 +363,14 @@ public class MoseyController {
     @RequestMapping(path = "/newfood", method = RequestMethod.POST)
     //need to add a check for isNative
     //need to add a method that only allows for this to public if 10 isNative users approve the suggestion
-    public void addRestaurant(HttpSession session, @RequestBody Restaurant restaurant) throws Exception {
+    public void addRestaurant(HttpSession session, @RequestBody Restaurant restaurant, boolean isnative) throws Exception {
+        String username = (String) session.getAttribute("username");
+        User user = users.findByUsername(username);
+        if (isnative == false) {
+            throw new Exception("You must be a local to add a spot.");
+        }
         Iterable<Restaurant> rests = restaurants.findAll();
+        //need disclaimer to user that Name, Address and Localstake are required fields
         for (Restaurant rest : rests) {
             if (rest.getName() != null && rest.getLocalstake() != null && rest.getAddress() == null || rest.getLat() == null || rest.getLng() == null){
                 GeoApiContext context = new GeoApiContext()
@@ -407,8 +394,14 @@ public class MoseyController {
     @RequestMapping(path = "/newactivity", method = RequestMethod.POST)
     //need to add a check for isNative
     //need to add a method that only allows for this to public if 10 isNative users approve the suggestion
-    public void addActivity(HttpSession session, @RequestBody Activity activity) throws Exception {
+    public void addActivity(HttpSession session, @RequestBody Activity activity, boolean isnative) throws Exception {
+        String username = (String) session.getAttribute("username");
+        User user = users.findByUsername(username);
+        if (isnative == false) {
+            throw new Exception("You must be a local to add a spot.");
+        }
         Iterable<Activity> actvs = activities.findAll();
+        //need disclaimer to user that Name, Address and Localstake are required fields
         for (Activity actv : actvs) {
             if (actv.getActivityname() != null && actv.getLocalstake() != null && actv.getAddress() == null || actv.getLat() == null || actv.getLng() == null){
                 GeoApiContext context = new GeoApiContext()
