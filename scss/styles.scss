@@ -4,6 +4,12 @@
 @import 'reviews';
 @import 'register';
 
+
+$primary-yellow: #E1B80D;
+$primary-offwht: #FEF3E2;
+$primary-red: #FA4032;
+$primary-orange: #FA812F;
+
 body {
   font-family: 'Source Sans Pro', sans-serif;
 }
@@ -13,10 +19,10 @@ body {
 }
 
 .signup-panel{
-  background-color: rgba(255,255,255,.65);
+  background-color: $primary-offwht;
   text-align: center;
   justify-content: center;
-  box-shadow: 0 1px 6px rgba(0,0,0,.5);
+  box-shadow: 0 1px 6px $primary-red;
 }
 
 .signup-panel .button {
@@ -25,14 +31,14 @@ body {
     justify-content: center;
     width: 100%;
     border-color: white;
-    color: #ef3e36;
+    color: $primary-red;
   }
 
 .signup-panel .button:hover {
   font-size: 1em;
-  box-shadow: 0 1px 6px rgba(0,0,0,.3);
+  box-shadow: 0 1px 6px $primary-red;
   border-color: white;
-  color: #292c2f;
+  color: $primary-orange;
   }
 
   .button.hollow {
@@ -42,14 +48,14 @@ body {
     width: 100%;
     border-radius: .1em;
     border-color:  white;
-    color: #ef3e36;
+    color: $primary-red;
     background-color:  rgba(255,255,255,.65);
 
   }
   .button.hollow:hover {
     font-size: 1em;
     border-color: white;
-    color: #292c2f;
+    color: $primary-orange;
   }
 
 .menu a:active {

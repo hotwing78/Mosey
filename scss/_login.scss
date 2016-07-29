@@ -1,7 +1,11 @@
+$primary-yellow: #E1B80D;
+$primary-offwht: #FEF3E2;
+$primary-red: #FA4032;
+$primary-orange: #FA812F;
 
 
 .top-bar {
-  background-color: #292c2f;
+  background-color: $primary-offwht;
   text-align: center;
   font-size: 1.2rem;
   padding: 1rem;
@@ -10,7 +14,7 @@
 }
 
 .top-bar ul {
-  background-color: #292c2f;
+  background-color: $primary-offwht;
   text-align: center;
   font-size: 1.2rem;
   padding: 1rem;}
@@ -19,11 +23,11 @@
 .menu li{
   a {
     font-size: 1.3em;
-    color: gray;
+    color: $primary-orange;
   }
   a:hover {
     font-size: 1.3em;
-    color: white;
+    color: $primary-red;
   }
   a img {
     width: 70%;
@@ -43,15 +47,15 @@
 
 }
 
-@keyframes logo {
-    0%   { transform: translate(-100px,0px);                    opacity: 0 }
-    42%  { transform: translate(-80px,0px);                     opacity: 0.8 }
-    60%  { transform: translate(3px,0px)     scale(0.96,1.04);  opacity: 1 }
-    65%  { transform: translate(2px,0px);                       opacity: 1 }
-    80%  { transform: translate(-2px,0px);                      opacity: 1 }
-    90%  { transform: translate(1px,0px);                       opacity: 1 }
-    100% { transform: translate(0px,0px);                       opacity: 1 }
-}
+// @keyframes logo {
+//     0%   { transform: translate(-100px,0px);                    opacity: 0 }
+//     42%  { transform: translate(-80px,0px);                     opacity: 0.8 }
+//     60%  { transform: translate(3px,0px)     scale(0.96,1.04);  opacity: 1 }
+//     65%  { transform: translate(2px,0px);                       opacity: 1 }
+//     80%  { transform: translate(-2px,0px);                      opacity: 1 }
+//     90%  { transform: translate(1px,0px);                       opacity: 1 }
+//     100% { transform: translate(0px,0px);                       opacity: 1 }
+// }
 
 
 
