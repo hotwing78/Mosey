@@ -71,6 +71,14 @@ module.exports = function(app) {
 }
 
 },{}],3:[function(require,module,exports){
+Array.prototype.removeObject = function(object){
+  var idx = this.indexOf(object);
+  if (typeof idx === "number"){
+    console.log(idx);
+      this.splice(idx,1);
+  }
+}
+
 module.exports = function(app) {
     app.controller('reviewsController', ['$scope', '$http', '$location', 'reviewsService', 'loginService', function($scope, $http, $location, reviewsService, loginService) {
 
@@ -98,12 +106,12 @@ module.exports = function(app) {
 
         };
 
-        $scope.deleteReview = function(index) {
-            console.log(index);
+        $scope.deleteReview = function(review) {
+            console.log("review:" , review);
             var comment = {
-              id: index.id,
-              comment: index.comment,
-              username: index.username
+              id: review.id,
+              comment: review.comment,
+              username: review.username
             }
             console.log(comment);
           return $http({
@@ -111,8 +119,11 @@ module.exports = function(app) {
             url: '/deletereviews',
             data: comment,
           }).then(function(res){
-            console.log(res);
-            $scope.reviewList.splice(index, 1);
+            // console.log(res);
+            // var indexOfReview = $scope.reviewList.indexOf(review);
+            // console.log(indexOfReview);
+            // $scope.reviewList.splice(indexOfReview, 1);
+            $scope.reviewList.removeObject(review);
           }).catch(function(response) {
               console.log('BRANDON', response);
               $scope.errorMessage = response.data.message;

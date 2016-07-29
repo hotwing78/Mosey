@@ -1,9 +1,20 @@
+$primary-yellow: #E1B80D;
+$primary-offwht: #FEF3E2;
+$primary-red: #FA4032;
+$primary-orange: #FA812F;
+
+
+::-webkit-input-placeholder { color: $primary-offwht; opacity: 1 !important; }
+:-moz-placeholder { color: #333333;}
+::-moz-placeholder {color: #333333;}
+:-ms-input-placeholder {color: #333333;}
+
 .row {
   max-width: 1200px;
 }
 
 .footer {
-  background-color: #292c2f;
+  background-color: $primary-offwht;
   text-align: center;
   font-size: 1.2rem;
   padding: 1rem;
@@ -12,17 +23,17 @@
     display: inline-block;
     width: 3rem;
     height: 2rem;
-    background-color: #33383b;
+    background-color: $primary-offwht;
     border-radius: 2px;
     font-size: 1.5rem;
-    color: #fff;
+    color: $primary-red;
     text-align: center;
     line-height: 2rem;
     margin: 0 3px 0 0;
   }
 
   .copywrite {
-    color: #8f9296;
+    color: $primary-red;
     font-size: 0.875rem;
     margin: 1rem 0 1rem 0;
   }
@@ -30,19 +41,20 @@
   .footer-form {
     textarea, input {
       border-radius: 3px;
-      background-color: #1f2022;
+      background-color: white;
       box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.1);
-      border: none;
+      border: $primary-red;
       resize: none;
       font: inherit;
       font-size: 0.875rem;
       font-weight: normal;
-      color: #d1d2d2;
+      color: $primary-red;
       padding: 1.3rem;
     }
 
+
     label {
-      color: #fff;
+      color: $primary-red;
       font-size: 1.2rem;
       margin: 0 0 1rem 0;
       font-weight: bold;
@@ -50,8 +62,8 @@
 
     .submit {
       border-radius: 3px;
-      background-color: #33383b;
-      color: #ffffff;
+      background-color: white;
+      color: $primary-red;
       border: 0;
       padding: 1rem 3.5rem;
       font-weight: bold;
@@ -63,7 +75,7 @@
   .footer-links a {
     list-style: none;
     font-weight: normal;
-    color: #fff;
+    color: $primary-red;
     padding: 3rem 0 2rem;
     margin: 0;
     font-size: 0.875rem;
@@ -103,7 +115,7 @@
 }
 
 .logo {
-  color: #fff;
+  color: $primary-red;
   font-size: 1.5rem;
 
   i {
