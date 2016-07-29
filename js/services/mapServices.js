@@ -5,19 +5,20 @@ module.exports = function(app) {
         var possiblePoint;
 
         return {
-          getPoint: function(){
-             return possiblePoint;
+          setPoint: function(point){
+             possiblePoint = point;
            },
             getEats: function() {
                 return restaurants
             },
 
-            intineraryAdd: function(point) {
+            intineraryAdd: function() {
                 $http({
                     url: '/itinerary',
                     method: 'post',
-                    data: point,
+                    data: possiblePoint,
                 })
+                console.log(possiblePoint);
 
             },
             getCurrentLocation: function(lat, lng) {
