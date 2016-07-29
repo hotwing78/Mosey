@@ -46,9 +46,8 @@ module.exports = function(app) {
         myCtrl.tab = 'mosey';
 
         $scope.random = function() {
-            //let point = Markers.getPoint();
-            //Markers.intineraryAdd(point);
             console.log('clicked');
+            Markers.intineraryAdd();
         };
 
         let map = new GMaps({
@@ -66,6 +65,7 @@ module.exports = function(app) {
             strokeWeight: 14
         }
 
+
         function content(point) {
             var htmlElement = `<div class = 'info'>
                             Name:\t${point.name}</br>
@@ -76,6 +76,7 @@ module.exports = function(app) {
             var compiled = $compile(htmlElement)($scope)
             return compiled[0];
         }
+
 
         GMaps.geolocate({
             success: function(position) {
@@ -92,18 +93,24 @@ module.exports = function(app) {
                 Markers.getRestaurants().then(function(promise) {
                     let food = promise;
                     food.forEach(function(point) {
+                      if(point.name !== ''){
                         map.addMarker({
                             lat: point.lat,
                             lng: point.lng,
                             title: point.name,
+                            fillColor: '#4caf50',
+                            color: 'yellow',
+
                             infoWindow: {
+
                                 content: content(point),
+
                             },
                             click: function(e) {
-                                let possiblePoint = point;
-                                console.log(possiblePoint)
+                                Markers.setPoint(point);
                             }
                         }); //end addMarker
+                      } // end of the if statement
                     }); //End forEach
                 }); //End Markers.getRestaurants
             },
@@ -295,19 +302,20 @@ module.exports = function(app) {
         var possiblePoint;
 
         return {
-          getPoint: function(){
-             return possiblePoint;
+          setPoint: function(point){
+             possiblePoint = point;
            },
             getEats: function() {
                 return restaurants
             },
 
-            intineraryAdd: function(point) {
+            intineraryAdd: function() {
                 $http({
                     url: '/itinerary',
                     method: 'post',
-                    data: point,
+                    data: possiblePoint,
                 })
+                console.log(possiblePoint);
 
             },
             getCurrentLocation: function(lat, lng) {
