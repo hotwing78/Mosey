@@ -230,19 +230,21 @@ public class MoseyController {
         return activities.findAll();
     }
 
-    @RequestMapping(path = "/deletereviews", method = RequestMethod.DELETE)
-    public void deleteReviews (HttpSession session, Comment comment) throws Exception {
+    @RequestMapping(path = "/deletereviews", method = RequestMethod.POST)
+    public void deleteReviews (HttpSession session, @RequestBody Comment comment) throws Exception {
         String username = (String) session.getAttribute("username");
         if (username == null) {
             throw new Exception("You must be registered to delete a review.");
         }
 
-        if (username != comment.getUsername()) {
+        if (!(username.equals(comment.getUsername()))) {
             throw new Exception("You can't delete someone else's review!");
         }
             int id = comment.getId();
             comments.delete(id);
     }
+
+
 
     @RequestMapping(path = "/editreviews", method = RequestMethod.POST)
     public void editReviews (HttpSession session, @RequestBody Comment comment) throws Exception {
@@ -251,7 +253,7 @@ public class MoseyController {
             throw new Exception("You must be registered to edit a review.");
         }
 
-        if (username != comment.getUsername()) {
+        if (!(username.equals(comment.getUsername()))) {
             throw new Exception("You can't edit someone else's review!");
         }
 
