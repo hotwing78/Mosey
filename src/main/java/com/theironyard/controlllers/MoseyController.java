@@ -327,6 +327,32 @@ public class MoseyController {
         itineraries.save(itinerary);
     }
 
+    @RequestMapping(path="/itinerary", method = RequestMethod.GET)
+    public ArrayList<Object> getItinerary(HttpSession session) throws Exception {
+        ArrayList<Object> events = new ArrayList<Object>();
+
+        String username = (String) session.getAttribute("username");
+        if (username == null) {
+            throw new Exception("You must be registered to create an itinerary");
+        }
+
+        User user = users.findByUsername(username);
+        int id = user.getId();
+        Iterable<Itinerary> itinerary = itineraries.findByEventid(id);
+
+        for (Itinerary itin: itinerary) {
+            if (itin.getRest() == true) {
+                Restaurant rest = restaurants.findFirstById(itin.getEventid());
+                events.add(rest);
+            } else {
+                Activity act = activities.findFirstById(itin.getEventid());
+                events.add(act);
+            }
+        }
+        return events;
+    }
+
+
 
     /* adding to itinerary
     @RequestMapping(path = "/itinerary/new", method = RequestMethod.POST)
