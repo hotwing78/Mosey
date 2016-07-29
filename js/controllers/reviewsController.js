@@ -12,7 +12,6 @@ module.exports = function(app) {
         $scope.reviewList = reviewsService.getAllReviews();
         $scope.username = loginService.getUsername();
         $scope.errorMessage = '';
-
         $scope.addReview = function() {
             console.log(`send new review ${$scope.reviewText}`);
             return $http({

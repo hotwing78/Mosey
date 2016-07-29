@@ -220,7 +220,6 @@ public class MoseyController {
     @RequestMapping (path = "/food", method = RequestMethod.GET)
     public Iterable<Restaurant> getRests () {
 
-        //ArrayList<Restaurant> rests = (ArrayList) restaurants.findAll();
         return restaurants.findAll();
     }
 
@@ -304,14 +303,55 @@ public class MoseyController {
     //show info for itinerary
     @RequestMapping(path = "/itinerary", method = RequestMethod.POST)
     //need to add contigency of being a registered user(our hook to get them to register)
-    public void addItinerary(HttpSession session, @RequestBody Itinerary itinerary) throws Exception {
+    public void addItinerary(HttpSession session, @RequestBody HashMap data) throws Exception {
         String username = (String) session.getAttribute("username");
         if (username == null) {
             throw new Exception("You must be registered to create an itinerary");
         }
 
+        Itinerary itinerary = new Itinerary();
+        User user = users.findByUsername(username);
+        String name = (String) data.get("name");
+
+        if (name == null) {
+            itinerary.setRest(false);
+            int id = (int) data.get("id");
+            itinerary.setEventid(id);
+            itinerary.setUsers(user);
+        } else {
+            itinerary.setRest(true);
+            int id = (int) data.get("id");
+            itinerary.setEventid(id);
+            itinerary.setUsers(user);
+        }
         itineraries.save(itinerary);
     }
+
+    @RequestMapping(path="/itinerary", method = RequestMethod.GET)
+    public ArrayList<Object> getItinerary(HttpSession session) throws Exception {
+        ArrayList<Object> events = new ArrayList<Object>();
+
+        String username = (String) session.getAttribute("username");
+        if (username == null) {
+            throw new Exception("You must be registered to create an itinerary");
+        }
+
+        User user = users.findByUsername(username);
+        int id = user.getId();
+        Iterable<Itinerary> itinerary = itineraries.findByEventid(id);
+
+        for (Itinerary itin: itinerary) {
+            if (itin.getRest() == true) {
+                Restaurant rest = restaurants.findFirstById(itin.getEventid());
+                events.add(rest);
+            } else {
+                Activity act = activities.findFirstById(itin.getEventid());
+                events.add(act);
+            }
+        }
+        return events;
+    }
+
 
 
     /* adding to itinerary
