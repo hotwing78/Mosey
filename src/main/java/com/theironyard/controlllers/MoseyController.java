@@ -220,7 +220,6 @@ public class MoseyController {
     @RequestMapping (path = "/food", method = RequestMethod.GET)
     public Iterable<Restaurant> getRests () {
 
-        //ArrayList<Restaurant> rests = (ArrayList) restaurants.findAll();
         return restaurants.findAll();
     }
 
@@ -304,12 +303,27 @@ public class MoseyController {
     //show info for itinerary
     @RequestMapping(path = "/itinerary", method = RequestMethod.POST)
     //need to add contigency of being a registered user(our hook to get them to register)
-    public void addItinerary(HttpSession session, @RequestBody Itinerary itinerary) throws Exception {
+    public void addItinerary(HttpSession session, @RequestBody HashMap data) throws Exception {
         String username = (String) session.getAttribute("username");
         if (username == null) {
             throw new Exception("You must be registered to create an itinerary");
         }
 
+        Itinerary itinerary = new Itinerary();
+        User user = users.findByUsername(username);
+        String name = (String) data.get("name");
+
+        if (name == null) {
+            itinerary.setRest(false);
+            int id = (int) data.get("id");
+            itinerary.setEventid(id);
+            itinerary.setUsers(user);
+        } else {
+            itinerary.setRest(true);
+            int id = (int) data.get("id");
+            itinerary.setEventid(id);
+            itinerary.setUsers(user);
+        }
         itineraries.save(itinerary);
     }
 

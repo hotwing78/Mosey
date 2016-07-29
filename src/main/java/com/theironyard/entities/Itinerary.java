@@ -15,16 +15,34 @@ public class Itinerary {
     int id;
 
     @Column(nullable = false)
-    String itinerary;
+    int eventid;
+
+    @Column(nullable = false)
+    Boolean isRest;
 
     @ManyToOne
     User users;
 
+    public Boolean getRest() {
+        return isRest;
+    }
+
+    public void setRest(Boolean rest) {
+        isRest = rest;
+    }
+
+    public Itinerary(int eventid, Boolean isRest, User users) {
+
+        this.eventid = eventid;
+        this.isRest = isRest;
+        this.users = users;
+    }
+
     public Itinerary() {
     }
 
-    public Itinerary(String itinerary, User users) {
-        this.itinerary = itinerary;
+    public Itinerary(int eventid, User users) {
+        this.eventid = eventid;
         this.users = users;
     }
 
@@ -36,12 +54,12 @@ public class Itinerary {
         this.id = id;
     }
 
-    public String getItinerary() {
-        return itinerary;
+    public int getEventid() {
+        return eventid;
     }
 
-    public void setItinerary(String itinerary) {
-        this.itinerary = itinerary;
+    public void setEventid(int eventid) {
+        this.eventid = eventid;
     }
 
     public User getUsers() {
