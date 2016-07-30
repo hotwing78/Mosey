@@ -2,7 +2,13 @@
 @import 'map';
 @import 'footer';
 @import 'reviews';
-@import 'registration';
+@import 'register';
+
+
+$primary-yellow: #E1B80D;
+$primary-offwht: #FEF3E2;
+$primary-red: #FA4032;
+$primary-orange: #FA812F;
 
 body {
   font-family: 'Source Sans Pro', sans-serif;
@@ -12,20 +18,27 @@ body {
   font-family: 'Source Sans Pro', sans-serif;
 }
 
+.signup-panel{
+  background-color: $primary-offwht;
+  text-align: center;
+  justify-content: center;
+  box-shadow: 0 1px 6px $primary-red;
+}
+
 .signup-panel .button {
     font-size: 1em;
     text-align: center;
     justify-content: center;
     width: 100%;
-    border-color: #292c2f;
-    color: #ef3e36;
+    border-color: white;
+    color: $primary-red;
   }
 
 .signup-panel .button:hover {
   font-size: 1em;
-
-    border-color: white;
-    color: #292c2f;
+  box-shadow: 0 1px 6px $primary-red;
+  border-color: white;
+  color: $primary-orange;
   }
 
   .button.hollow {
@@ -33,13 +46,16 @@ body {
     text-align: center;
     justify-content: center;
     width: 100%;
-    border-color: #292c2f;
-    color: #ef3e36;
+    border-radius: .1em;
+    border-color:  white;
+    color: $primary-red;
+    background-color:  rgba(255,255,255,.65);
+
   }
   .button.hollow:hover {
     font-size: 1em;
     border-color: white;
-    color: #292c2f;
+    color: $primary-orange;
   }
 
 .menu a:active {

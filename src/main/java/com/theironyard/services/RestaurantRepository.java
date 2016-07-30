@@ -8,4 +8,6 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface RestaurantRepository extends CrudRepository<Restaurant, Integer> {
     //Iterable<Restaurant> findByName(String name);
+    Restaurant findFirstByName(String name);
+    Restaurant findFirstById (int id);
 }

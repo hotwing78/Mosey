@@ -10,17 +10,29 @@ module.exports = function(app){
     $scope.username = '';
     $scope.password = '';
     $scope.isLocal = '';
+    $scope.errorMessage = '';
 
     $scope.register = function(){
       console.log(`${$scope.firstname} is in the system`);
-      loginService.registerUser($scope.firstname, $scope.lastname, $scope.email, $scope.username, $scope.password, $scope.isLocal);
-      $location.path('/mosey');
+      loginService.registerUser($scope.firstname, $scope.lastname, $scope.email, $scope.username, $scope.password, $scope.isLocal)
+      .then(function(response) {
+          console.log('user login', response);
+      },function(response){
+        console.log('response', response.data.message);
+        $scope.errorMessage = response.data.message;
+      });
     };
 
     $scope.login = function(){
       console.log("logging in!", $scope.username, $scope.password);
-      loginService.loginUser($scope.username, $scope.password);
-      // $location.path('/mosey');
+      loginService.loginUser($scope.username, $scope.password)
+      .then(function(response) {
+          console.log('user login', response);
+      },function(response){
+        console.log('response', response.data.message);
+        $scope.errorMessage = response.data.message;
+      });
+
     };
 
 
@@ -29,32 +41,159 @@ module.exports = function(app){
 
 },{}],2:[function(require,module,exports){
 module.exports = function(app) {
-    app.controller('mapController', ['$scope', 'Markers', function($scope, Markers) {
-        // $scope.itenerary = Markers.getItenerary();
-        Markers.getLocation();
-        Markers.getRestaurants().then(function(promise){
-          let food = promise;
-          for(let i = 0; i < food.length; i++){
-          Markers.setMarker(food[i])
-        }
-        });
-          console.log('Log here');
+    app.controller('mapController', ['$scope', '$compile', 'Markers', function($scope, $compile, Markers) {
+        let myCtrl = this;
+        myCtrl.tab = 'mosey';
 
-        //  Markers.setMarkers(Markers.getRestaurants().);
-        // scope.$watch('food', function() {
-        //     Markers.setMarker();
-        // }, true);
+        $scope.random = function() {
+            console.log('clicked');
+            Markers.intineraryAdd();
+        };
+
+        let map = new GMaps({
+            div: '#map',
+            lat: 32.79222,
+            lng: -79.9404072,
+        });
+
+        let goldStar = {
+            path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
+            fillColor: 'yellow',
+            fillOpacity: 0.8,
+            scale: .1,
+            strokeColor: 'gold',
+            strokeWeight: 14
+        }
+
+
+        function content(point) {
+            var htmlElement = `<div class = 'info'>
+                            Name:\t${point.name}</br>
+                            Price:\t${point.price}</br>
+                            Category:\t${point.category}</br>
+                            <button ng-click ="random()">ADD</button>
+                            </div>`
+            var compiled = $compile(htmlElement)($scope)
+            return compiled[0];
+        }
+
+
+        GMaps.geolocate({
+            success: function(position) {
+                let lat = position.coords.latitude;
+                let lng = position.coords.longitude;
+                Markers.getCurrentLocation(lat, lng);
+                map.addMarker({
+                    lat: lat,
+                    lng: lng,
+                    title: 'user',
+                    icon: goldStar,
+                });
+                map.setCenter(position.coords.latitude, position.coords.longitude);
+                Markers.getRestaurants().then(function(promise) {
+                    let food = promise;
+                    food.forEach(function(point) {
+                      if(point.name !== ''){
+                        map.addMarker({
+                            lat: point.lat,
+                            lng: point.lng,
+                            title: point.name,
+                            fillColor: '#4caf50',
+                            color: 'yellow',
+
+                            infoWindow: {
+
+                                content: content(point),
+
+                            },
+                            click: function(e) {
+                                Markers.setPoint(point);
+                            }
+                        }); //end addMarker
+                      } // end of the if statement
+                    }); //End forEach
+                }); //End Markers.getRestaurants
+            },
+            error: function(error) {
+                alert('Geolocation failed: ' + error.message);
+            },
+            not_supported: function() {
+                alert("Your browser does not support geolocation");
+            },
+            always: function() {
+                alert("Done!");
+            }
+        });
     }]);
 }
 
 },{}],3:[function(require,module,exports){
-module.exports = function(app){
-  app.controller('reviewsController', ['$scope', '$http', '$location', 'reviewsService', 'loginService', function($scope, $http, $location, reviewsService, loginService){
+Array.prototype.removeObject = function(object){
+  var idx = this.indexOf(object);
+  if (typeof idx === "number"){
+    console.log(idx);
+      this.splice(idx,1);
+  }
+}
 
-    $scope.username = loginService.getUser();
-    console.log('hihihihi reviews controller');
+module.exports = function(app) {
+    app.controller('reviewsController', ['$scope', '$http', '$location', 'reviewsService', 'loginService', function($scope, $http, $location, reviewsService, loginService) {
 
-  }])
+        $scope.reviewList = reviewsService.getAllReviews();
+        $scope.username = loginService.getUsername();
+        $scope.errorMessage = '';
+        $scope.addReview = function() {
+            console.log(`send new review ${$scope.reviewText}`);
+            return $http({
+                method: 'POST',
+                url: '/reviews',
+                data: {
+                    comment: $scope.reviewText
+                    // username: 'teammosey'
+                }
+            }).catch(function(response) {
+                console.log('BRANDON', response);
+                $scope.errorMessage = response.data.message;
+            }).then(function(response) {
+                console.log('pina colada', response);
+                return reviewsService.getAllReviews();
+            })
+
+
+        };
+
+        $scope.deleteReview = function(review) {
+            console.log("review:" , review);
+            var comment = {
+              id: review.id,
+              comment: review.comment,
+              username: review.username
+            }
+            console.log(comment);
+          return $http({
+            method: 'POST',
+            url: '/deletereviews',
+            data: comment,
+          }).then(function(res){
+            // console.log(res);
+            // var indexOfReview = $scope.reviewList.indexOf(review);
+            // console.log(indexOfReview);
+            // $scope.reviewList.splice(indexOfReview, 1);
+            $scope.reviewList.removeObject(review);
+          }).catch(function(response) {
+              console.log('BRANDON', response);
+              $scope.errorMessage = response.data.message;
+          })
+          // .then(function(response){
+          //   console.log('deletttting this response: ', response);
+          // }), function(error){
+          //   console.log('delete error');
+          // }
+            // $scope.reviewList.splice(index, 1);
+        };
+
+
+    }])
 }
 
 },{}],4:[function(require,module,exports){
@@ -72,6 +211,9 @@ require('./services/reviewsService.js')(app);
 
 app.config(['$routeProvider', function($routeProvider){
   $routeProvider
+    .when('/', {
+    redirectTo: '/mosey',
+    })
     .when('/registration', {
       controller: 'loginController',
       templateUrl: 'templates/registration.html',
@@ -88,133 +230,116 @@ app.config(['$routeProvider', function($routeProvider){
       controller: 'reviewsController',
       templateUrl: 'templates/reviews.html'
     })
-    .when('/', {
-      redirectTo: '/mosey',
-    })
 }])
 
 },{"./controllers/loginController.js":1,"./controllers/mapController.js":2,"./controllers/reviewsController.js":3,"./services/loginService.js":5,"./services/mapServices.js":6,"./services/reviewsService.js":7}],5:[function(require,module,exports){
-module.exports = function(app){
-  app.factory('loginService', function($http){
+module.exports = function(app) {
+    app.factory('loginService', function($http) {
 
-    let firstname = "";
-    let lastname = "";
-    let email = "";
-    let username = "";
-    let password = "";
-    let isLocal = true;
-
-    let usersArray = [];
-
-    return {
-
-      getUser: function(){
-        console.log("here");
-        $http({
-          method: 'GET',
-          url: '/users',
-        }).then(function(response){
-          console.log('YAY USER', response);
-          console.log(response.data);
-          let userList = response.data
-          angular.copy(userList, usersArray)
-        })
-          return usersArray;
-      },
-
-      registerUser: function(firstname, lastname, email, username, password, isLocal){
-
-          $http({
-            method: 'POST',
-            url: '/register',
-            data: {
-              firstname: firstname,
-              lastname: lastname,
-              email: email,
-              username: username,
-              password: password,
-              isLocal: true,
-            }
-          }).then(function(response){
-            console.log('getttting', response);
-            console.log(response.data);
-            console.log(username);
-          })
-      },
-
-      loginUser: function(username,password){
-        console.log(username, password);
-        $http({
-          method: 'POST',
-          url: '/login',
-          data: {
-            username: username,
-            password: password,
-          }
-          }).then(function(response){
-            console.log('user login', response)
-            console.log('NAME IS', username)
-            if (password !== null && response.config.data.password === password){
-              alert('Hey ' + response.config.data.username + ' is in the system!');
-            } else {
-              alert('Hey' + response.config.data.username + 'create an account')
-            }
-        })
-      },
-
-      getUsername: function(){
-        return username;
-      },
+        let firstname = "";
+        let lastname = "";
+        let email = "";
+        let username = "";
+        let password = "";
+        let isLocal = true;
 
 
-    }
-  })
+        let usersArray = [];
+        var currentUser = {};
+
+        return {
+
+            getUser: function() {
+                console.log("here");
+                $http({
+                    method: 'GET',
+                    url: '/users',
+                }).then(function(response) {
+                    console.log('YAY USER', response);
+                    console.log(response.data);
+                    let userList = response.data
+                    angular.copy(userList, usersArray)
+                })
+                return usersArray;
+            },
+            registerUser: function(firstname, lastname, email, username, password, isLocal) {
+                console.log('registerUser');
+                return $http({
+                        method: 'POST',
+                        url: '/register',
+                        data: {
+                            firstname: firstname,
+                            lastname: lastname,
+                            email: email,
+                            username: username,
+                            password: password,
+                            isLocal: isLocal,
+                        }
+                    });
+            },
+            loginUser: function(username, password) {
+                console.log(username, password);
+                return $http({
+                    method: 'POST',
+                    url: '/login',
+                    data: {
+                        username: username,
+                        password: password,
+                    }
+                }).then(function(response){
+                  console.log('we are logging in')
+                  if (response.config.data.username ===username){
+                    console.log(response.config.data.username);
+                    currentUser = response.config.data.username;
+                  }
+                  return currentUser
+                })
+            },
+
+            getUsername: function() {
+                return currentUser
+            },
+
+
+        }
+    })
 }
 
 },{}],6:[function(require,module,exports){
 module.exports = function(app) {
     app.factory('Markers', ['$http', function($http) {
         var itinerary = [];
+        var restaurants = [];
+        var possiblePoint;
 
-        var map = new GMaps({
-            div: '#map',
-            lat: 32.79222,
-            lng: -79.9404072,
-        });
-
-        var goldStar = {
-          path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
-          fillColor: 'yellow',
-          fillOpacity: 0.8,
-          scale: .1,
-          strokeColor: 'gold',
-          strokeWeight: 14
-        };
         return {
+          setPoint: function(point){
+             possiblePoint = point;
+           },
+            getEats: function() {
+                return restaurants
+            },
 
-            getLocationName: function() {
-                return name;
-            },//End of getLocationName************************************************************
+            intineraryAdd: function() {
+                $http({
+                    url: '/itinerary',
+                    method: 'post',
+                    data: possiblePoint,
+                })
+                console.log(possiblePoint);
 
-            setMarker: function(point) {
-                map.addMarker({
-                    lat: point.lat,
-                    lng: point.lng,
-                    title: point.name,
-                    click: function(e) {
-                      $http({
-                        url: '/itinerary',
-                        method: 'post',
-                        data: point
-                      })
-                        itinerary.push(point);
-                        console.log(itinerary);
+            },
+            getCurrentLocation: function(lat, lng) {
+                $http({
+                    url: '/mosey',
+                    method: 'post',
+                    data: {
+                        lat: lat,
+                        lng: lng,
                     }
                 });
+            },
 
-            },//End of setMarker******************************************************************
-
-          /* This is where I make a call to the server to get the available eats in town*/
             getRestaurants: function() {
                 var promise = $http({
                     url: '/food',
@@ -223,70 +348,36 @@ module.exports = function(app) {
                     return results.data;
                 });
                 return promise;
+            }
 
-            },//End of getRestaurants************************************************************
-
-            /* This is where I make a call to the server to get the available events*/
-            getEvents: function() {
-                var promise = $http({
-                    url: '/activity',
-                    method: 'get'
-                }).then(function(results) {
-                    return results.data;
-                });
-                return promise;
-
-            },//End of getEvent******************************************************************
-
-            getItenerary: function() {
-                return itenerary;
-            },//End of getItenerary***************************************************************
-
-            /*This is where I set the available activities to points on the map*/
-            getLocation: function() {
-                GMaps.geolocate({
-                    success: function(position) {
-                      let lat = position.coords.latitude;
-                      let lng = position.coords.longitude;
-                      $http({
-                        url:'/mosey',
-                        method:'post',
-                        data:{
-                          lat:lat,
-                          lng:lng,
-                        }
-                      });
-                      map.addMarker({
-                          lat: lat,
-                          lng: lng,
-                          title: 'user',
-                          icon: goldStar,
-                      });
-                        map.setCenter(position.coords.latitude, position.coords.longitude);
-                    },
-                    error: function(error) {
-                        alert('Geolocation failed: ' + error.message);
-                    },
-                    not_supported: function() {
-                        alert("Your browser does not support geolocation");
-                    }
-                });
-
-            }//End of getLocations**************************************************************
-
-        }//End of return*****************************
-    }]);//End of end of app.Factory************************************************************
+        } //End of return*****************************
+    }]); //End of end of app.Factory************************************************************
 }
 
 },{}],7:[function(require,module,exports){
 module.exports = function(app){
-  app.factory('reviewsService', function($http){
-    console.log('memem');
+  app.factory('reviewsService', ['$http', '$location', function($http, $location){
+
+
+    console.log('you on reviews service');
+
+    let allReviewsList = [];
 
     return {
-      
-    }
-  })
+      getAllReviews: function(){
+        // console.log('getting reviews from server');
+        $http({
+          method: 'GET',
+          url: '/savedreviews',
+        }).then(function(response) {
+          console.log('saved reviews', response, response.data)
+            angular.copy(response.data, allReviewsList);
+        })
+        console.log('allReviewsList issss', allReviewsList);
+        return allReviewsList
+      }
+    };
+  }]);
 }
 
 },{}]},{},[4])

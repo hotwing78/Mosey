@@ -8,5 +8,6 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface ActivityRepository extends CrudRepository<Activity, Integer> {
     Iterable<Activity> findByActivityname(String activityname);
+    Activity findFirstById(int id);
 
 }

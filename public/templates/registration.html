@@ -1,10 +1,13 @@
 
+<div class="row" id="register">
+  <div class="large-6 columns auth-plain">
 
-<div class="row">
-  <div class="large-12 columns auth-plain">
-    <div class="row">
     <div class="signup-panel newusers">
       <p class="welcome"> Register to Mosey</p>
+      <div ng-if="errorMessage != '' ">
+          <!-- Error Needs to be displayed -->
+          <p>{{errorMessage}}</p>
+      </div>
       <input type="text"  ng-model='firstname'  placeholder ="First Name">
       <input type="text"  ng-model='lastname'  placeholder = 'Last Name'>
       <input type="text"  ng-model='email'  placeholder ='Email'>
@@ -16,6 +19,5 @@
 
       <a $event.preventDefault() class="hollow button" ng-click='register()'>Register</a></br>
     </div>
-  </div>
   </div>
 </div>

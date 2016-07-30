@@ -12,6 +12,9 @@ require('./services/reviewsService.js')(app);
 
 app.config(['$routeProvider', function($routeProvider){
   $routeProvider
+    .when('/', {
+    redirectTo: '/mosey',
+    })
     .when('/registration', {
       controller: 'loginController',
       templateUrl: 'templates/registration.html',
@@ -27,8 +30,5 @@ app.config(['$routeProvider', function($routeProvider){
     .when('/reviews',{
       controller: 'reviewsController',
       templateUrl: 'templates/reviews.html'
-    })
-    .when('/', {
-      redirectTo: '/mosey',
     })
 }])

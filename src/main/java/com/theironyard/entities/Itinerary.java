@@ -10,58 +10,63 @@ import java.util.Set;
 @Entity
 @Table(name = "itineraries")
 public class Itinerary {
-    private long id;
-    private String name;
-
-    private Set<User> users = new HashSet<User>();
-
-    public void addUser(User user) {
-        this.users.add(user);
-    }
-
-    public Itinerary(String name) {
-        this.name = name;
-    }
-
     @Id
     @GeneratedValue
-            @Column(name = "moseyid")
-    public long getId(){
-        return id;
+    int id;
+
+    @Column(nullable = false)
+    int eventid;
+
+    @Column(nullable = false)
+    Boolean isRest;
+
+    @ManyToOne
+    User users;
+
+    public Boolean getRest() {
+        return isRest;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "USERS_ITINERARIES",
-            joinColumns = @JoinColumn(name = "moseyid"),
-            inverseJoinColumns = @JoinColumn(name = "userid")
-    )
-    public Set<User> getUsers() {
-        return users;
+    public void setRest(Boolean rest) {
+        isRest = rest;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
+    public Itinerary(int eventid, Boolean isRest, User users) {
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setUsers(Set<User> users) {
+        this.eventid = eventid;
+        this.isRest = isRest;
         this.users = users;
     }
 
-    @Override
-    public String toString() {
-        return "Itinerary{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", users=" + users +
-                '}';
+    public Itinerary() {
+    }
+
+    public Itinerary(int eventid, User users) {
+        this.eventid = eventid;
+        this.users = users;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getEventid() {
+        return eventid;
+    }
+
+    public void setEventid(int eventid) {
+        this.eventid = eventid;
+    }
+
+    public User getUsers() {
+        return users;
+    }
+
+    public void setUsers(User users) {
+        this.users = users;
     }
 }
