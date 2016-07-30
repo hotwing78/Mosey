@@ -1,10 +1,32 @@
+$primary-yellow: #E1B80D;
+$primary-offwht: #FEF3E2;
+$primary-red: #FA4032;
+$primary-orange: #FA812F;
+
 #map {
   width: 100%;
   height: 500px;
 }
 
+.info {
+  font-weight: bolder;
+  font-size: 1rem;
+  line-height: 209%;
+  margin: 1%;
+  text-align: center;
+  // background-color: $primary-offwht;
+  color: $primary-red;
+}
+
 .info > button{
-  border: 1px solid black;
-  background-color: yellow;
-  padding:3px;
+
+  text-align: center;
+  border-radius: 3px;
+  background-color:   $primary-red;
+  color: white;
+  padding:5%;
+}
+.info > button:hover {
+  background-color:   $primary-orange;
+  color: white;
 }
