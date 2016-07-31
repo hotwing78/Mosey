@@ -361,7 +361,7 @@ module.exports = function(app) {
                 return restaurants
             },
 
-            intineraryAdd: function() {
+            itineraryAdd: function() {
                 $http({
                     url: '/itinerary',
                     method: 'post',
