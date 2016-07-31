@@ -39,7 +39,7 @@ public class Restaurant {
     @Column (nullable = false)
     Double lng;
 
-    @Column (nullable = false)
+   /* @Column (nullable = false)
     int thumbsup;
 
     @ManyToOne
@@ -55,7 +55,7 @@ public class Restaurant {
         this.lat = lat;
         this.lng = lng;
         this.user = user;
-    }
+    } */
 
     public String getAddress() {
         return address;
@@ -165,7 +165,7 @@ public class Restaurant {
         this.localstake = localstake;
     }
 
-    public int getThumbsup() {
+   /* public int getThumbsup() {
         return thumbsup;
     }
 
@@ -179,5 +179,5 @@ public class Restaurant {
 
     public void setUser(User user) {
         this.user = user;
-    }
+    } */
 }
