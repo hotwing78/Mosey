@@ -39,7 +39,6 @@ module.exports = function(app){
 
 },{}],2:[function(require,module,exports){
 module.exports = function(app) {
-<<<<<<< HEAD
     app.controller('mapController', ['$scope', '$compile', 'Markers', function($scope, $compile, Markers) {
 
         // trying to have the name of the added place
@@ -69,13 +68,6 @@ module.exports = function(app) {
             strokeWeight: 1
         }
 
-
-        function content(point) {
-            var htmlElement = `<div class = 'info'>
-                            Name:\t<strong>${point.name}</strong></br>
-=======
-        app.controller('mapController', ['$scope', '$compile', 'Markers', function($scope, $compile, Markers) {
-
                 let lat = '';
                 let lng = '';
                 // Initializing Gmaps
@@ -96,10 +88,9 @@ module.exports = function(app) {
                     }
                     // ****************************************
 
-                function content(point) {
-                    var htmlElement = `<div class = 'info'>
-                            Name:\t${point.name}</br>
->>>>>>> 222ad228b18861a5185c02c50ffef3c3e5264bef
+        function content(point) {
+            var htmlElement = `<div class = 'info'>
+                            Name:\t<strong>${point.name}</strong></br>
                             Price:\t${point.price}</br>
                             Category:\t${point.category}</br>
                             <button ng-click ="addPlace()">ADD</button>
@@ -372,7 +363,7 @@ module.exports = function(app) {
                 return restaurants
             },
 
-            itineraryAdd: function() {
+            intineraryAdd: function() {
                 $http({
                     url: '/itinerary',
                     method: 'post',
