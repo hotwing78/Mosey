@@ -99,7 +99,7 @@ module.exports = function(app) {
                         let itin = promise;
                         console.table(itin);
                         itin.forEach(function(point) {
-                            if (point.name !== '') {
+                            if (point.name != '') {
                                 map.addMarker({
                                     lat: point.lat,
                                     lng: point.lng,
