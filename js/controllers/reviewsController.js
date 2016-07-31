@@ -12,6 +12,8 @@ module.exports = function(app) {
         $scope.reviewList = reviewsService.getAllReviews();
         $scope.username = loginService.getUsername();
         $scope.errorMessage = '';
+
+
         $scope.addReview = function() {
             console.log(`send new review ${$scope.reviewText}`);
             return $http({
@@ -19,7 +21,6 @@ module.exports = function(app) {
                 url: '/reviews',
                 data: {
                     comment: $scope.reviewText
-                    // username: 'teammosey'
                 }
             }).catch(function(response) {
                 console.log('BRANDON', response);
@@ -45,21 +46,10 @@ module.exports = function(app) {
             url: '/deletereviews',
             data: comment,
           }).then(function(res){
-            // console.log(res);
-            // var indexOfReview = $scope.reviewList.indexOf(review);
-            // console.log(indexOfReview);
-            // $scope.reviewList.splice(indexOfReview, 1);
-            $scope.reviewList.removeObject(review);
+
           }).catch(function(response) {
-              console.log('BRANDON', response);
               $scope.errorMessage = response.data.message;
           })
-          // .then(function(response){
-          //   console.log('deletttting this response: ', response);
-          // }), function(error){
-          //   console.log('delete error');
-          // }
-            // $scope.reviewList.splice(index, 1);
         };
 
 
