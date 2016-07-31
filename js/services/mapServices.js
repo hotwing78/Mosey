@@ -40,6 +40,16 @@ module.exports = function(app) {
                     return results.data;
                 });
                 return promise;
+            },
+
+            userItinerary: function(){
+              var promise = $http({
+                url: '/itinerary',
+                method: 'get'
+              }).then(function(results) {
+                return results.data;
+              })
+              return promise;
             }
 
         } //End of return*****************************
