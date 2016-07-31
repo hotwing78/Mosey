@@ -2,14 +2,14 @@ module.exports = function(app) {
     app.controller('mapController', ['$scope', '$compile', 'Markers', function($scope, $compile, Markers) {
 
         // trying to have the name of the added place
-        // $scope.itinerarylist = Markers.addPlace();
 
-        let myCtrl = this;
-        myCtrl.tab = 'mosey';
-
+        $scope.itin = [];
         $scope.addPlace = function() {
             console.log('clicked');
-            Markers.intineraryAdd();
+            Markers.itineraryAdd();
+            console.log(Markers.getPoint());
+          
+            itin.push(Markers.getPoint());
         };
 
 
@@ -43,10 +43,6 @@ module.exports = function(app) {
                     return compiled[0];
                 }
 
-                $scope.random = function() {
-                    console.log('clicked');
-                    Markers.itineraryAdd();
-                };
                 $scope.getItinerary = function() {
                     map.removeMarkers();
                     map.addMarker({
@@ -103,11 +99,8 @@ module.exports = function(app) {
                                             lat: point.lat,
                                             lng: point.lng,
                                             title: point.name,
-                                            fillColor: '#4caf50',
-                                            color: 'yellow',
                                             infoWindow: {
                                                 content: content(point),
-
                                             },
                                             click: function(e) {
                                                 Markers.setPoint(point);

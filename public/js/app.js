@@ -42,14 +42,14 @@ module.exports = function(app) {
     app.controller('mapController', ['$scope', '$compile', 'Markers', function($scope, $compile, Markers) {
 
         // trying to have the name of the added place
-        // $scope.itinerarylist = Markers.addPlace();
 
-        let myCtrl = this;
-        myCtrl.tab = 'mosey';
-
+        $scope.itin = [];
         $scope.addPlace = function() {
             console.log('clicked');
-            Markers.intineraryAdd();
+            Markers.itineraryAdd();
+            console.log(Markers.getPoint());
+          
+            itin.push(Markers.getPoint());
         };
 
 
@@ -83,10 +83,6 @@ module.exports = function(app) {
                     return compiled[0];
                 }
 
-                $scope.random = function() {
-                    console.log('clicked');
-                    Markers.itineraryAdd();
-                };
                 $scope.getItinerary = function() {
                     map.removeMarkers();
                     map.addMarker({
@@ -99,7 +95,7 @@ module.exports = function(app) {
                         let itin = promise;
                         console.table(itin);
                         itin.forEach(function(point) {
-                            if (point.name != '') {
+                            if (point.name !== '') {
                                 map.addMarker({
                                     lat: point.lat,
                                     lng: point.lng,
@@ -143,11 +139,8 @@ module.exports = function(app) {
                                             lat: point.lat,
                                             lng: point.lng,
                                             title: point.name,
-                                            fillColor: '#4caf50',
-                                            color: 'yellow',
                                             infoWindow: {
                                                 content: content(point),
-
                                             },
                                             click: function(e) {
                                                 Markers.setPoint(point);
@@ -335,27 +328,30 @@ module.exports = function(app) {
 },{}],6:[function(require,module,exports){
 module.exports = function(app) {
     app.factory('Markers', ['$http', function($http) {
-        var itinerary = [];
-        var restaurants = [];
+
         var possiblePoint;
 
         return {
+          // Sets the point to add to the itinerary
           setPoint: function(point){
              possiblePoint = point;
-           },
-            getEats: function() {
-                return restaurants
+           },//********************************
+
+           //gets the point stored in possiblePoint to be used when adding to the itinerary
+            getPoint: function(){
+              return possiblePoint;
             },
 
-            intineraryAdd: function() {
+            //Makes the post to the itinerary database
+            itineraryAdd: function() {
                 $http({
                     url: '/itinerary',
                     method: 'post',
                     data: possiblePoint,
                 })
-                console.log(possiblePoint);
-
             },
+
+            //Snags the users current coordinates on the map.
             getCurrentLocation: function(lat, lng) {
                 $http({
                     url: '/mosey',
@@ -367,6 +363,7 @@ module.exports = function(app) {
                 });
             },
 
+            // Makes a call to the restaurants database
             getRestaurants: function() {
                 var promise = $http({
                     url: '/food',
@@ -377,9 +374,10 @@ module.exports = function(app) {
                 return promise;
             },
 
+            //Makes a call for the itinerary
             userItinerary: function(){
               var promise = $http({
-                url: '/itinerary',
+                url: '/additinerary',
                 method: 'get'
               }).then(function(results) {
                 return results.data;
