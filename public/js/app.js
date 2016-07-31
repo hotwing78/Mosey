@@ -14,7 +14,7 @@ module.exports = function(app){
     $scope.register = function(){
       loginService.registerUser($scope.firstname, $scope.lastname, $scope.email, $scope.username, $scope.password, $scope.isLocal)
       .success(function(response) {
-          $location.path = ('/mosey');
+          $location.path('/mosey');
       },function(response){
         $scope.errorMessage = response.data.message;
       });
@@ -39,7 +39,7 @@ module.exports = function(app){
 
 },{}],2:[function(require,module,exports){
 module.exports = function(app) {
-    app.controller('mapController', ['$scope', '$compile', 'Markers', function($scope, $compile, Markers) {
+    app.controller('mapController', ['$scope', '$compile','$location','Markers','loginService', function($scope, $compile,$location,Markers,loginService) {
 
         // trying to have the name of the added place
 
@@ -47,9 +47,6 @@ module.exports = function(app) {
         $scope.addPlace = function() {
             console.log('clicked');
             Markers.itineraryAdd();
-            console.log(Markers.getPoint());
-          
-            itin.push(Markers.getPoint());
         };
 
 
@@ -84,6 +81,13 @@ module.exports = function(app) {
                 }
 
                 $scope.getItinerary = function() {
+                  //Redirect user to log in page if they are not logged in
+                  if(loginService.getUsername() === undefined){
+                      console.log('no log in');
+                      $location.path('/login')
+                      }
+                // ******************************************************
+
                     map.removeMarkers();
                     map.addMarker({
                         lat: lat,
@@ -271,7 +275,7 @@ module.exports = function(app) {
 
 
         let usersArray = [];
-        var currentUser = {};
+        var currentUser;
 
         return {
 

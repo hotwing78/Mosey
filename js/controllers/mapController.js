@@ -1,5 +1,5 @@
 module.exports = function(app) {
-    app.controller('mapController', ['$scope', '$compile', 'Markers', function($scope, $compile, Markers) {
+    app.controller('mapController', ['$scope', '$compile','$location','Markers','loginService', function($scope, $compile,$location,Markers,loginService) {
 
         // trying to have the name of the added place
 
@@ -7,9 +7,6 @@ module.exports = function(app) {
         $scope.addPlace = function() {
             console.log('clicked');
             Markers.itineraryAdd();
-            console.log(Markers.getPoint());
-          
-            itin.push(Markers.getPoint());
         };
 
 
@@ -44,6 +41,13 @@ module.exports = function(app) {
                 }
 
                 $scope.getItinerary = function() {
+                  //Redirect user to log in page if they are not logged in
+                  if(loginService.getUsername() === undefined){
+                      console.log('no log in');
+                      $location.path('/login')
+                      }
+                // ******************************************************
+
                     map.removeMarkers();
                     map.addMarker({
                         lat: lat,

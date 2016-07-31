@@ -10,7 +10,7 @@ module.exports = function(app) {
 
 
         let usersArray = [];
-        var currentUser = {};
+        var currentUser;
 
         return {
 
