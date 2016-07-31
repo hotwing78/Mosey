@@ -21,6 +21,7 @@ module.exports = function(app) {
                 console.log(possiblePoint);
 
             },
+            
             getCurrentLocation: function(lat, lng) {
                 $http({
                     url: '/mosey',
