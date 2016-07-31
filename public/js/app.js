@@ -70,23 +70,7 @@ module.exports = function(app) {
 
                 let lat = '';
                 let lng = '';
-                // Initializing Gmaps
-                let map = new GMaps({
-                    div: '#map',
-                    lat: 32.79222,
-                    lng: -79.9404072,
-                });
-                // *************************************
-                //The gold star user marker
-                let goldStar = {
-                        path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
-                        fillColor: 'yellow',
-                        fillOpacity: 0.8,
-                        scale: .1,
-                        strokeColor: 'gold',
-                        strokeWeight: 1
-                    }
-                    // ****************************************
+
 
         function content(point) {
             var htmlElement = `<div class = 'info'>
