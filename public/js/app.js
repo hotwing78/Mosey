@@ -2,8 +2,6 @@
 module.exports = function(app){
   app.controller('loginController', ['$scope', '$http', '$location', 'loginService', function($scope, $http, $location, loginService){
 
-    console.log('CLICKED REGGI');
-
     $scope.firstname = '';
     $scope.lastname = '';
     $scope.email = '';
@@ -11,31 +9,24 @@ module.exports = function(app){
     $scope.password = '';
     $scope.isLocal = '';
     $scope.errorMessage = '';
-    $scope.error = false;
+    $scope.error = true;
 
     $scope.register = function(){
-      console.log(`${$scope.firstname} is in the system`);
       loginService.registerUser($scope.firstname, $scope.lastname, $scope.email, $scope.username, $scope.password, $scope.isLocal)
       .success(function(response) {
-          console.log('user login', response);
           $location.path = ('/mosey');
       },function(response){
-        console.log('response', response.data.message);
         $scope.errorMessage = response.data.message;
       });
     };
 
     $scope.login = function(){
-      console.log("logging in!", $scope.username, $scope.password);
       loginService.loginUser($scope.username, $scope.password)
       .then(function(response) {
-          console.log('user login', response);
-
           console.log('successful')
           $location.path('/mosey')
-          
+
       },function(response){
-        console.log('response', response.data.message);
         console.log('unsuccessful');
         $scope.errorMessage = response.data.message;
       });
@@ -48,34 +39,45 @@ module.exports = function(app){
 
 },{}],2:[function(require,module,exports){
 module.exports = function(app) {
-        app.controller('mapController', ['$scope', '$compile', 'Markers', function($scope, $compile, Markers) {
+    app.controller('mapController', ['$scope', '$compile', 'Markers', function($scope, $compile, Markers) {
+
+        // trying to have the name of the added place
+        // $scope.itinerarylist = Markers.addPlace();
+
+        let myCtrl = this;
+        myCtrl.tab = 'mosey';
+
+        $scope.addPlace = function() {
+            console.log('clicked');
+            Markers.intineraryAdd();
+        };
+
+
+        let map = new GMaps({
+            div: '#map',
+            lat: 32.79222,
+            lng: -79.9404072,
+        });
+
+        let goldStar = {
+            path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
+            fillColor: 'yellow',
+            fillOpacity: 0.8,
+            scale: .1,
+            strokeColor: 'gold',
+            strokeWeight: 1
+        }
 
                 let lat = '';
                 let lng = '';
-                // Initializing Gmaps
-                let map = new GMaps({
-                    div: '#map',
-                    lat: 32.79222,
-                    lng: -79.9404072,
-                });
-                // *************************************
-                //The gold star user marker
-                let goldStar = {
-                        path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
-                        fillColor: 'yellow',
-                        fillOpacity: 0.8,
-                        scale: .1,
-                        strokeColor: 'gold',
-                        strokeWeight: 1
-                    }
-                    // ****************************************
 
-                function content(point) {
-                    var htmlElement = `<div class = 'info'>
-                            Name:\t${point.name}</br>
+
+        function content(point) {
+            var htmlElement = `<div class = 'info'>
+                            Name:\t<strong>${point.name}</strong></br>
                             Price:\t${point.price}</br>
                             Category:\t${point.category}</br>
-                            <button ng-click ="random()">ADD</button>
+                            <button ng-click ="addPlace()">ADD</button>
                             </div>`
                     var compiled = $compile(htmlElement)($scope)
                     return compiled[0];
@@ -183,6 +185,8 @@ module.exports = function(app) {
         $scope.reviewList = reviewsService.getAllReviews();
         $scope.username = loginService.getUsername();
         $scope.errorMessage = '';
+
+
         $scope.addReview = function() {
             console.log(`send new review ${$scope.reviewText}`);
             return $http({
@@ -190,7 +194,6 @@ module.exports = function(app) {
                 url: '/reviews',
                 data: {
                     comment: $scope.reviewText
-                    // username: 'teammosey'
                 }
             }).catch(function(response) {
                 console.log('BRANDON', response);
@@ -216,21 +219,10 @@ module.exports = function(app) {
             url: '/deletereviews',
             data: comment,
           }).then(function(res){
-            // console.log(res);
-            // var indexOfReview = $scope.reviewList.indexOf(review);
-            // console.log(indexOfReview);
-            // $scope.reviewList.splice(indexOfReview, 1);
-            $scope.reviewList.removeObject(review);
+
           }).catch(function(response) {
-              console.log('BRANDON', response);
               $scope.errorMessage = response.data.message;
           })
-          // .then(function(response){
-          //   console.log('deletttting this response: ', response);
-          // }), function(error){
-          //   console.log('delete error');
-          // }
-            // $scope.reviewList.splice(index, 1);
         };
 
 
@@ -291,20 +283,17 @@ module.exports = function(app) {
         return {
 
             getUser: function() {
-                console.log("here");
                 $http({
                     method: 'GET',
                     url: '/users',
                 }).then(function(response) {
-                    console.log('YAY USER', response);
-                    console.log(response.data);
+                    console.log('getting the user', response.data);
                     let userList = response.data
                     angular.copy(userList, usersArray)
                 })
                 return usersArray;
             },
             registerUser: function(firstname, lastname, email, username, password, isLocal) {
-                console.log('registerUser');
                 return $http({
                         method: 'POST',
                         url: '/register',
@@ -319,7 +308,6 @@ module.exports = function(app) {
                     });
             },
             loginUser: function(username, password) {
-                console.log(username, password);
                 return $http({
                     method: 'POST',
                     url: '/login',
@@ -328,9 +316,7 @@ module.exports = function(app) {
                         password: password,
                     }
                 }).then(function(response){
-                  console.log('we are logging in')
-                  if (response.config.data.username ===username){
-                    console.log(response.config.data.username);
+                  if (response.config.data.username === username){
                     currentUser = response.config.data.username;
                   }
                   return currentUser
@@ -361,7 +347,7 @@ module.exports = function(app) {
                 return restaurants
             },
 
-            itineraryAdd: function() {
+            intineraryAdd: function() {
                 $http({
                     url: '/itinerary',
                     method: 'post',
@@ -402,29 +388,23 @@ module.exports = function(app) {
             }
 
         } //End of return*****************************
-    }]); //End of end of app.Factory************************************************************
+    }]); //End of end of app.Factory******************
 }
 
 },{}],7:[function(require,module,exports){
 module.exports = function(app){
   app.factory('reviewsService', ['$http', '$location', function($http, $location){
 
-
-    console.log('you on reviews service');
-
     let allReviewsList = [];
 
     return {
       getAllReviews: function(){
-        // console.log('getting reviews from server');
         $http({
           method: 'GET',
           url: '/savedreviews',
         }).then(function(response) {
-          console.log('saved reviews', response, response.data)
             angular.copy(response.data, allReviewsList);
         })
-        console.log('allReviewsList issss', allReviewsList);
         return allReviewsList
       }
     };
