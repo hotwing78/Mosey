@@ -327,7 +327,7 @@ public class MoseyController {
         itineraries.save(itinerary);
     }
 
-    @RequestMapping(path="/itinerary", method = RequestMethod.GET)
+    @RequestMapping(path="/additinerary", method = RequestMethod.GET)
     public ArrayList<Object> getItinerary(HttpSession session) throws Exception {
         ArrayList<Object> events = new ArrayList<Object>();
 
