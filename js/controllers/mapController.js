@@ -20,7 +20,7 @@ module.exports = function(app) {
             fillOpacity: 0.8,
             scale: .1,
             strokeColor: 'gold',
-            strokeWeight: 14
+            strokeWeight: 1
         }
 
 
