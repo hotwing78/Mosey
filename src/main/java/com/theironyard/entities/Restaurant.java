@@ -39,6 +39,24 @@ public class Restaurant {
     @Column (nullable = false)
     Double lng;
 
+    @Column (nullable = false)
+    int thumbsup;
+
+    @ManyToOne
+    User user;
+
+    public Restaurant(String category, String price, String name, String description, String localstake, String address, Double lat, Double lng, User user) {
+        this.category = category;
+        this.price = price;
+        this.name = name;
+        this.description = description;
+        this.localstake = localstake;
+        this.address = address;
+        this.lat = lat;
+        this.lng = lng;
+        this.user = user;
+    }
+
     public String getAddress() {
         return address;
     }
@@ -145,5 +163,21 @@ public class Restaurant {
 
     public void setLocalstake(String localstake) {
         this.localstake = localstake;
+    }
+
+    public int getThumbsup() {
+        return thumbsup;
+    }
+
+    public void setThumbsup(int thumbsup) {
+        this.thumbsup = thumbsup;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

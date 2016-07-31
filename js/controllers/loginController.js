@@ -10,7 +10,7 @@ module.exports = function(app){
     $scope.password = '';
     $scope.isLocal = '';
     $scope.errorMessage = '';
-    $scope.error = false;
+    $scope.error = true;
 
     $scope.register = function(){
       console.log(`${$scope.firstname} is in the system`);
