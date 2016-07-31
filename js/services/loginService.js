@@ -15,20 +15,17 @@ module.exports = function(app) {
         return {
 
             getUser: function() {
-                console.log("here");
                 $http({
                     method: 'GET',
                     url: '/users',
                 }).then(function(response) {
-                    console.log('YAY USER', response);
-                    console.log(response.data);
+                    console.log('getting the user', response.data);
                     let userList = response.data
                     angular.copy(userList, usersArray)
                 })
                 return usersArray;
             },
             registerUser: function(firstname, lastname, email, username, password, isLocal) {
-                console.log('registerUser');
                 return $http({
                         method: 'POST',
                         url: '/register',
@@ -43,7 +40,6 @@ module.exports = function(app) {
                     });
             },
             loginUser: function(username, password) {
-                console.log(username, password);
                 return $http({
                     method: 'POST',
                     url: '/login',
@@ -52,9 +48,7 @@ module.exports = function(app) {
                         password: password,
                     }
                 }).then(function(response){
-                  console.log('we are logging in')
-                  if (response.config.data.username ===username){
-                    console.log(response.config.data.username);
+                  if (response.config.data.username === username){
                     currentUser = response.config.data.username;
                   }
                   return currentUser

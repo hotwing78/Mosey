@@ -43,5 +43,5 @@ module.exports = function(app) {
             }
 
         } //End of return*****************************
-    }]); //End of end of app.Factory************************************************************
+    }]); //End of end of app.Factory******************
 }

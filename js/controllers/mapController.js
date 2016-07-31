@@ -1,12 +1,17 @@
 module.exports = function(app) {
     app.controller('mapController', ['$scope', '$compile', 'Markers', function($scope, $compile, Markers) {
+
+        // trying to have the name of the added place
+        // $scope.itinerarylist = Markers.addPlace();
+
         let myCtrl = this;
         myCtrl.tab = 'mosey';
 
-        $scope.random = function() {
+        $scope.addPlace = function() {
             console.log('clicked');
             Markers.intineraryAdd();
         };
+
 
         let map = new GMaps({
             div: '#map',
@@ -26,10 +31,10 @@ module.exports = function(app) {
 
         function content(point) {
             var htmlElement = `<div class = 'info'>
-                            Name:\t${point.name}</br>
+                            Name:\t<strong>${point.name}</strong></br>
                             Price:\t${point.price}</br>
                             Category:\t${point.category}</br>
-                            <button ng-click ="random()">ADD</button>
+                            <button ng-click ="addPlace()">ADD</button>
                             </div>`
             var compiled = $compile(htmlElement)($scope)
             return compiled[0];
