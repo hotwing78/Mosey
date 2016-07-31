@@ -11,6 +11,7 @@ module.exports = function(app){
     $scope.password = '';
     $scope.isLocal = '';
     $scope.errorMessage = '';
+    $scope.error = false;
 
     $scope.register = function(){
       console.log(`${$scope.firstname} is in the system`);
@@ -29,10 +30,13 @@ module.exports = function(app){
       loginService.loginUser($scope.username, $scope.password)
       .then(function(response) {
           console.log('user login', response);
-          // location path noth yet working
-          $location.path = ('/mosey');
+
+          console.log('successful')
+          $location.path('/mosey')
+          
       },function(response){
         console.log('response', response.data.message);
+        console.log('unsuccessful');
         $scope.errorMessage = response.data.message;
       });
 
