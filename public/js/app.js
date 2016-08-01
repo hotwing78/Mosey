@@ -14,7 +14,7 @@ module.exports = function(app){
     $scope.register = function(){
       loginService.registerUser($scope.firstname, $scope.lastname, $scope.email, $scope.username, $scope.password, $scope.isLocal)
       .success(function(response) {
-          $location.path = ('/mosey');
+          $location.path('/mosey');
       },function(response){
         $scope.errorMessage = response.data.message;
       });
@@ -39,17 +39,15 @@ module.exports = function(app){
 
 },{}],2:[function(require,module,exports){
 module.exports = function(app) {
-    app.controller('mapController', ['$scope', '$compile', 'Markers', function($scope, $compile, Markers) {
+    app.controller('mapController', ['$scope', '$compile','$location','Markers','loginService', function($scope, $compile,$location,Markers,loginService) {
 
         // trying to have the name of the added place
-        // $scope.itinerarylist = Markers.addPlace();
 
-        let myCtrl = this;
-        myCtrl.tab = 'mosey';
-
+        $scope.itin = [];
         $scope.addPlace = function() {
             console.log('clicked');
-            Markers.intineraryAdd();
+            Markers.itineraryAdd();
+            map.hideInfoWindows();
         };
 
 
@@ -59,14 +57,23 @@ module.exports = function(app) {
             lng: -79.9404072,
         });
 
-        let goldStar = {
-            path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
-            fillColor: 'yellow',
-            fillOpacity: 0.8,
-            scale: .1,
-            strokeColor: 'gold',
-            strokeWeight: 1
-        }
+
+        var pinIcon = new google.maps.MarkerImage(
+                "./images/Mosey_Logo_Square.png",
+                null, /* size is determined at runtime */
+                null, /* origin is 0,0 */
+                null, /* anchor is bottom center of the scaled image */
+                new google.maps.Size(20, 20)
+            );
+
+
+            var eatsIcon = new google.maps.MarkerImage(
+                    "./images/restaurant_icon.png",
+                    null, /* size is determined at runtime */
+                    null, /* origin is 0,0 */
+                    null, /* anchor is bottom center of the scaled image */
+                    new google.maps.Size(30, 30)
+                );
 
         let lat = '';
         let lng = '';
@@ -83,14 +90,20 @@ module.exports = function(app) {
                     return compiled[0];
                 }
 
-
                 $scope.getItinerary = function() {
+                  //Redirect user to log in page if they are not logged in
+                  if(loginService.getUsername() === undefined){
+                      console.log('no log in');
+                      $location.path('/login')
+                      }
+                // ******************************************************
+
                     map.removeMarkers();
                     map.addMarker({
                         lat: lat,
                         lng: lng,
                         title: 'user',
-                        icon: goldStar,
+                        icon: pinIcon,
                     });
                     Markers.userItinerary().then(function(promise) {
                         let itin = promise;
@@ -124,7 +137,8 @@ module.exports = function(app) {
                                 lat: lat,
                                 lng: lng,
                                 title: 'user',
-                                icon: goldStar,
+                                icon: pinIcon,
+                                animation: google.maps.Animation.BOUNCE,
                             });
                             // *******************************************
 
@@ -140,11 +154,11 @@ module.exports = function(app) {
                                             lat: point.lat,
                                             lng: point.lng,
                                             title: point.name,
-                                            fillColor: '#4caf50',
-                                            color: 'yellow',
-                                            infoWindow: {
-                                                content: content(point),
+                                            icon: eatsIcon,
 
+                                            optimized: false,
+                                            infoWindow: {
+                                                content: content(point),//I have another function called content declared earlier
                                             },
                                             click: function(e) {
                                                 Markers.setPoint(point);
@@ -275,7 +289,7 @@ module.exports = function(app) {
 
 
         let usersArray = [];
-        var currentUser = {};
+        var currentUser;
 
         return {
 
@@ -332,27 +346,30 @@ module.exports = function(app) {
 },{}],6:[function(require,module,exports){
 module.exports = function(app) {
     app.factory('Markers', ['$http', function($http) {
-        var itinerary = [];
-        var restaurants = [];
+
         var possiblePoint;
 
         return {
+          // Sets the point to add to the itinerary
           setPoint: function(point){
              possiblePoint = point;
-           },
-            getEats: function() {
-                return restaurants
+           },//********************************
+
+           //gets the point stored in possiblePoint to be used when adding to the itinerary
+            getPoint: function(){
+              return possiblePoint;
             },
 
-            intineraryAdd: function() {
+            //Makes the post to the itinerary database
+            itineraryAdd: function() {
                 $http({
                     url: '/itinerary',
                     method: 'post',
                     data: possiblePoint,
                 })
-                console.log(possiblePoint);
-
             },
+
+            //Snags the users current coordinates on the map.
             getCurrentLocation: function(lat, lng) {
                 $http({
                     url: '/mosey',
@@ -364,6 +381,7 @@ module.exports = function(app) {
                 });
             },
 
+            // Makes a call to the restaurants database
             getRestaurants: function() {
                 var promise = $http({
                     url: '/food',
@@ -374,9 +392,10 @@ module.exports = function(app) {
                 return promise;
             },
 
+            //Makes a call for the itinerary
             userItinerary: function(){
               var promise = $http({
-                url: '/itinerary',
+                url: '/additinerary',
                 method: 'get'
               }).then(function(results) {
                 return results.data;

@@ -1,15 +1,13 @@
 module.exports = function(app) {
-    app.controller('mapController', ['$scope', '$compile', 'Markers', function($scope, $compile, Markers) {
+    app.controller('mapController', ['$scope', '$compile','$location','Markers','loginService', function($scope, $compile,$location,Markers,loginService) {
 
         // trying to have the name of the added place
-        // $scope.itinerarylist = Markers.addPlace();
 
-        let myCtrl = this;
-        myCtrl.tab = 'mosey';
-
+        $scope.itin = [];
         $scope.addPlace = function() {
             console.log('clicked');
-            Markers.intineraryAdd();
+            Markers.itineraryAdd();
+            map.hideInfoWindows();
         };
 
 
@@ -19,14 +17,23 @@ module.exports = function(app) {
             lng: -79.9404072,
         });
 
-        let goldStar = {
-            path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
-            fillColor: 'yellow',
-            fillOpacity: 0.8,
-            scale: .1,
-            strokeColor: 'gold',
-            strokeWeight: 1
-        }
+
+        var pinIcon = new google.maps.MarkerImage(
+                "./images/Mosey_Logo_Square.png",
+                null, /* size is determined at runtime */
+                null, /* origin is 0,0 */
+                null, /* anchor is bottom center of the scaled image */
+                new google.maps.Size(20, 20)
+            );
+
+
+            var eatsIcon = new google.maps.MarkerImage(
+                    "./images/restaurant_icon.png",
+                    null, /* size is determined at runtime */
+                    null, /* origin is 0,0 */
+                    null, /* anchor is bottom center of the scaled image */
+                    new google.maps.Size(30, 30)
+                );
 
         let lat = '';
         let lng = '';
@@ -43,14 +50,20 @@ module.exports = function(app) {
                     return compiled[0];
                 }
 
-
                 $scope.getItinerary = function() {
+                  //Redirect user to log in page if they are not logged in
+                  if(loginService.getUsername() === undefined){
+                      console.log('no log in');
+                      $location.path('/login')
+                      }
+                // ******************************************************
+
                     map.removeMarkers();
                     map.addMarker({
                         lat: lat,
                         lng: lng,
                         title: 'user',
-                        icon: goldStar,
+                        icon: pinIcon,
                     });
                     Markers.userItinerary().then(function(promise) {
                         let itin = promise;
@@ -84,7 +97,8 @@ module.exports = function(app) {
                                 lat: lat,
                                 lng: lng,
                                 title: 'user',
-                                icon: goldStar,
+                                icon: pinIcon,
+                                animation: google.maps.Animation.BOUNCE,
                             });
                             // *******************************************
 
@@ -100,11 +114,11 @@ module.exports = function(app) {
                                             lat: point.lat,
                                             lng: point.lng,
                                             title: point.name,
-                                            fillColor: '#4caf50',
-                                            color: 'yellow',
-                                            infoWindow: {
-                                                content: content(point),
+                                            icon: eatsIcon,
 
+                                            optimized: false,
+                                            infoWindow: {
+                                                content: content(point),//I have another function called content declared earlier
                                             },
                                             click: function(e) {
                                                 Markers.setPoint(point);

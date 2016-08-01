@@ -13,7 +13,7 @@ module.exports = function(app){
     $scope.register = function(){
       loginService.registerUser($scope.firstname, $scope.lastname, $scope.email, $scope.username, $scope.password, $scope.isLocal)
       .success(function(response) {
-          $location.path = ('/mosey');
+          $location.path('/mosey');
       },function(response){
         $scope.errorMessage = response.data.message;
       });
