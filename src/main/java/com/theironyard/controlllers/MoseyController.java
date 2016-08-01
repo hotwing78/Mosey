@@ -350,6 +350,12 @@ public class MoseyController {
     }
 
 
+    @RequestMapping(path = "/itinerary/{id}", method = RequestMethod.DELETE)
+    public void deleteUser(@PathVariable("id") int id) {
+        itineraries.delete(id);
+    }
+
+
     @RequestMapping(path = "/logout", method = RequestMethod.GET)
     public void logout(HttpSession session, HttpServletResponse response) throws IOException {
         session.invalidate();
