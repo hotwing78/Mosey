@@ -350,9 +350,21 @@ public class MoseyController {
     }
 
 
-    @RequestMapping(path = "/itinerary/{id}", method = RequestMethod.DELETE)
-    public void deleteUser(@PathVariable("id") int id) {
-        itineraries.delete(id);
+    @RequestMapping(path = "/deleteitinerary", method = RequestMethod.POST)
+    public void deleteUser(@RequestBody HashMap point) {
+        String name = (String) point.get("name");
+        if (restaurants.findFirstByName(name) != null) {
+            Restaurant rest = restaurants.findFirstByName(name);
+            Itinerary del = itineraries.findFirstByEventid(rest.getId());
+            itineraries.delete(del.getId());
+        }
+        else {
+            Activity act = activities.findFirstByActivityname(name);
+            Itinerary del = itineraries.findFirstByEventid(act.getId());
+            itineraries.delete(del.getId());
+        }
+
+
     }
 
 
