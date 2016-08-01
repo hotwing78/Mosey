@@ -23,11 +23,17 @@ module.exports = function(app) {
                 })
             },
             //Makes the delete from the itinerary database
-            itineraryDelete: function(id) {
+            itineraryDelete: function(point) {
                 $http({
-                    url: '/itinerary${id}',
+                    url: `/itinerary/${point.id}`,
                     method: 'delete',
-                })
+                    data: JSON.stringify({
+                          'id': point.id
+                        })
+
+                }).success(function(response){
+                    console.log(response);
+                });
             },
 
             //Snags the users current coordinates on the map.
