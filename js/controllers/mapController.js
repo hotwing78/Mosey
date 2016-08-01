@@ -12,9 +12,10 @@ module.exports = function(app) {
             map.hideInfoWindows();
         };
 
-        $scope.deletePoint = function() {
+        $scope.deletePoint = function(point) {
             console.log('clicked delete');
             console.log(this.point.name);
+            $scope.itin.removeObject(point);
             Markers.itineraryDelete(this.point);
 
             //Markers.itineraryDelete();
