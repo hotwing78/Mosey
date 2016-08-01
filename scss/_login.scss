@@ -2,10 +2,11 @@ $primary-yellow: #E1B80D;
 $primary-offwht: #FEF3E2;
 $primary-red: #FA4032;
 $primary-orange: #FA812F;
+$gray: #999;
 
 
 .top-bar {
-  background-color: $primary-offwht;
+  background-color: white;
   text-align: center;
   font-size: 1.2rem;
   padding: 1rem;
@@ -14,7 +15,7 @@ $primary-orange: #FA812F;
 }
 
 .top-bar ul {
-  background-color: $primary-offwht;
+  background-color: white;
   text-align: center;
   font-size: 1.2rem;
   padding: 1rem;}
@@ -23,11 +24,10 @@ $primary-orange: #FA812F;
 .menu li{
   a {
     font-size: 1.3em;
-    color: $primary-orange;
+    color: $primary-red;
   }
   a:hover {
-    font-size: 1.3em;
-    color: $primary-red;
+    font-weight: bolder;
   }
   a img {
     width: 70%;

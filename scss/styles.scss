@@ -9,8 +9,10 @@ $primary-yellow: #E1B80D;
 $primary-offwht: #FEF3E2;
 $primary-red: #FA4032;
 $primary-orange: #FA812F;
+$gray: #999;
 
 body {
+  background-color: rgba(162, 162, 162, 0.2);
   font-family: 'Source Sans Pro', sans-serif;
 }
 
@@ -20,7 +22,7 @@ body {
 
 .signup-panel{
   color: rgba(140,134,126,1);
-  background-color: $primary-offwht;
+  background-color: white;
   text-align: center;
   justify-content: center;
   border-color: white;
@@ -38,7 +40,7 @@ body {
 
 .signup-panel .button:hover {
   font-size: 1em;
-  box-shadow: 0 1px 6px $primary-red;
+  box-shadow: 0 1px 6px $gray;
   border-color: white;
   }
 
@@ -48,15 +50,17 @@ body {
     justify-content: center;
     width: 100%;
     border-radius: .1em;
-    border-color:  white;
-    color: $primary-red;
-    background-color:  rgba(255,255,255,.65);
-
+    border-color:  #fff;
+    color: rgba(#fa4032, 0.9);
+    border-color:  rgba(164,204,225,.3);
+    background-color: rgba(255,255,255,.45);
   }
   .button.hollow:hover {
     font-size: 1em;
     border-color: white;
-    color: $primary-orange;
+    font-weight: bolder;
+    background-color:  rgba(255,255,255,.65);
+    color: rgba(#fa4032, 0.49);
   }
 
 .menu a:active {

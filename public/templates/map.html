@@ -1,13 +1,15 @@
 <div class="row">
     <div class="large-4 columns">
         <h3>Custom Charleston Itinerary</h3>
-        <ul>
+
+          <ul class="sub-list">
             <li ng-repeat="point in itin">
-                <p> Event: {{ point.name }}</p>
-                <p> Price: {{ point.price }}</p>
+                <p> <strong>{{ point.name }}</strong></p>
+                <p> <em>{{ point.price }}</em></p>
                 <button type="button" class=" hollow button" ng-click='deletePoint(point)'>Delete</button>
             </li>
         </ul>
+
         <button class="expanded hollow button" ng-click = 'getItinerary()'>Get Itinerary!</button>
 
     </div>

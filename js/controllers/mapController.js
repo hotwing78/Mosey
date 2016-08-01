@@ -15,7 +15,6 @@ module.exports = function(app) {
         $scope.deletePoint = function() {
             console.log('clicked delete');
             Markers.itineraryDelete();
-            map.hideInfoWindows();
         };
 
 

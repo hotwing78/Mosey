@@ -14,7 +14,8 @@ $primary-orange: #FA812F;
 }
 
 .footer {
-  background-color: $primary-offwht;
+  margin-top: 1em;
+  background-color: white;
   text-align: center;
   font-size: 1.2rem;
   padding: 1rem;
@@ -23,7 +24,7 @@ $primary-orange: #FA812F;
     display: inline-block;
     width: 3rem;
     height: 2rem;
-    background-color: $primary-offwht;
+    background-color: white;
     border-radius: 2px;
     font-size: 1.5rem;
     color: $primary-red;
@@ -31,6 +32,7 @@ $primary-orange: #FA812F;
     line-height: 2rem;
     margin: 0 3px 0 0;
   }
+
 
   .copywrite {
     color: $primary-red;
@@ -41,12 +43,12 @@ $primary-orange: #FA812F;
   .footer-form {
     textarea, input {
       border-radius: 3px;
-      background-color: white;
-      box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.1);
+      // background-color: white;
+      // box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.1);
       border: $primary-red;
       resize: none;
       font: inherit;
-      font-size: 0.875rem;
+      font-size: 0.975rem;
       font-weight: normal;
       color: $primary-red;
       padding: 1.3rem;
@@ -62,8 +64,8 @@ $primary-orange: #FA812F;
 
     .submit {
       border-radius: 3px;
-      background-color: white;
-      color: $primary-red;
+      background-color: $primary-red;
+      color: white;
       border: 0;
       padding: 1rem 3.5rem;
       font-weight: bold;
