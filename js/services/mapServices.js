@@ -22,6 +22,14 @@ module.exports = function(app) {
                     data: possiblePoint,
                 })
             },
+            //Makes the delete from the itinerary database
+            itineraryDelete: function() {
+                $http({
+                    url: '/itinerary{id}',
+                    method: 'delete',
+                    data: possiblePoint,
+                })
+            },
 
             //Snags the users current coordinates on the map.
             getCurrentLocation: function(lat, lng) {

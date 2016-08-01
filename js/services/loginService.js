@@ -12,7 +12,16 @@ module.exports = function(app) {
         let usersArray = [];
         var currentUser;
 
+        // logout route in the works
+        var logout = function() {
+            $http.post('/logout').then(function(data) {
+                console.log(data);
+            })
+        }
+
         return {
+
+            // logout: logout; **not yet working
 
             getUser: function() {
                 $http({
@@ -27,17 +36,17 @@ module.exports = function(app) {
             },
             registerUser: function(firstname, lastname, email, username, password, isLocal) {
                 return $http({
-                        method: 'POST',
-                        url: '/register',
-                        data: {
-                            firstname: firstname,
-                            lastname: lastname,
-                            email: email,
-                            username: username,
-                            password: password,
-                            isLocal: isLocal,
-                        }
-                    });
+                    method: 'POST',
+                    url: '/register',
+                    data: {
+                        firstname: firstname,
+                        lastname: lastname,
+                        email: email,
+                        username: username,
+                        password: password,
+                        isLocal: isLocal,
+                    }
+                });
             },
             loginUser: function(username, password) {
                 return $http({
@@ -47,11 +56,11 @@ module.exports = function(app) {
                         username: username,
                         password: password,
                     }
-                }).then(function(response){
-                  if (response.config.data.username === username){
-                    currentUser = response.config.data.username;
-                  }
-                  return currentUser
+                }).then(function(response) {
+                    if (response.config.data.username === username) {
+                        currentUser = response.config.data.username;
+                    }
+                    return currentUser
                 })
             },
 

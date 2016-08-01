@@ -1,37 +1,41 @@
-module.exports = function(app){
-  app.controller('loginController', ['$scope', '$http', '$location', 'loginService', function($scope, $http, $location, loginService){
+module.exports = function(app) {
+    app.controller('loginController', ['$scope', '$http', '$location', 'loginService', function($scope, $http, $location, loginService) {
 
-    $scope.firstname = '';
-    $scope.lastname = '';
-    $scope.email = '';
-    $scope.username = '';
-    $scope.password = '';
-    $scope.isLocal = '';
-    $scope.errorMessage = '';
-    $scope.error = true;
+        $scope.firstname = '';
+        $scope.lastname = '';
+        $scope.email = '';
+        $scope.username = '';
+        $scope.password = '';
+        $scope.isLocal = '';
+        $scope.errorMessage = '';
+        $scope.error = true;
 
-    $scope.register = function(){
-      loginService.registerUser($scope.firstname, $scope.lastname, $scope.email, $scope.username, $scope.password, $scope.isLocal)
-      .success(function(response) {
-          $location.path('/mosey');
-      },function(response){
-        $scope.errorMessage = response.data.message;
-      });
-    };
+        $scope.logout = function() {
+            logoutService.logout();
+        };
 
-    $scope.login = function(){
-      loginService.loginUser($scope.username, $scope.password)
-      .then(function(response) {
-          console.log('successful')
-          $location.path('/mosey')
+        $scope.register = function() {
+            loginService.registerUser($scope.firstname, $scope.lastname, $scope.email, $scope.username, $scope.password, $scope.isLocal)
+                .success(function(response) {
+                    $location.path('/mosey');
+                }, function(response) {
+                    $scope.errorMessage = response.data.message;
+                });
+        };
 
-      },function(response){
-        console.log('unsuccessful');
-        $scope.errorMessage = response.data.message;
-      });
+        $scope.login = function() {
+            loginService.loginUser($scope.username, $scope.password)
+                .then(function(response) {
+                    console.log('successful')
+                    $location.path('/mosey')
 
-    };
+                }, function(response) {
+                    console.log('unsuccessful');
+                    $scope.errorMessage = response.data.message;
+                });
+
+        };
 
 
-  }]);
+    }]);
 }

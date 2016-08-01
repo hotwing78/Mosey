@@ -12,6 +12,12 @@ module.exports = function(app) {
             map.hideInfoWindows();
         };
 
+        $scope.deletePoint = function() {
+            console.log('clicked delete');
+            Markers.itineraryDelete();
+            map.hideInfoWindows();
+        };
+
 
         let map = new GMaps({
             div: '#map',
