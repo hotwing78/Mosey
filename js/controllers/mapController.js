@@ -4,6 +4,8 @@ module.exports = function(app) {
         // trying to have the name of the added place
 
         $scope.itin = [];
+
+
         $scope.addPlace = function() {
             console.log('clicked');
             Markers.itineraryAdd();
@@ -32,7 +34,7 @@ module.exports = function(app) {
                     null, /* size is determined at runtime */
                     null, /* origin is 0,0 */
                     null, /* anchor is bottom center of the scaled image */
-                    new google.maps.Size(30, 30)
+                    new google.maps.Size(40, 40)
                 );
 
         let lat = '';
@@ -74,6 +76,7 @@ module.exports = function(app) {
                                     lat: point.lat,
                                     lng: point.lng,
                                     title: point.name,
+                                    icon: eatsIcon,
 
                                     click: function(e) {
                                         console.log('click')
