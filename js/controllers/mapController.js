@@ -38,7 +38,7 @@ module.exports = function(app) {
 
 
             var eatsIcon = new google.maps.MarkerImage(
-                    "./images/Mosey_Eats_Square.png",
+                    "./images/Mosey_Eat.png",
                     null, /* size is determined at runtime */
                     null, /* origin is 0,0 */
                     null, /* anchor is bottom center of the scaled image */
@@ -47,7 +47,7 @@ module.exports = function(app) {
 
 
             var seeIcon = new google.maps.MarkerImage(
-                    "./images/Mosey_Tour_Square.png",
+                    "./images/Mosey_Activities.png",
                     null, /* size is determined at runtime */
                     null, /* origin is 0,0 */
                     null, /* anchor is bottom center of the scaled image */
