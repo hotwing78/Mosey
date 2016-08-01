@@ -108,9 +108,9 @@ module.exports = function(app) {
                         icon: pinIcon,
                     });
                     Markers.userItinerary().then(function(promise) {
-                        let itin = promise;
-                        console.table(itin);
-                        itin.forEach(function(point) {
+                        //itin = promise;
+                        angular.copy(promise,$scope.itin);
+                        promise.forEach(function(point) {
                             if (point.name !== '') {
                                 map.addMarker({
                                     lat: point.lat,
