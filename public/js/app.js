@@ -145,6 +145,9 @@ module.exports = function(app) {
                                             lat: point.lat,
                                             lng: point.lng,
                                             title: point.name,
+                                            icon: 'http://game-icons.net/icons/lorc/originals/png/knife-fork.png',
+                                            size: google.maps.Size(5,5),
+                                            optimized: false,
                                             infoWindow: {
                                                 content: content(point),
                                             },
