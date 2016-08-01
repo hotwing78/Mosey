@@ -25,9 +25,9 @@ module.exports = function(app) {
             //Makes the delete from the itinerary database
             itineraryDelete: function(point) {
                 $http({
-                    url: `/itinerary/${point}`,
-                    method: 'delete',
-                    data: JSON.stringify({point})
+                    url: '/deleteitinerary',
+                    method: 'post',
+                    data: JSON.stringify(point)
                 }).success(function(response){
                     console.log(response);
                 });
