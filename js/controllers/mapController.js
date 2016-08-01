@@ -14,7 +14,10 @@ module.exports = function(app) {
 
         $scope.deletePoint = function() {
             console.log('clicked delete');
-            Markers.itineraryDelete();
+            console.log(this.point.name);
+            Markers.itineraryDelete(this.point);
+
+            //Markers.itineraryDelete();
         };
 
 

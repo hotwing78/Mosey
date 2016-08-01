@@ -58,7 +58,10 @@ module.exports = function(app) {
 
         $scope.deletePoint = function() {
             console.log('clicked delete');
-            Markers.itineraryDelete();
+            console.log(this.point.name);
+            Markers.itineraryDelete(this.point);
+
+            //Markers.itineraryDelete();
         };
 
 
@@ -421,11 +424,14 @@ module.exports = function(app) {
                 })
             },
             //Makes the delete from the itinerary database
-            itineraryDelete: function(id) {
+            itineraryDelete: function(point) {
                 $http({
-                    url: '/itinerary${id}',
+                    url: `/itinerary/${point}`,
                     method: 'delete',
-                })
+                    data: JSON.stringify({point})
+                }).success(function(response){
+                    console.log(response);
+                });
             },
 
             //Snags the users current coordinates on the map.
