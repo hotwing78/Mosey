@@ -14,11 +14,9 @@
 
 <!-- Header and Nav -->
   <div class="row">
-    <div class="large-12 columns">
-      <div class="panel">
-        <h4>Welcome {{username}}!</h4>
+    <div class="large-12 columns" id="reviewHead">
+        <h4>Welcome <em>{{username}}</em>!</h4>
         <h2>Read the Reviews</h2>
-      </div>
     </div>
 
     <!-- Main Feed -->
@@ -26,15 +24,12 @@
 
       <div class="row" ng-repeat="review in reviewList">
         <hr />
-        <div class="large-12 columns">
+        <div class="large-12 columns" id="reviewList">
           <p><strong>{{review.username}} said:</strong> {{review.comment}}</p>
           <button type="button" class=" hollow button" ng-click='deleteReview(review)'>Delete</button>
         </div>
         <hr />
       </div>
-
-      <!-- Data:
-      <pre>{{ reviewList | json }}</pre> -->
 
 
     </div>
