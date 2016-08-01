@@ -47,6 +47,7 @@ module.exports = function(app) {
         $scope.addPlace = function() {
             console.log('clicked');
             Markers.itineraryAdd();
+            map.hideInfoWindows();
         };
 
 
@@ -128,6 +129,7 @@ module.exports = function(app) {
                                 lng: lng,
                                 title: 'user',
                                 icon: goldStar,
+                                animation: google.maps.Animation.BOUNCE,
                             });
                             // *******************************************
 
