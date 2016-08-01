@@ -158,11 +158,6 @@ public class MoseyController {
     //receiving current location from front-end
     @RequestMapping(path = "/mosey", method = RequestMethod.POST)
     public void home(HttpSession session, @RequestBody HashMap data)  {
-        //Restaurant dest = restaurants.findOne(1);
-        //convert new center to LatLng
-        //LatLng origin = new LatLng(0,0);
-        //LatLng destLL = new LatLng(dest.getLat(), dest.getLng());
-        //LatLng dest = new LatLng(1,1);
 
         double lat = (double) data.get("lat");
         double lng = (double) data.get("lng");
@@ -170,6 +165,7 @@ public class MoseyController {
         session.setAttribute("origin", origin);
     }
 
+    //
     @RequestMapping(path="/mosey", method = RequestMethod.GET)
     public double hover(HttpSession session, Object venue) throws Exception {
 
@@ -229,6 +225,7 @@ public class MoseyController {
         return activities.findAll();
     }
 
+    //deletes a review from db when passed an id from the front end
     @RequestMapping(path = "/deletereviews", method = RequestMethod.POST)
     public void deleteReviews (HttpSession session, @RequestBody Comment comment) throws Exception {
         String username = (String) session.getAttribute("username");
