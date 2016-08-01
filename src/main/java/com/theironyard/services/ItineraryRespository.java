@@ -10,4 +10,5 @@ import org.springframework.data.repository.CrudRepository;
 public interface ItineraryRespository extends CrudRepository<Itinerary, Integer> {
     //Iterable<Itinerary> findByUsername(String username);
     Iterable<Itinerary> findByUsers(User user);
+    Itinerary findFirstByEventid (int id);
 }
