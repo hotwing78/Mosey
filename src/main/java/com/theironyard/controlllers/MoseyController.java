@@ -335,7 +335,7 @@ public class MoseyController {
 
         User user = users.findByUsername(username);
         int id = user.getId();
-        Iterable<Itinerary> itinerary = itineraries.findByEventid(id);
+        Iterable<Itinerary> itinerary = itineraries.findByUsers(user);
 
         for (Itinerary itin: itinerary) {
             if (itin.getRest() == true) {
