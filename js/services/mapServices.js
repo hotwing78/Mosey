@@ -36,15 +36,16 @@ module.exports = function(app) {
             },
 
             // Makes a call to the restaurants database
-            getRestaurants: function() {
+            getMarker: function(type) {
                 var promise = $http({
-                    url: '/food',
+                    url: '/' + type,
                     method: 'get'
                 }).then(function(results) {
                     return results.data;
                 });
                 return promise;
             },
+
 
             //Makes a call for the itinerary
             userItinerary: function(){

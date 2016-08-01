@@ -81,9 +81,9 @@ module.exports = function(app) {
         let lng = '';
 
 
-        function content(point) {
+        function content(point,name) {
             var htmlElement = `<div class = 'info'>
-                            Name:\t<strong>${point.name}</strong></br>
+                            Name:\t<strong>${name}</strong></br>
                             Price:\t${point.price}</br>
                             Category:\t${point.category}</br>
                             <button ng-click ="addPlace(point)">ADD</button>
@@ -107,7 +107,7 @@ module.exports = function(app) {
                         title: 'user',
                         icon: pinIcon,
                     });
-                    Markers.userItinerary().then(function(promise) {
+                    Markers.getMarker('additinerary').then(function(promise) {
                         //itin = promise;
                         angular.copy(promise,$scope.itin);
                         promise.forEach(function(point) {
@@ -149,7 +149,7 @@ module.exports = function(app) {
                             map.setCenter(position.coords.latitude, position.coords.longitude);
 
                             // Resturant markers on the map*******************
-                            Markers.getRestaurants().then(function(promise) {
+                            Markers.getMarker('food').then(function(promise) {
                                 let food = promise;
                                 food.forEach(function(point) {
                                     if (point.name !== '') {
@@ -161,7 +161,28 @@ module.exports = function(app) {
 
                                             optimized: false,
                                             infoWindow: {
-                                                content: content(point),//I have another function called content declared earlier
+                                                content: content(point,point.name),//I have another function called content declared earlier
+                                            },
+                                            click: function(e) {
+                                                Markers.setPoint(point);
+                                            }
+                                        }); //end addMarker
+                                    } // end of the if statement
+                                }); //End forEach
+                            }); //End Markers.getRestaurants
+
+                            // activity markers on the map*******************
+                            Markers.getMarker('activity').then(function(promise) {
+                                let food = promise;
+                                food.forEach(function(point) {
+                                    if (point.name !== '') {
+                                        map.addMarker({
+                                            lat: point.lat,
+                                            lng: point.lng,
+                                            title: point.name,
+
+                                            infoWindow: {
+                                                content: content(point,point.activityname),//I have another function called content declared earlier
                                             },
                                             click: function(e) {
                                                 Markers.setPoint(point);
@@ -385,15 +406,16 @@ module.exports = function(app) {
             },
 
             // Makes a call to the restaurants database
-            getRestaurants: function() {
+            getMarker: function(type) {
                 var promise = $http({
-                    url: '/food',
+                    url: '/' + type,
                     method: 'get'
                 }).then(function(results) {
                     return results.data;
                 });
                 return promise;
             },
+
 
             //Makes a call for the itinerary
             userItinerary: function(){
