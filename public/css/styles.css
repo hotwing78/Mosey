@@ -97,6 +97,11 @@
   font-weight: 200;
   text-align: center; }
 
+.signup-panel p #welcomemosey {
+  font-size: 1rem;
+  font-weight: 200;
+  text-align: center; }
+
 .signup-panel .button {
   text-align: center;
   justify-content: center;
@@ -329,50 +334,6 @@ h1 {
   background-color: #2c3940;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.3); }
 
-.btn {
-  border-radius: 2px; }
-
-.cancel {
-  padding: 1em;
-  background-color: #df405a; }
-
-.done {
-  padding: 1em;
-  background-color: #5CAB7D; }
-
-.done:hover {
-  background-color: #6dc793; }
-
-.done:focus {
-  background-color: #6dc793; }
-
-.cancel:hover {
-  background-color: #f0435f; }
-
-.cancel:focus {
-  background-color: #f0435f; }
-
-.input-group {
-  width: 100%; }
-
-.input-group .ng-invalid {
-  border: 2px solid #e74c3c;
-  border-radius: 3px; }
-
-/* Error Box */
-.alert {
-  padding: 15px;
-  margin-bottom: 20px;
-  border: 1px solid transparent;
-  border-radius: 2px;
-  border-color: #e85a71;
-  background-color: #e85a71;
-  color: white; }
-
-.help-block {
-  font-size: 12px;
-  color: white; }
-
 @font-face {
   font-family: TheWildThingsScript;
   src: url("../TheWildThingsScript/TheWildThingsScript.otf"); }
@@ -429,3 +390,10 @@ body {
 .auth-plain {
   justify-content: center;
   text-align: center; }
+
+.signup-panel .welcomemosey {
+  font-size: 3.3em;
+  font-family: TheWildThingsScript;
+  color: #999;
+  font-weight: 300;
+  text-shadow: 1.2px 1.2px 1px white; }
