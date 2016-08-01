@@ -23,11 +23,10 @@ module.exports = function(app) {
                 })
             },
             //Makes the delete from the itinerary database
-            itineraryDelete: function() {
+            itineraryDelete: function(id) {
                 $http({
-                    url: '/itinerary{id}',
+                    url: '/itinerary${id}',
                     method: 'delete',
-                    data: possiblePoint,
                 })
             },
 

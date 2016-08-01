@@ -59,7 +59,6 @@ module.exports = function(app) {
         $scope.deletePoint = function() {
             console.log('clicked delete');
             Markers.itineraryDelete();
-            map.hideInfoWindows();
         };
 
 
@@ -422,11 +421,10 @@ module.exports = function(app) {
                 })
             },
             //Makes the delete from the itinerary database
-            itineraryDelete: function() {
+            itineraryDelete: function(id) {
                 $http({
-                    url: '/itinerary{id}',
+                    url: '/itinerary${id}',
                     method: 'delete',
-                    data: possiblePoint,
                 })
             },
 
