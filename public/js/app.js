@@ -63,7 +63,7 @@ module.exports = function(app) {
                 null, /* size is determined at runtime */
                 null, /* origin is 0,0 */
                 null, /* anchor is bottom center of the scaled image */
-                new google.maps.Size(20, 20)
+                new google.maps.Size(50, 50)
             );
 
 
