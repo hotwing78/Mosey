@@ -1,40 +1,44 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-module.exports = function(app){
-  app.controller('loginController', ['$scope', '$http', '$location', 'loginService', function($scope, $http, $location, loginService){
+module.exports = function(app) {
+    app.controller('loginController', ['$scope', '$http', '$location', 'loginService', function($scope, $http, $location, loginService) {
 
-    $scope.firstname = '';
-    $scope.lastname = '';
-    $scope.email = '';
-    $scope.username = '';
-    $scope.password = '';
-    $scope.isLocal = '';
-    $scope.errorMessage = '';
-    $scope.error = true;
+        $scope.firstname = '';
+        $scope.lastname = '';
+        $scope.email = '';
+        $scope.username = '';
+        $scope.password = '';
+        $scope.isLocal = '';
+        $scope.errorMessage = '';
+        $scope.error = true;
 
-    $scope.register = function(){
-      loginService.registerUser($scope.firstname, $scope.lastname, $scope.email, $scope.username, $scope.password, $scope.isLocal)
-      .success(function(response) {
-          $location.path('/mosey');
-      },function(response){
-        $scope.errorMessage = response.data.message;
-      });
-    };
+        $scope.logout = function() {
+            logoutService.logout();
+        };
 
-    $scope.login = function(){
-      loginService.loginUser($scope.username, $scope.password)
-      .then(function(response) {
-          console.log('successful')
-          $location.path('/mosey')
+        $scope.register = function() {
+            loginService.registerUser($scope.firstname, $scope.lastname, $scope.email, $scope.username, $scope.password, $scope.isLocal)
+                .success(function(response) {
+                    $location.path('/mosey');
+                }, function(response) {
+                    $scope.errorMessage = response.data.message;
+                });
+        };
 
-      },function(response){
-        console.log('unsuccessful');
-        $scope.errorMessage = response.data.message;
-      });
+        $scope.login = function() {
+            loginService.loginUser($scope.username, $scope.password)
+                .then(function(response) {
+                    console.log('successful')
+                    $location.path('/mosey')
 
-    };
+                }, function(response) {
+                    console.log('unsuccessful');
+                    $scope.errorMessage = response.data.message;
+                });
+
+        };
 
 
-  }]);
+    }]);
 }
 
 },{}],2:[function(require,module,exports){
@@ -49,6 +53,12 @@ module.exports = function(app) {
         $scope.addPlace = function() {
             console.log('clicked');
             Markers.itineraryAdd();
+            map.hideInfoWindows();
+        };
+
+        $scope.deletePoint = function() {
+            console.log('clicked delete');
+            Markers.itineraryDelete();
             map.hideInfoWindows();
         };
 
@@ -294,7 +304,16 @@ module.exports = function(app) {
         let usersArray = [];
         var currentUser;
 
+        // logout route in the works
+        var logout = function() {
+            $http.post('/logout').then(function(data) {
+                console.log(data);
+            })
+        }
+
         return {
+
+            // logout: logout; **not yet working
 
             getUser: function() {
                 $http({
@@ -309,17 +328,17 @@ module.exports = function(app) {
             },
             registerUser: function(firstname, lastname, email, username, password, isLocal) {
                 return $http({
-                        method: 'POST',
-                        url: '/register',
-                        data: {
-                            firstname: firstname,
-                            lastname: lastname,
-                            email: email,
-                            username: username,
-                            password: password,
-                            isLocal: isLocal,
-                        }
-                    });
+                    method: 'POST',
+                    url: '/register',
+                    data: {
+                        firstname: firstname,
+                        lastname: lastname,
+                        email: email,
+                        username: username,
+                        password: password,
+                        isLocal: isLocal,
+                    }
+                });
             },
             loginUser: function(username, password) {
                 return $http({
@@ -329,11 +348,11 @@ module.exports = function(app) {
                         username: username,
                         password: password,
                     }
-                }).then(function(response){
-                  if (response.config.data.username === username){
-                    currentUser = response.config.data.username;
-                  }
-                  return currentUser
+                }).then(function(response) {
+                    if (response.config.data.username === username) {
+                        currentUser = response.config.data.username;
+                    }
+                    return currentUser
                 })
             },
 
@@ -368,6 +387,14 @@ module.exports = function(app) {
                 $http({
                     url: '/itinerary',
                     method: 'post',
+                    data: possiblePoint,
+                })
+            },
+            //Makes the delete from the itinerary database
+            itineraryDelete: function() {
+                $http({
+                    url: '/itinerary{id}',
+                    method: 'delete',
                     data: possiblePoint,
                 })
             },

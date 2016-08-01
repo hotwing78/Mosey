@@ -12,6 +12,7 @@ module.exports = function(app) {
         let usersArray = [];
         var currentUser;
 
+        // logout route in the works
         var logout = function() {
             $http.post('/logout').then(function(data) {
                 console.log(data);
@@ -20,7 +21,7 @@ module.exports = function(app) {
 
         return {
 
-            logout: logout;
+            // logout: logout; **not yet working
 
             getUser: function() {
                 $http({
