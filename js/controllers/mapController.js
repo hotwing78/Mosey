@@ -36,7 +36,16 @@ module.exports = function(app) {
 
 
             var eatsIcon = new google.maps.MarkerImage(
-                    "./images/restaurant_icon.png",
+                    "./images/Mosey_Eats_Square.png",
+                    null, /* size is determined at runtime */
+                    null, /* origin is 0,0 */
+                    null, /* anchor is bottom center of the scaled image */
+                    new google.maps.Size(40, 40)
+                );
+
+
+            var seeIcon = new google.maps.MarkerImage(
+                    "./images/Mosey_Tour_Square.png",
                     null, /* size is determined at runtime */
                     null, /* origin is 0,0 */
                     null, /* anchor is bottom center of the scaled image */
@@ -146,6 +155,7 @@ module.exports = function(app) {
                                             lat: point.lat,
                                             lng: point.lng,
                                             title: point.name,
+                                            icon: seeIcon,
 
                                             infoWindow: {
                                                 content: content(point,point.activityname),//I have another function called content declared earlier
