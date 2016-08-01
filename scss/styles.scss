@@ -4,6 +4,11 @@
 @import 'reviews';
 @import 'register';
 
+@font-face {
+    font-family: TheWildThingsScript;
+    src: url("../TheWildThingsScript/TheWildThingsScript.otf");
+}
+
 
 $primary-yellow: #E1B80D;
 $primary-offwht: #FEF3E2;
@@ -13,7 +18,7 @@ $gray: #999;
 
 body {
   background-color: rgba(162, 162, 162, 0.2);
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: WildThings, sans-serif;
 }
 
 .columns, h2, p, h1, h3, h4, h5, h6 {
