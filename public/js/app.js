@@ -75,8 +75,8 @@ module.exports = function(app) {
                     new google.maps.Size(30, 30)
                 );
 
-                let lat = '';
-                let lng = '';
+        let lat = '';
+        let lng = '';
 
 
         function content(point) {
@@ -84,7 +84,7 @@ module.exports = function(app) {
                             Name:\t<strong>${point.name}</strong></br>
                             Price:\t${point.price}</br>
                             Category:\t${point.category}</br>
-                            <button ng-click ="addPlace()">ADD</button>
+                            <button ng-click ="addPlace(point)">ADD</button>
                             </div>`
                     var compiled = $compile(htmlElement)($scope)
                     return compiled[0];
