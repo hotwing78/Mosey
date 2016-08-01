@@ -1,6 +1,7 @@
 package com.theironyard.services;
 
 import com.theironyard.entities.Itinerary;
+import com.theironyard.entities.User;
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -8,5 +9,5 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface ItineraryRespository extends CrudRepository<Itinerary, Integer> {
     //Iterable<Itinerary> findByUsername(String username);
-    Iterable<Itinerary> findByEventid(int id);
+    Iterable<Itinerary> findByUsers(User user);
 }
