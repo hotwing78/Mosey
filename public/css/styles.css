@@ -261,10 +261,18 @@
 .inline-list {
   list-style: none; }
 
-.button .hollow {
-  border: 1px solid #E1B80D;
-  color: #FA4032;
-  background-color: #FEF3E2; }
+#reviewHead {
+  font-style: italic;
+  color: #999;
+  text-align: center; }
+  #reviewHead h2 {
+    color: #999;
+    font-weight: 300;
+    text-shadow: 1.2px 1.2px 1px white; }
+
+#reviewList {
+  color: #6f6f74;
+  font-size: 1.2em; }
 
 body {
   min-height: 100%;
@@ -374,18 +382,18 @@ body {
   text-align: center;
   justify-content: center;
   width: 100%;
-  border-radius: .1em;
-  border-color: #fff;
+  border-radius: .3em;
   color: rgba(250, 64, 50, 0.9);
-  border-color: rgba(164, 204, 225, 0.3);
+  border-color: #999;
   background-color: rgba(255, 255, 255, 0.45); }
 
 .button.hollow:hover {
   font-size: 1em;
-  border-color: white;
+  border-radius: .3em;
+  border-color: #FA4032;
   font-weight: bolder;
-  background-color: rgba(255, 255, 255, 0.65);
-  color: rgba(250, 64, 50, 0.49); }
+  background-color: #FA4032;
+  color: white; }
 
 .menu a:active {
   color: white; }

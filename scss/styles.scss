@@ -49,18 +49,18 @@ body {
     text-align: center;
     justify-content: center;
     width: 100%;
-    border-radius: .1em;
-    border-color:  #fff;
+    border-radius: .3em;
     color: rgba(#fa4032, 0.9);
-    border-color:  rgba(164,204,225,.3);
+    border-color:  $gray;
     background-color: rgba(255,255,255,.45);
   }
   .button.hollow:hover {
     font-size: 1em;
-    border-color: white;
+    border-radius: .3em;
+    border-color: $primary-red;
     font-weight: bolder;
-    background-color:  rgba(255,255,255,.65);
-    color: rgba(#fa4032, 0.49);
+    background-color:  $primary-red;
+    color: white;
   }
 
 .menu a:active {
