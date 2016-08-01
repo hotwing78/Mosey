@@ -315,13 +315,19 @@ public class MoseyController {
             int id = (int) data.get("id");
             itinerary.setEventid(id);
             itinerary.setUsers(user);
+            if (itineraries.findFirstByEventid(id)==null) {
+                itineraries.save(itinerary);
+            }
         } else {
             itinerary.setRest(true);
             int id = (int) data.get("id");
             itinerary.setEventid(id);
             itinerary.setUsers(user);
+            if (itineraries.findFirstByEventid(id)==null) {
+                itineraries.save(itinerary);
+            }
         }
-        itineraries.save(itinerary);
+
     }
 
     @RequestMapping(path="/additinerary", method = RequestMethod.GET)
