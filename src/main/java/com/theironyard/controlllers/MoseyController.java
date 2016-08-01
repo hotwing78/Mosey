@@ -299,7 +299,7 @@ public class MoseyController {
     }
     //show info for itinerary
     @RequestMapping(path = "/itinerary", method = RequestMethod.POST)
-    //need to add contigency of being a registered user(our hook to get them to register)
+
     public void addItinerary(HttpSession session, @RequestBody HashMap data) throws Exception {
         String username = (String) session.getAttribute("username");
         if (username == null) {
@@ -324,7 +324,7 @@ public class MoseyController {
         itineraries.save(itinerary);
     }
 
-    @RequestMapping(path="/itinerary", method = RequestMethod.GET)
+    @RequestMapping(path="/additinerary", method = RequestMethod.GET)
     public ArrayList<Object> getItinerary(HttpSession session) throws Exception {
         ArrayList<Object> events = new ArrayList<Object>();
 
