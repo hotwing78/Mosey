@@ -1,20 +1,38 @@
 <div class="row">
-    <div class="large-4 columns">
+    <div class="large-4 columns" id='main-init'>
         <h3>Custom Charleston Itinerary</h3>
 
           <ul class="sub-list">
             <li ng-repeat="point in itin">
                 <p> <strong>{{ point.name }}</strong></p>
                 <p> <em>{{ point.price }}</em></p>
+                <p> <em>{{ point.localstake }}</em></p>
                 <p> <em>{{ point.category }}</em></p>
                 <button type="button" class=" hollow button" ng-click='deletePoint(point)'>Delete</button>
             </li>
         </ul>
-
-        <button class="expanded hollow button" ng-click = 'getItinerary()'>Get Itinerary!</button>
-
+        <button class="expanded hollow button" ng-click = 'getItinerary()'>Create Itinerary</button>
+<!--
+        <button class="expanded hollow button">Places to Eat</button>
+        <button class="expanded hollow button">Places to See</button> -->
     </div>
+
+
     <div class="large-8 columns">
         <div id="map"></div>
+        <div class="row" id='options'>
+        <div class="large-11 columns">
+          <h3>Whatcha in the mood for?</h3>
+          <select>
+            <option value="food">Food</option>
+            <option value="drinks">Drinks</option>
+            <option value="dessert">Dessert</option>
+            <option value="indoor">Indoor Activity</option>
+            <option value="outdoor">Outdoor Activity</option>
+          </select>
+        </div>
+        </div>
     </div>
+
+
 </div>
