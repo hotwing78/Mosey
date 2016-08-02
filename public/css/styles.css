@@ -178,15 +178,10 @@
   padding: .25em 1em;
   line-height: 1em; }
 
-.medium-7 {
-  justify-content: center;
-  padding: 10px;
+.medium-8 h3 {
   border-radius: 5px;
-  background-color: #2c3940;
+  background-color: white;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
-  background: white; }
-
-.medium-7 h3 {
   font-family: TheWildThingsScript;
   text-align: center;
   font-weight: 750;
@@ -194,20 +189,24 @@
   font-size: 2.5em;
   color: #FA4032; }
 
-.medium-7 ul {
+.medium-8 ul {
   line-height: 1em;
   list-style: none;
   text-align: center;
   color: #FA4032;
   font-size: 1em; }
 
-.medium-5 p {
+.medium-4 p {
   font-family: TheWildThingsScript;
   line-height: 1.2em;
   list-style: none;
   text-align: center;
   color: #FA4032;
   font-size: 2em; }
+
+#options {
+  clear: both;
+  margin-top: 4%; }
 
 ::-webkit-input-placeholder {
   color: #FEF3E2;

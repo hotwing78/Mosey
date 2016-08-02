@@ -1,4 +1,29 @@
 <div class="row">
+
+  <div class="row">
+    <div class="medium-4 columns" id='options'>
+      <button type="button" class=" hollow button" ng-click='toggle()'>Instructions</button>
+
+      <p ng-show="newInstructions">
+        1. Login/Register <br>
+        2. Select recommendations <br>near you <br>
+        3. Add to Itinerary <br>and start to mosey! <br>
+      </p>
+    </div>
+  <div class="medium-8 columns">
+    <h3>Whatcha in the mood for?</h3>
+    <select ng-model = 'selector' ng-change = 'getSelection()'>
+      <option value="all">All</option>
+      <option value="food">Food</option>
+      <option value="activity">Activity</option>
+    </select>
+
+  </div>
+
+  </div>
+
+
+
     <div class="large-4 columns" id='main-init'>
         <h3>Custom Charleston Itinerary</h3>
 
@@ -12,34 +37,13 @@
             </li>
         </ul>
         <button class="expanded hollow button" ng-click = 'getItinerary()'>Create Itinerary</button>
-<!--
-        <button class="expanded hollow button">Places to Eat</button>
-        <button class="expanded hollow button">Places to See</button> -->
+
     </div>
 
 
     <div class="large-8 columns">
         <div id="map"></div>
-        <div class="row" id='options'>
-        <div class="medium-7 columns">
-          <h3>Whatcha in the mood for?</h3>
-          <select ng-model = 'selector' ng-change = 'getSelection()'>
-            <option value="all">All</option>
-            <option value="food">Food</option>
-            <option value="activity">activity</option>
-          </select>
-          <!--<button class="expanded hollow button" ng-click = 'getSelection()'>Things to do</button>-->
-        </div>
-        <div class="medium-5 columns">
-          <button type="button" class=" hollow button" ng-click='toggle()'>Instructions</button>
 
-          <p ng-show="newInstructions">
-            1. Login/Register <br>
-            2. Select recommendations <br>near you <br>
-            3. Add to Itinerary <br>and start to mosey! <br>
-          </p>
-        </div>
-        </div>
     </div>
 
 

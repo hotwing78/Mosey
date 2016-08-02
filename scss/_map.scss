@@ -75,17 +75,19 @@ $gray: #999;
 }
 
 ///whatcha in the mood for
-.medium-7 {
+// .medium-8 {
+//   justify-content: center;
+//   // margin: 5px;
+//   border-radius: 5px;
+//   background-color: #2c3940;
+//   box-shadow: 0 1px 6px rgba(0,0,0,.3);
+//   background: white;
+// }
 
-  justify-content: center;
-  padding: 10px;
+.medium-8 h3 {
   border-radius: 5px;
-  background-color: #2c3940;
+  background-color: white;
   box-shadow: 0 1px 6px rgba(0,0,0,.3);
-  background: white;
-}
-
-.medium-7 h3 {
   font-family: TheWildThingsScript;
   text-align: center;
   font-weight: 750;
@@ -94,7 +96,7 @@ $gray: #999;
   color: $primary-red;
 }
 
-.medium-7 ul {
+.medium-8 ul {
   line-height: 1em;
   list-style: none;
   text-align: center;
@@ -102,11 +104,16 @@ $gray: #999;
   font-size: 1em;
 }
 
-.medium-5 p {
+.medium-4 p {
   font-family: TheWildThingsScript;
   line-height: 1.2em;
   list-style: none;
   text-align: center;
   color: $primary-red;
   font-size: 2em;
+}
+
+#options {
+  clear: both;
+  margin-top: 4%;
 }
