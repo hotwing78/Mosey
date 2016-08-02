@@ -364,7 +364,7 @@ public class MoseyController {
             Itinerary del = itineraries.findFirstByEventid(rest.getId());
             itineraries.delete(del.getId());
         }
-        else {
+        else if (activities.findFirstByName(name) != null){
             Activity act = activities.findFirstByName(name);
             Itinerary del = itineraries.findFirstByEventid(act.getId());
             itineraries.delete(del.getId());
