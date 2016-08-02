@@ -17,6 +17,8 @@ module.exports = function(app) {
             console.log(this.point.name);
             $scope.itin.removeObject(point);
             Markers.itineraryDelete(this.point);
+            map.removeMarkers();
+            userLocal();
 
             //Markers.itineraryDelete();
         };
@@ -58,6 +60,34 @@ module.exports = function(app) {
         let lat = '';
         let lng = '';
 
+        function userLocal(){
+          map.removeMarkers();
+          map.addMarker({
+              lat: lat,
+              lng: lng,
+              title: 'user',
+              icon: pinIcon,
+          });
+          
+          Markers.getMarker('additinerary').then(function(promise) {
+              //itin = promise;
+              angular.copy(promise,$scope.itin);
+              promise.forEach(function(point) {
+                  if (point.name !== '') {
+                      map.addMarker({
+                          lat: point.lat,
+                          lng: point.lng,
+                          title: point.name,
+                          icon: eatsIcon,
+
+                          click: function(e) {
+                              console.log('click')
+                          }
+                      }); //end addMarker
+                  } // end of the if statement
+              }); //End forEach
+          });
+        };
 
         function content(point,name) {
             var htmlElement = `<div class = 'info'>
@@ -76,33 +106,7 @@ module.exports = function(app) {
                       console.log('no log in');
                       $location.path('/login')
                       }
-                // ******************************************************
-
-                    map.removeMarkers();
-                    map.addMarker({
-                        lat: lat,
-                        lng: lng,
-                        title: 'user',
-                        icon: pinIcon,
-                    });
-                    Markers.getMarker('additinerary').then(function(promise) {
-                        //itin = promise;
-                        angular.copy(promise,$scope.itin);
-                        promise.forEach(function(point) {
-                            if (point.name !== '') {
-                                map.addMarker({
-                                    lat: point.lat,
-                                    lng: point.lng,
-                                    title: point.name,
-                                    icon: eatsIcon,
-
-                                    click: function(e) {
-                                        console.log('click')
-                                    }
-                                }); //end addMarker
-                            } // end of the if statement
-                        }); //End forEach
-                    });
+                      userLocal();
                     }
 
 
@@ -161,7 +165,7 @@ module.exports = function(app) {
                                             icon: seeIcon,
 
                                             infoWindow: {
-                                                content: content(point,point.activityname),//I have another function called content declared earlier
+                                                content: content(point,point.name),//I have another function called content declared earlier
                                             },
                                             click: function(e) {
                                                 Markers.setPoint(point);
@@ -176,9 +180,6 @@ module.exports = function(app) {
                         },
                         not_supported: function() {
                             alert("Your browser does not support geolocation");
-                        },
-                        always: function() {
-                            alert("Done!");
                         }
                     });
                 }]);
