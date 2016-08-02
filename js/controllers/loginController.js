@@ -10,8 +10,16 @@ module.exports = function(app) {
         $scope.errorMessage = '';
         $scope.error = true;
 
+
+        // not yet working
+
         $scope.logout = function() {
-            logoutService.logout();
+            Session.clear();
+            success(function(response) {
+                $location.path('/mosey');
+            }, function(response) {
+                $scope.errorMessage = response.data.message;
+            });
         };
 
         $scope.register = function() {
