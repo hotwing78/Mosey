@@ -309,13 +309,14 @@ public class MoseyController {
         Itinerary itinerary = new Itinerary();
         User user = users.findByUsername(username);
         String name = (String) data.get("name");
-
+        Restaurant temp = restaurants.findFirstByName(name);
         if (restaurants.findFirstByName(name)==null) {
             itinerary.setRest(false);
             int id = (int) data.get("id");
             itinerary.setEventid(id);
             itinerary.setUsers(user);
-            if (itineraries.findFirstByEventid(id)==null) {
+            Itinerary itin = itineraries.findFirstByEventid(id);
+            if (itin==null || itin.getUsers() != itinerary.getUsers()) {
                 itineraries.save(itinerary);
             }
         } else {
@@ -323,7 +324,8 @@ public class MoseyController {
             int id = (int) data.get("id");
             itinerary.setEventid(id);
             itinerary.setUsers(user);
-            if (itineraries.findFirstByEventid(id)==null) {
+            Itinerary itin = itineraries.findFirstByEventid(id);
+            if (itin==null || itin.getUsers() != itinerary.getUsers()) {
                 itineraries.save(itinerary);
             }
         }
