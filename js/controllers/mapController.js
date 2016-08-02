@@ -61,6 +61,7 @@ module.exports = function(app) {
         let lng = '';
 
         function userLocal(){
+          console.table($scope.itin)
           map.removeMarkers();
           map.addMarker({
               lat: lat,
@@ -68,7 +69,7 @@ module.exports = function(app) {
               title: 'user',
               icon: pinIcon,
           });
-          
+
           Markers.getMarker('additinerary').then(function(promise) {
               //itin = promise;
               angular.copy(promise,$scope.itin);
@@ -114,6 +115,7 @@ module.exports = function(app) {
                         success: function(position) {
                             lat = position.coords.latitude;
                             lng = position.coords.longitude;
+
 
                             // intial map population*************************
                             Markers.getCurrentLocation(lat, lng);
