@@ -92,7 +92,7 @@ module.exports = function(app) {
 
         function content(point,name) {
             var htmlElement = `<div class = 'info'>
-                            Name:\t<strong>${name}</strong></br>
+                            Name:\t<strong>${point.name}</strong></br>
                             Price:\t${point.price}</br>
                             Category:\t${point.category}</br>
                             <button ng-click ="addPlace(point)">ADD</button>
