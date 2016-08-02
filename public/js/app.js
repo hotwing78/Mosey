@@ -213,7 +213,7 @@ module.exports = function(app) {
                                             icon: seeIcon,
 
                                             infoWindow: {
-                                                content: content(point,point.activityname),//I have another function called content declared earlier
+                                                content: content(point,point.name),//I have another function called content declared earlier
                                             },
                                             click: function(e) {
                                                 Markers.setPoint(point);
