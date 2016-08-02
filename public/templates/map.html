@@ -23,12 +23,12 @@
         <div class="row" id='options'>
         <div class="large-11 columns">
           <h3>Whatcha in the mood for?</h3>
-          <select ng-model = 'selector'>
+          <select ng-model = 'selector' ng-change = 'getSelection()'>
             <option value="all">All</option>
             <option value="food">Food</option>
             <option value="activity">activity</option>
           </select>
-          <button class="expanded hollow button" ng-click = 'getSelection()'>Things to do</button>
+          <!--<button class="expanded hollow button" ng-click = 'getSelection()'>Things to do</button>-->
         </div>
         </div>
     </div>
