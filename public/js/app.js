@@ -53,10 +53,12 @@ module.exports = function(app) {
 module.exports = function(app) {
     app.controller('mapController', ['$scope', '$compile','$location','Markers','loginService', function($scope, $compile,$location,Markers,loginService) {
 
-        // trying to have the name of the added place
-
         $scope.itin = [];
 
+        $scope.newInstructions = false;
+        $scope.toggle = function(){
+          $scope.newInstructions = !$scope.newInstructions;
+        };
 
         $scope.addPlace = function() {
             console.log('clicked');
@@ -120,7 +122,7 @@ module.exports = function(app) {
               title: 'user',
               icon: pinIcon,
           });
-          
+
           Markers.getMarker('additinerary').then(function(promise) {
               //itin = promise;
               angular.copy(promise,$scope.itin);
@@ -143,7 +145,7 @@ module.exports = function(app) {
 
         function content(point,name) {
             var htmlElement = `<div class = 'info'>
-                            Name:\t<strong>${point.name}</strong></br>
+                            \t<strong>${point.name}</strong></br>
                             Price:\t${point.price}</br>
                             Category:\t${point.category}</br>
                             <button ng-click ="addPlace(point)">ADD</button>
