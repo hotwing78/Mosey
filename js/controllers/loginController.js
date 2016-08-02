@@ -16,7 +16,7 @@ module.exports = function(app) {
         $scope.logout = function() {
             Session.clear();
             success(function(response) {
-                $location.path('/mosey');
+                $location.path('/login');
             }, function(response) {
                 $scope.errorMessage = response.data.message;
             });

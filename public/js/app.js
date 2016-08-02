@@ -17,7 +17,7 @@ module.exports = function(app) {
         $scope.logout = function() {
             Session.clear();
             success(function(response) {
-                $location.path('/mosey');
+                $location.path('/login');
             }, function(response) {
                 $scope.errorMessage = response.data.message;
             });
@@ -69,6 +69,8 @@ module.exports = function(app) {
             console.log(this.point.name);
             $scope.itin.removeObject(point);
             Markers.itineraryDelete(this.point);
+            map.removeMarkers();
+            userLocal();
 
             //Markers.itineraryDelete();
         };
@@ -110,6 +112,34 @@ module.exports = function(app) {
         let lat = '';
         let lng = '';
 
+        function userLocal(){
+          map.removeMarkers();
+          map.addMarker({
+              lat: lat,
+              lng: lng,
+              title: 'user',
+              icon: pinIcon,
+          });
+          
+          Markers.getMarker('additinerary').then(function(promise) {
+              //itin = promise;
+              angular.copy(promise,$scope.itin);
+              promise.forEach(function(point) {
+                  if (point.name !== '') {
+                      map.addMarker({
+                          lat: point.lat,
+                          lng: point.lng,
+                          title: point.name,
+                          icon: eatsIcon,
+
+                          click: function(e) {
+                              console.log('click')
+                          }
+                      }); //end addMarker
+                  } // end of the if statement
+              }); //End forEach
+          });
+        };
 
         function content(point,name) {
             var htmlElement = `<div class = 'info'>
@@ -128,33 +158,7 @@ module.exports = function(app) {
                       console.log('no log in');
                       $location.path('/login')
                       }
-                // ******************************************************
-
-                    map.removeMarkers();
-                    map.addMarker({
-                        lat: lat,
-                        lng: lng,
-                        title: 'user',
-                        icon: pinIcon,
-                    });
-                    Markers.getMarker('additinerary').then(function(promise) {
-                        //itin = promise;
-                        angular.copy(promise,$scope.itin);
-                        promise.forEach(function(point) {
-                            if (point.name !== '') {
-                                map.addMarker({
-                                    lat: point.lat,
-                                    lng: point.lng,
-                                    title: point.name,
-                                    icon: eatsIcon,
-
-                                    click: function(e) {
-                                        console.log('click')
-                                    }
-                                }); //end addMarker
-                            } // end of the if statement
-                        }); //End forEach
-                    });
+                      userLocal();
                     }
 
 
@@ -228,9 +232,6 @@ module.exports = function(app) {
                         },
                         not_supported: function() {
                             alert("Your browser does not support geolocation");
-                        },
-                        always: function() {
-                            alert("Done!");
                         }
                     });
                 }]);
