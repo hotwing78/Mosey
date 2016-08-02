@@ -117,3 +117,10 @@ $gray: #999;
   clear: both;
   margin-top: 4%;
 }
+ #main-init p,a {
+   text-align: center;
+   color: $primary-red;
+ }
+ #main-init a:hover {
+   color: rgba(#fa4032, 0.49);
+ }
