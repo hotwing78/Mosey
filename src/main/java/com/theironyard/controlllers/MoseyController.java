@@ -310,7 +310,7 @@ public class MoseyController {
         User user = users.findByUsername(username);
         String name = (String) data.get("name");
 
-        if (name == null) {
+        if (restaurants.findFirstByName(name)==null) {
             itinerary.setRest(false);
             int id = (int) data.get("id");
             itinerary.setEventid(id);
@@ -364,7 +364,7 @@ public class MoseyController {
             Itinerary del = itineraries.findFirstByEventid(rest.getId());
             itineraries.delete(del.getId());
         }
-        else {
+        else if (activities.findFirstByName(name) != null){
             Activity act = activities.findFirstByName(name);
             Itinerary del = itineraries.findFirstByEventid(act.getId());
             itineraries.delete(del.getId());
