@@ -12,16 +12,15 @@ module.exports = function(app) {
         let usersArray = [];
         var currentUser;
 
-        // logout route in the works
-        var logout = function() {
+        logout = function() {
             $http.post('/logout').then(function(data) {
-                console.log(data);
+                console.log('logout: ', data);
             })
         }
 
+
         return {
 
-            // logout: logout; **not yet working
 
             getUser: function() {
                 $http({

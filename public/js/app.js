@@ -11,8 +11,16 @@ module.exports = function(app) {
         $scope.errorMessage = '';
         $scope.error = true;
 
+
+        // not yet working
+
         $scope.logout = function() {
-            logoutService.logout();
+            Session.clear();
+            success(function(response) {
+                $location.path('/mosey');
+            }, function(response) {
+                $scope.errorMessage = response.data.message;
+            });
         };
 
         $scope.register = function() {
@@ -242,6 +250,7 @@ module.exports = function(app) {
         $scope.reviewList = reviewsService.getAllReviews();
         $scope.username = loginService.getUsername();
         $scope.errorMessage = '';
+
         $scope.addReview = function() {
             console.log(`send new review ${$scope.reviewText}`);
             return $http({
@@ -254,6 +263,7 @@ module.exports = function(app) {
                 $scope.errorMessage = response.data.message;
             }).then(function(response) {
                 return reviewsService.getAllReviews();
+                $scope.data = null;
             });
         };
 
@@ -327,16 +337,15 @@ module.exports = function(app) {
         let usersArray = [];
         var currentUser;
 
-        // logout route in the works
-        var logout = function() {
+        logout = function() {
             $http.post('/logout').then(function(data) {
-                console.log(data);
+                console.log('logout: ', data);
             })
         }
 
+
         return {
 
-            // logout: logout; **not yet working
 
             getUser: function() {
                 $http({
