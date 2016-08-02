@@ -1,6 +1,8 @@
 module.exports = function(app) {
     app.controller('mapController', ['$scope', '$compile', '$location', 'Markers', 'loginService', function($scope, $compile, $location, Markers, loginService) {
 
+        let lat = '';
+        let lng = '';
         // trying to have the name of the added place
         let map = new GMaps({
             div: '#map',
@@ -35,12 +37,13 @@ module.exports = function(app) {
             new google.maps.Size(40, 40)
         );
 
-        let lat = '';
-        let lng = '';
-
         $scope.itin = [];
         $scope.selector = 'all';
 
+        $scope.newInstructions = false;
+        $scope.toggle = function(){
+          $scope.newInstructions = !$scope.newInstructions;
+        };
 
         $scope.addPlace = function() {
             console.log('clicked');
@@ -159,7 +162,7 @@ module.exports = function(app) {
 
         function content(point, name) {
             var htmlElement = `<div class = 'info'>
-                            Name:\t<strong>${point.name}</strong></br>
+                            \t<strong>${point.name}</strong></br>
                             Price:\t${point.price}</br>
                             Category:\t${point.category}</br>
                             <button ng-click ="addPlace(point)">ADD</button>
