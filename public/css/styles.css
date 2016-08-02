@@ -177,6 +177,31 @@
   padding: .25em 1em;
   line-height: 1em; }
 
+.large-11 {
+  justify-content: center;
+  margin-top: 10px;
+  padding: 10px;
+  padding-bottom: 40px;
+  border-radius: 5px;
+  background-color: #2c3940;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+  background: white; }
+
+.large-11 h3 {
+  font-family: TheWildThingsScript;
+  text-align: center;
+  font-weight: 750;
+  color: white;
+  font-size: 2.5em;
+  color: #FA4032; }
+
+.large-11 ul {
+  line-height: 1em;
+  list-style: none;
+  text-align: center;
+  color: #FA4032;
+  font-size: 1em; }
+
 ::-webkit-input-placeholder {
   color: #FEF3E2;
   opacity: 1 !important; }
