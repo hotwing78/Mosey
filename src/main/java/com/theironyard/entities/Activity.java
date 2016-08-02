@@ -22,7 +22,7 @@ public class Activity {
     boolean isoutside;
 
     @Column(nullable = false)
-    String activityname;
+    String name;
 
     @Column(nullable = false)
     String localstake;
@@ -46,11 +46,11 @@ public class Activity {
     public Activity() {
     }
 
-    public Activity(String category, String price, boolean isoutside, String activityname, String localstake, String address, Double lat, Double lng) {
+    public Activity(String category, String price, boolean isoutside, String name, String localstake, String address, Double lat, Double lng) {
         this.category = category;
         this.price = price;
         this.isoutside = isoutside;
-        this.activityname = activityname;
+        this.name = name;
         this.localstake = localstake;
         this.address = address;
         this.lat = lat;
@@ -106,12 +106,12 @@ public class Activity {
         this.isoutside = isoutside;
     }
 
-    public String getActivityname() {
-        return activityname;
+    public String getName() {
+        return name;
     }
 
-    public void setActivityname(String activityname) {
-        this.activityname = activityname;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getAddress() {
