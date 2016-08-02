@@ -139,7 +139,7 @@ public class MoseyController {
             if (actv.getAddress() == null || actv.getLat() == null || actv.getLng() == null){
                 GeoApiContext context = new GeoApiContext()
                         .setApiKey(" ");
-                TextSearchRequest request = PlacesApi.textSearchQuery(context, actv.getActivityname() + " Charleston");
+                TextSearchRequest request = PlacesApi.textSearchQuery(context, actv.getName() + " Charleston");
                 PlacesSearchResponse results = request.await();
                 if (actv.getLat() == null){
                     actv.setLat(results.results[0].geometry.location.lat);
@@ -365,7 +365,7 @@ public class MoseyController {
             itineraries.delete(del.getId());
         }
         else {
-            Activity act = activities.findFirstByActivityname(name);
+            Activity act = activities.findFirstByName(name);
             Itinerary del = itineraries.findFirstByEventid(act.getId());
             itineraries.delete(del.getId());
         }
@@ -424,10 +424,10 @@ public class MoseyController {
         Iterable<Activity> actvs = activities.findAll();
         //need disclaimer to user that Name, Address and Localstake are required fields
         for (Activity actv : actvs) {
-            if (actv.getActivityname() != null && actv.getLocalstake() != null && actv.getAddress() == null || actv.getLat() == null || actv.getLng() == null){
+            if (actv.getName() != null && actv.getLocalstake() != null && actv.getAddress() == null || actv.getLat() == null || actv.getLng() == null){
                 GeoApiContext context = new GeoApiContext()
                         .setApiKey(" ");
-                TextSearchRequest request = PlacesApi.textSearchQuery(context, actv.getActivityname() + " Charleston");
+                TextSearchRequest request = PlacesApi.textSearchQuery(context, actv.getName() + " Charleston");
                 PlacesSearchResponse results = request.await();
                 if (actv.getLat() == null){
                     actv.setLat(results.results[0].geometry.location.lat);
