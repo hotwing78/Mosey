@@ -84,12 +84,12 @@
   margin-left: 0; }
 
 .signup-panel p {
-  font-size: 1rem;
+  font-size: 1em;
   font-weight: 200;
   text-align: center; }
 
 .signup-panel p #welcomemosey {
-  font-size: 1rem;
+  font-size: 4em;
   font-weight: 200;
   text-align: center; }
 
@@ -105,14 +105,14 @@
   text-align: center; }
 
 #welcomenew {
-  font-size: 3em;
+  font-size: 5em;
   font-family: TheWildThingsScript;
   color: #999;
   font-weight: 300;
   text-shadow: 1.2px 1.2px 1px white; }
 
 #welcomereg {
-  font-size: 3em;
+  font-size: 5em;
   font-family: TheWildThingsScript;
   color: #999;
   font-weight: 300;
@@ -125,13 +125,14 @@
 
 .info {
   font-weight: bolder;
-  font-size: 1rem;
-  line-height: 209%;
+  font-size: 1.5em;
+  line-height: 159%;
   margin: 1%;
   text-align: center;
   color: #FA4032; }
 
 .info > button {
+  margin: 6px;
   text-align: center;
   border-radius: 3px;
   background-color: #FA4032;
@@ -151,11 +152,12 @@
   background: white; }
 
 .large-4 h3 {
+  line-height: .6em;
   font-family: TheWildThingsScript;
   text-align: center;
   font-weight: 750;
   color: white;
-  font-size: 2.5em;
+  font-size: 4.4em;
   color: #FA4032; }
 
 .large-4 ul {
@@ -185,24 +187,22 @@
   font-family: TheWildThingsScript;
   text-align: center;
   font-weight: 750;
-  color: white;
-  font-size: 2.5em;
+  font-size: 4em;
   color: #FA4032; }
 
 .medium-8 ul {
   line-height: 1em;
   list-style: none;
   text-align: center;
-  color: #FA4032;
-  font-size: 1em; }
+  color: #999;
+  font-size: 3em; }
 
 .medium-4 p {
-  font-family: TheWildThingsScript;
   line-height: 1.2em;
   list-style: none;
-  text-align: center;
-  color: #FA4032;
-  font-size: 2em; }
+  text-align: left;
+  color: #999;
+  font-size: 1.7em; }
 
 #options {
   clear: both;
@@ -319,7 +319,7 @@
   color: #999;
   text-align: center; }
   #reviewHead h2 {
-    font-size: 3.6em;
+    font-size: 6em;
     font-family: TheWildThingsScript;
     color: #999;
     font-weight: 300;
@@ -331,6 +331,28 @@
 
 hr {
   color: white; }
+
+.large-12 p {
+  display: inline-block;
+  font-size: 1.2em; }
+
+.little {
+  text-align: center;
+  border-radius: 3px;
+  background-color: white;
+  color: #999;
+  padding: .7%;
+  float: right;
+  display: inline-block; }
+
+.little:hover {
+  text-align: center;
+  border-radius: 3px;
+  background-color: #FA4032;
+  color: white;
+  padding: .7%;
+  float: right;
+  display: inline-block; }
 
 body {
   min-height: 100%;
@@ -421,7 +443,7 @@ body {
   text-align: center; }
 
 .signup-panel .welcomemosey {
-  font-size: 3.3em;
+  font-size: 5em;
   font-family: TheWildThingsScript;
   color: #999;
   font-weight: 300;

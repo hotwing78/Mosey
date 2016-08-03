@@ -5,8 +5,8 @@ module.exports = function(app) {
         $scope.lastname = '';
         $scope.email = '';
         $scope.username = '';
-        $scope.password = true;
-        $scope.isLocal = '';
+        $scope.password = '';
+        $scope.isLocal = true;
         $scope.errorMessage = '';
         $scope.error = true;
 

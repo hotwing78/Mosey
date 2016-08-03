@@ -21,7 +21,7 @@ module.exports = function(app) {
 
 
                 var eatsIcon = new google.maps.MarkerImage(
-                    "./images/Mosey_Eat.png",
+                    "./images/food.png",
                     null, /* size is determined at runtime */
                     null, /* origin is 0,0 */
                     null, /* anchor is bottom center of the scaled image */
@@ -30,11 +30,11 @@ module.exports = function(app) {
 
 
                 var seeIcon = new google.maps.MarkerImage(
-                    "./images/Mosey_Activities.png",
+                    "./images/tour.png",
                     null, /* size is determined at runtime */
                     null, /* origin is 0,0 */
                     null, /* anchor is bottom center of the scaled image */
-                    new google.maps.Size(40, 40)
+                    new google.maps.Size(50, 50)
                 );
 
                 $scope.itin = [];
@@ -88,7 +88,7 @@ module.exports = function(app) {
 
                 function content(point, name) {
                     var htmlElement = `<div class = 'info'>
-                            Name:\t<strong>${point.name}</strong></br>
+                            \t<strong>${point.name}</strong></br>
                             Price:\t${point.price}</br>
                             Category:\t${point.category}</br>
                             <button ng-click ="addPlace(point)">ADD</button>

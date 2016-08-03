@@ -13,7 +13,7 @@
   color: $gray;
   text-align: center;
   h2{
-    font-size: 3.6em;
+    font-size: 6em;
     font-family: TheWildThingsScript;
     color: $gray;
     font-weight: 300;
@@ -28,4 +28,29 @@
 
 hr {
   color: white;
+}
+
+.large-12 p{
+  display: inline-block;
+  font-size: 1.2em;
+}
+
+.little {
+  text-align: center;
+  border-radius: 3px;
+  background-color: white;
+  color: $gray;
+  padding:.7%;
+  float: right;
+  display: inline-block;
+}
+
+.little:hover {
+  text-align: center;
+  border-radius: 3px;
+  background-color:   $primary-red;
+  color: white;
+  padding:.7%;
+  float: right;
+  display: inline-block;
 }

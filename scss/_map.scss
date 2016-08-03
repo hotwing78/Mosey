@@ -12,8 +12,8 @@ $gray: #999;
 
 .info {
   font-weight: bolder;
-  font-size: 1rem;
-  line-height: 209%;
+  font-size: 1.5em;
+  line-height: 159%;
   margin: 1%;
   text-align: center;
   // background-color: $primary-offwht;
@@ -21,7 +21,7 @@ $gray: #999;
 }
 
 .info > button{
-
+  margin: 6px;
   text-align: center;
   border-radius: 3px;
   background-color:   $primary-red;
@@ -43,11 +43,12 @@ $gray: #999;
 }
 
 .large-4 h3 {
+  line-height: .6em;
   font-family: TheWildThingsScript;
   text-align: center;
   font-weight: 750;
   color: white;
-  font-size: 2.5em;
+  font-size: 4.4em;
   color: $primary-red;
 }
 
@@ -91,8 +92,7 @@ $gray: #999;
   font-family: TheWildThingsScript;
   text-align: center;
   font-weight: 750;
-  color: white;
-  font-size: 2.5em;
+  font-size: 4em;
   color: $primary-red;
 }
 
@@ -100,17 +100,17 @@ $gray: #999;
   line-height: 1em;
   list-style: none;
   text-align: center;
-  color: $primary-red;
-  font-size: 1em;
+  color: $gray;
+  font-size: 3em;
 }
 
 .medium-4 p {
-  font-family: TheWildThingsScript;
+  // font-family: TheWildThingsScript;
   line-height: 1.2em;
   list-style: none;
-  text-align: center;
-  color: $primary-red;
-  font-size: 2em;
+  text-align: left;
+  color: $gray;
+  font-size: 1.7em;
 }
 
 #options {
