@@ -10,6 +10,7 @@
           <p>{{errorMessage}}</p>
       </div>
       <input type="text"  ng-model='name'  placeholder ="Name of Mosey">
+      {{name}}
       <select ng-model = 'category'>
         <option value = 'Tours'>Tours</option>
         <option value = 'Art'>Art</option>
@@ -22,7 +23,8 @@
         <option value = '$$'>$$</option>
         <option value = '$$$'>$$$</option>
       </select>
-      <input ng-model = 'localstake' type="text" placeholder="What's your take?">
+      <input type="text" ng-model = 'localstake'  placeholder="What's your take?">
+      {{localstake}}
       <button class="expanded hollow button" ng-click = 'newMosey()'>SUBMIT</button>
     </div>
    </div>

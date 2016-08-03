@@ -5,6 +5,7 @@ module.exports = function(app) {
 
         return {
             moseyObject: function(obj) {
+              console.log(obj.name , obj.localstake);
               moseyObject = obj;
             },
             addFood: function(){

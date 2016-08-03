@@ -11,6 +11,7 @@ module.exports = function(app) {
         $scope.newMosey = function() {
                 AddSpot.moseyObject(moseyObject);
                 AddSpot.addActivity();
+                $location.path('/mosey');
         }
 
     }]);
