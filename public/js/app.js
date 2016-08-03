@@ -282,12 +282,10 @@ module.exports = function(app) {
         }
 
         $scope.new = function() {
-            if ($scope.name || $scope.localstake === '') {
-                $scope.errorMessage = 'Fill in all fields'
-            } else {
+
                 AddSpot.moseyObject(moseyObject);
                 AddSpot.addActivity();
-            }
+            
         }
 
     }]);
