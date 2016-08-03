@@ -281,11 +281,9 @@ module.exports = function(app) {
             localstake: $scope.localstake = '',
         }
 
-        $scope.new = function() {
-
+        $scope.newMosey = function() {
                 AddSpot.moseyObject(moseyObject);
                 AddSpot.addActivity();
-            
         }
 
     }]);
