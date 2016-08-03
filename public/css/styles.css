@@ -125,13 +125,14 @@
 
 .info {
   font-weight: bolder;
-  font-size: 1rem;
-  line-height: 209%;
+  font-size: 1.5em;
+  line-height: 159%;
   margin: 1%;
   text-align: center;
   color: #FA4032; }
 
 .info > button {
+  margin: 6px;
   text-align: center;
   border-radius: 3px;
   background-color: #FA4032;
