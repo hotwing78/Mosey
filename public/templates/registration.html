@@ -15,8 +15,8 @@
       <input type="text"  ng-model='email'  placeholder ='Email'>
       <input type="text"  ng-model='username'  placeholder='User Name'>
       <input type="password" name="password" ng-model='password'  placeholder='Password'>
-      <input type="radio" name="button" ng-model='islocal'> Native </input>
-      <input type="radio" name="button" ng-model='istourist'> Tourist </input>
+      <input type="radio" name="button" ng-model='islocal' value = true> Native </input>
+      <input type="radio" name="button" ng-model='islocal' value = false> Tourist </input>
 
 
       <a $event.preventDefault() class="hollow button" ng-click='register()'>Register</a></br>

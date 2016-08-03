@@ -68,7 +68,7 @@ module.exports = function(app) {
                     null, /* size is determined at runtime */
                     null, /* origin is 0,0 */
                     null, /* anchor is bottom center of the scaled image */
-                    new google.maps.Size(50, 50)
+                    new google.maps.Size(30, 30)
                 );
 
 
@@ -98,10 +98,7 @@ module.exports = function(app) {
 
                 $scope.getItinerary = function() {
                     //Redirect user to log in page if they are not logged in
-                    if (loginService.getUsername() === undefined) {
-                        console.log('no log in');
-                        $location.path('/login')
-                    }
+
                     userLocal();
                 }
 
@@ -131,11 +128,11 @@ module.exports = function(app) {
                     })
                     if ($scope.selector === 'all') {
                         addEats();
-
-                        addPlaces(); //End Markers.getRestaurants
-
+                        addPlaces();
                     } else if ($scope.selector === 'food') {
                         addEats();
+                    } else if ($scope.selector === 'itinerary'){
+                        userLocal();
                     } else {
                         addPlaces();
                     }
@@ -154,6 +151,10 @@ module.exports = function(app) {
 
 
                 function userLocal() {
+                  if (loginService.getUsername() === undefined) {
+                      console.log('no log in');
+                      $location.path('/login')
+                  }
                     console.table($scope.itin)
                     map.removeMarkers();
                     userMarker();
@@ -162,6 +163,7 @@ module.exports = function(app) {
                         angular.copy(promise, $scope.itin);
                         promise.forEach(function(point) {
                             if (point.name !== '') {
+                               console.table(point);
                                 map.addMarker({
                                     lat: point.lat,
                                     lng: point.lng,
@@ -204,6 +206,7 @@ module.exports = function(app) {
                                     },
                                     click: function(e) {
                                         Markers.setPoint(point);
+
                                     }
                                 }); //end addMarker
                             } // end of the if statement
@@ -230,6 +233,7 @@ module.exports = function(app) {
                                         Markers.setPoint(point);
                                     }
                                 }); //end addMarker
+
                             } // end of the if statement
                         }); //End forEach
                     }); //End Markers.getMarker
@@ -284,6 +288,7 @@ module.exports = function(app) {
         $scope.newMosey = function() {
                 AddSpot.moseyObject(moseyObject);
                 AddSpot.addActivity();
+                $location.path('/mosey');
         }
 
     }]);
@@ -539,6 +544,7 @@ module.exports = function(app) {
 
         return {
             moseyObject: function(obj) {
+              console.log(obj.name , obj.localstake);
               moseyObject = obj;
             },
             addFood: function(){
