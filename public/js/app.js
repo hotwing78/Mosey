@@ -93,6 +93,14 @@ module.exports = function(app) {
         $scope.itin = [];
         $scope.selector = 'all';
 
+        $scope.getItinerary = function() {
+            //Redirect user to log in page if they are not logged in
+            if (loginService.getUsername() === undefined) {
+                console.log('no log in');
+                $location.path('/login')
+            }
+            userLocal();
+        }
 
         $scope.addPlace = function() {
             console.log('clicked');
@@ -108,105 +116,26 @@ module.exports = function(app) {
             map.removeMarkers();
             userLocal();
         };
-        $scope.getSelection = function(){
-          map.removeMarkers();
-          map.addMarker({
-              lat: lat,
-              lng: lng,
-              title: 'user',
-              icon: pinIcon,
-          })
-          if($scope.selector === 'all'){
-            Markers.getMarker('food').then(function(promise) {
-                let food = promise;
-                food.forEach(function(point) {
-                    if (point.name !== '') {
-                        map.addMarker({
-                            lat: point.lat,
-                            lng: point.lng,
-                            title: point.name,
-                            icon: eatsIcon,
 
-                            optimized: false,
-                            infoWindow: {
-                                content: content(point, point.name), //I have another function called content declared earlier
-                            },
-                            click: function(e) {
-                                Markers.setPoint(point);
-                            }
-                        }); //end addMarker
-                    } // end of the if statement
-                }); //End forEach
-            }); //End Markers.getRestaurants
+        $scope.getSelection = function() {
+            map.removeMarkers();
+            map.addMarker({
+                lat: lat,
+                lng: lng,
+                title: 'user',
+                icon: pinIcon,
+                animation: google.maps.Animation.BOUNCE,
+            })
+            if ($scope.selector === 'all') {
+                addEats();
 
-            // activity markers on the map*******************
-            Markers.getMarker('activity').then(function(promise) {
-                let food = promise;
-                food.forEach(function(point) {
-                    if (point.name !== '') {
-                        map.addMarker({
-                            lat: point.lat,
-                            lng: point.lng,
-                            title: point.name,
-                            icon: seeIcon,
+                addPlaces(); //End Markers.getRestaurants
 
-                            infoWindow: {
-                                content: content(point, point.name), //I have another function called content declared earlier
-                            },
-                            click: function(e) {
-                                Markers.setPoint(point);
-                            }
-                        }); //end addMarker
-                    } // end of the if statement
-                }); //End forEach
-            }); //End Markers.getRestaurants
-
-          } else if($scope.selector === 'food'){
-            Markers.getMarker('food').then(function(promise) {
-                let food = promise;
-                food.forEach(function(point) {
-                    if (point.name !== '') {
-                        map.addMarker({
-                            lat: point.lat,
-                            lng: point.lng,
-                            title: point.name,
-                            icon: eatsIcon,
-
-                            optimized: false,
-                            infoWindow: {
-                                content: content(point, point.name), //I have another function called content declared earlier
-                            },
-                            click: function(e) {
-                                Markers.setPoint(point);
-                            }
-                        }); //end addMarker
-                    } // end of the if statement
-                }); //End forEach
-            });
-
-          } else{
-            Markers.getMarker('activity').then(function(promise) {
-                let food = promise;
-                food.forEach(function(point) {
-                    if (point.name !== '') {
-                        map.addMarker({
-                            lat: point.lat,
-                            lng: point.lng,
-                            title: point.name,
-                            icon: seeIcon,
-
-                            infoWindow: {
-                                content: content(point, point.name), //I have another function called content declared earlier
-                            },
-                            click: function(e) {
-                                Markers.setPoint(point);
-                            }
-                        }); //end addMarker
-                    } // end of the if statement
-                }); //End forEach
-            }); //End Markers.getRestaurants
-
-          }
+            } else if ($scope.selector === 'food') {
+                addEats();
+            } else {
+                addPlaces();
+            }
         }
 
         function content(point, name) {
@@ -224,13 +153,7 @@ module.exports = function(app) {
         function userLocal() {
             console.table($scope.itin)
             map.removeMarkers();
-            map.addMarker({
-                lat: lat,
-                lng: lng,
-                title: 'user',
-                icon: pinIcon,
-            });
-
+            userMarker();
             Markers.getMarker('additinerary').then(function(promise) {
                 //itin = promise;
                 angular.copy(promise, $scope.itin);
@@ -251,15 +174,63 @@ module.exports = function(app) {
             });
         };
 
+        function userMarker(){
+          map.addMarker({
+              lat: lat,
+              lng: lng,
+              title: 'user',
+              icon: pinIcon,
+              animation: google.maps.Animation.BOUNCE,
+          });
 
+        }
 
-        $scope.getItinerary = function() {
-            //Redirect user to log in page if they are not logged in
-            if (loginService.getUsername() === undefined) {
-                console.log('no log in');
-                $location.path('/login')
-            }
-            userLocal();
+        function addEats() {
+            Markers.getMarker('food').then(function(promise) {
+                let food = promise;
+                food.forEach(function(point) {
+                    if (point.name !== '') {
+                        map.addMarker({
+                            lat: point.lat,
+                            lng: point.lng,
+                            title: point.name,
+                            icon: eatsIcon,
+                            optimized: false,
+                            infoWindow: {
+                                content: content(point, point.name), //I have another function called content declared earlier
+                            },
+                            click: function(e) {
+                                Markers.setPoint(point);
+                            }
+                        }); //end addMarker
+                    } // end of the if statement
+                }); //End forEach
+            });
+
+        }
+
+        function addPlaces() {
+            Markers.getMarker('activity').then(function(promise) {
+                let food = promise;
+                food.forEach(function(point) {
+                    if (point.name !== '') {
+                        map.addMarker({
+                            lat: point.lat,
+                            lng: point.lng,
+                            title: point.name,
+                            icon: seeIcon,
+
+                            infoWindow: {
+                                content: content(point, point.name), //I have another function called content declared earlier
+                            },
+                            click: function(e) {
+                                Markers.setPoint(point);
+                            }
+                        }); //end addMarker
+                    } // end of the if statement
+                }); //End forEach
+            }); //End Markers.getRestaurants
+
         }
 
 
@@ -284,50 +255,9 @@ module.exports = function(app) {
                 // center map on user*******************************
                 map.setCenter(position.coords.latitude, position.coords.longitude);
 
-                // Resturant markers on the map*******************
-                Markers.getMarker('food').then(function(promise) {
-                    let food = promise;
-                    food.forEach(function(point) {
-                        if (point.name !== '') {
-                            map.addMarker({
-                                lat: point.lat,
-                                lng: point.lng,
-                                title: point.name,
-                                icon: eatsIcon,
-
-                                optimized: false,
-                                infoWindow: {
-                                    content: content(point, point.name), //I have another function called content declared earlier
-                                },
-                                click: function(e) {
-                                    Markers.setPoint(point);
-                                }
-                            }); //end addMarker
-                        } // end of the if statement
-                    }); //End forEach
-                }); //End Markers.getRestaurants
-
+                addEats();
                 // activity markers on the map*******************
-                Markers.getMarker('activity').then(function(promise) {
-                    let food = promise;
-                    food.forEach(function(point) {
-                        if (point.name !== '') {
-                            map.addMarker({
-                                lat: point.lat,
-                                lng: point.lng,
-                                title: point.name,
-                                icon: seeIcon,
-
-                                infoWindow: {
-                                    content: content(point, point.name), //I have another function called content declared earlier
-                                },
-                                click: function(e) {
-                                    Markers.setPoint(point);
-                                }
-                            }); //end addMarker
-                        } // end of the if statement
-                    }); //End forEach
-                }); //End Markers.getRestaurants
+                addPlaces();
             },
             error: function(error) {
                 alert('Geolocation failed: ' + error.message);
@@ -340,6 +270,29 @@ module.exports = function(app) {
 }
 
 },{}],3:[function(require,module,exports){
+module.exports = function(app) {
+    app.controller('newSpotController', ['$scope', '$location', 'newSpotService', function($scope, $location, AddSpot) {
+
+        var moseyObject = {
+            name : $scope.name = '',
+            category: $scope.category = 'Tours',
+            price: $scope.price = '$',
+            localstake: $scope.localstake = '',
+        }
+
+        $scope.new = function() {
+            if ($scope.name || $scope.localstake === '') {
+                $scope.errorMessage = 'Fill in all fields'
+            } else {
+                AddSpot.moseyObject(moseyObject);
+                AddSpot.addActivity();
+            }
+        }
+
+    }]);
+}
+
+},{}],4:[function(require,module,exports){
 Array.prototype.removeObject = function(object) {
     var idx = this.indexOf(object);
     if (typeof idx === "number") {
@@ -389,18 +342,20 @@ module.exports = function(app) {
     }])
 }
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 let app = angular.module('Mosey', ['ngRoute']);
 
 //controllers
 require('./controllers/loginController.js')(app);
 require('./controllers/mapController.js')(app);
 require('./controllers/reviewsController.js')(app);
+require('./controllers/newSpotController.js')(app);
 
 //services
 require('./services/loginService.js')(app);
 require('./services/mapServices.js')(app);
 require('./services/reviewsService.js')(app);
+require('./services/newSpotService.js')(app);
 
 app.config(['$routeProvider', function($routeProvider){
   $routeProvider
@@ -423,9 +378,13 @@ app.config(['$routeProvider', function($routeProvider){
       controller: 'reviewsController',
       templateUrl: 'templates/reviews.html'
     })
+    .when('/addmosey',{
+      controller: 'newSpotController',
+      templateUrl:'templates/addMosey.html'
+    })
 }])
 
-},{"./controllers/loginController.js":1,"./controllers/mapController.js":2,"./controllers/reviewsController.js":3,"./services/loginService.js":5,"./services/mapServices.js":6,"./services/reviewsService.js":7}],5:[function(require,module,exports){
+},{"./controllers/loginController.js":1,"./controllers/mapController.js":2,"./controllers/newSpotController.js":3,"./controllers/reviewsController.js":4,"./services/loginService.js":6,"./services/mapServices.js":7,"./services/newSpotService.js":8,"./services/reviewsService.js":9}],6:[function(require,module,exports){
 module.exports = function(app) {
     app.factory('loginService', function($http) {
 
@@ -500,7 +459,7 @@ module.exports = function(app) {
     })
 }
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 module.exports = function(app) {
     app.factory('Markers', ['$http', function($http) {
 
@@ -575,7 +534,37 @@ module.exports = function(app) {
     }]); //End of end of app.Factory******************
 }
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
+module.exports = function(app) {
+    app.factory('newSpotService', ['$http', function($http) {
+
+        var moseyObject;
+
+        return {
+            moseyObject: function(obj) {
+              moseyObject = obj;
+            },
+            addFood: function(){
+            $http({
+                method: 'POST',
+                url: '/newfood',
+                data: moseyObject,
+                })
+            },
+
+            addActivity: function() {
+              $http({
+                method: 'POST',
+                url: '/newactivity',
+                data: moseyObject,
+                  })
+            }
+
+          }//end of return
+    }]);//end of factory
+}//end of module
+
+},{}],9:[function(require,module,exports){
 module.exports = function(app){
   app.factory('reviewsService', ['$http', '$location', function($http, $location){
 
@@ -595,4 +584,4 @@ module.exports = function(app){
   }]);
 }
 
-},{}]},{},[4])
+},{}]},{},[5])
