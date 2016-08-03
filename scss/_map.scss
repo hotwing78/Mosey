@@ -12,8 +12,8 @@ $gray: #999;
 
 .info {
   font-weight: bolder;
-  font-size: 1rem;
-  line-height: 209%;
+  font-size: 1.5em;
+  line-height: 159%;
   margin: 1%;
   text-align: center;
   // background-color: $primary-offwht;
@@ -21,7 +21,7 @@ $gray: #999;
 }
 
 .info > button{
-
+  margin: 6px;
   text-align: center;
   border-radius: 3px;
   background-color:   $primary-red;
