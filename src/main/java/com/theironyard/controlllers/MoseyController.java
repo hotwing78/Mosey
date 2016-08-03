@@ -395,7 +395,9 @@ public class MoseyController {
         Iterable<Restaurant> rests = restaurants.findAll();
         //need disclaimer to user that Name, Address and Localstake are required fields
         for (Restaurant rest : rests) {
-            if (rest.getName() != null && rest.getLocalstake() != null && rest.getAddress() == null || rest.getLat() == null || rest.getLng() == null){
+            if (rest.getName() == null || rest.getLocalstake() == null || rest.getCategory() == null|| rest.getPrice() == null) {
+                throw new Exception("Name, Take, Price and Category are required fields!");
+            } else if ((rest.getName() != null && rest.getLocalstake() != null) && (rest.getAddress() == null || rest.getLat() == null || rest.getLng() == null)){
                 GeoApiContext context = new GeoApiContext()
                         .setApiKey(" ");
                 TextSearchRequest request = PlacesApi.textSearchQuery(context, rest.getName() + " Charleston");
@@ -409,8 +411,9 @@ public class MoseyController {
                 if (rest.getAddress() == null) {
                     rest.setAddress(results.results[0].formattedAddress);
                 }
-                restaurants.save(rest);
+
             }
+            restaurants.save(rest);
         }
     }
 
@@ -424,9 +427,11 @@ public class MoseyController {
             throw new Exception("You must be a local to add a spot.");
         }
         Iterable<Activity> actvs = activities.findAll();
-        //need disclaimer to user that Name, Address and Localstake are required fields
+        //need disclaimer to user that Name, Address and Localstake are required fields ////category price localstake
         for (Activity actv : actvs) {
-            if (actv.getName() != null && actv.getLocalstake() != null && actv.getAddress() == null || actv.getLat() == null || actv.getLng() == null){
+            if (actv.getName() == null || actv.getLocalstake() == null || actv.getCategory() == null|| actv.getPrice() == null) {
+                throw new Exception("Name, Take, Price and Category are required fields!");
+            } else if ((actv.getName() != null && actv.getLocalstake() != null) && (actv.getAddress() == null || actv.getLat() == null || actv.getLng() == null)){
                 GeoApiContext context = new GeoApiContext()
                         .setApiKey(" ");
                 TextSearchRequest request = PlacesApi.textSearchQuery(context, actv.getName() + " Charleston");
@@ -440,8 +445,9 @@ public class MoseyController {
                 if (actv.getAddress() == null) {
                     actv.setAddress(results.results[0].formattedAddress);
                 }
-                activities.save(actv);
+
             }
+            activities.save(actv);
         }
 
     }
