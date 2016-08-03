@@ -1,0 +1,30 @@
+<div class="row" id="register">
+  <div class="large-12 columns auth-plain">
+    <div class="row">
+
+
+    <div class="signup-panel">
+      <p class="welcomemosey"> Add a Mosey</p>
+      <div ng-if="errorMessage != '' ">
+          <!-- Error Needs to be displayed -->
+          <p>{{errorMessage}}</p>
+      </div>
+      <input type="text"  ng-model='name'  placeholder ="Name of Mosey">
+      <select ng-model = 'category'>
+        <option value = 'Tours'>Tours</option>
+        <option value = 'Art'>Art</option>
+        <option value = 'Nightlife'>Night Life</option>
+        <<opton value = ></opton>
+      </select>
+      <select ng-model = 'price'>
+        <option value = 'free'>Free</option>
+        <option value = '$'>$</option>
+        <option value = '$$'>$$</option>
+        <option value = '$$$'>$$$</option>
+      </select>
+      <input ng-model = 'localstake' type="text" placeholder="What's your take?">
+      <button class="expanded hollow button" ng-click = 'new()'>SUBMIT</button>
+    </div>
+   </div>
+  </div>
+</div>
