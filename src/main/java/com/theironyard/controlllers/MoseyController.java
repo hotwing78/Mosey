@@ -394,61 +394,59 @@ public class MoseyController {
         }
         Iterable<Restaurant> rests = restaurants.findAll();
         //need disclaimer to user that Name, Address and Localstake are required fields
-        for (Restaurant rest : rests) {
-            if (rest.getName() == null || rest.getLocalstake() == null || rest.getCategory() == null|| rest.getPrice() == null) {
+            if (restaurant.getName() == null || restaurant.getLocalstake() == null || restaurant.getCategory() == null|| restaurant.getPrice() == null) {
                 throw new Exception("Name, Take, Price and Category are required fields!");
-            } else if ((rest.getName() != null && rest.getLocalstake() != null) && (rest.getAddress() == null || rest.getLat() == null || rest.getLng() == null)){
+            } else if ((restaurant.getName() != null && restaurant.getLocalstake() != null) && (restaurant.getAddress() == null || restaurant.getLat() == null || restaurant.getLng() == null)){
                 GeoApiContext context = new GeoApiContext()
-                        .setApiKey(" ");
-                TextSearchRequest request = PlacesApi.textSearchQuery(context, rest.getName() + " Charleston");
+                        .setApiKey(APIkey);
+                TextSearchRequest request = PlacesApi.textSearchQuery(context, restaurant.getName() + " Charleston");
                 PlacesSearchResponse results = request.await();
-                if (rest.getLat() == null){
-                    rest.setLat(results.results[0].geometry.location.lat);
+                if (restaurant.getLat() == null){
+                    restaurant.setLat(results.results[0].geometry.location.lat);
                 }
-                if (rest.getLng() == null ) {
-                    rest.setLng(results.results[0].geometry.location.lng);
+                if (restaurant.getLng() == null ) {
+                    restaurant.setLng(results.results[0].geometry.location.lng);
                 }
-                if (rest.getAddress() == null) {
-                    rest.setAddress(results.results[0].formattedAddress);
+                if (restaurant.getAddress() == null) {
+                    restaurant.setAddress(results.results[0].formattedAddress);
                 }
 
             }
-            restaurants.save(rest);
-        }
+            restaurants.save(restaurant);
+
     }
 
     @RequestMapping(path = "/newactivity", method = RequestMethod.POST)
     //need to add a check for isNative
     //need to add a method that only allows for this to public if 10 isNative users approve the suggestion
-    public void addActivity(HttpSession session, @RequestBody Activity activity, boolean isnative) throws Exception {
+    public void addActivity(HttpSession session, @RequestBody Activity activity) throws Exception {
         String username = (String) session.getAttribute("username");
         User user = users.findByUsername(username);
-        if (isnative == false) {
+        if (user.isnative() == false) {
             throw new Exception("You must be a local to add a spot.");
         }
         Iterable<Activity> actvs = activities.findAll();
         //need disclaimer to user that Name, Address and Localstake are required fields ////category price localstake
-        for (Activity actv : actvs) {
-            if (actv.getName() == null || actv.getLocalstake() == null || actv.getCategory() == null|| actv.getPrice() == null) {
+            if (activity.getName() == null || activity.getLocalstake() == null || activity.getCategory() == null|| activity.getPrice() == null) {
                 throw new Exception("Name, Take, Price and Category are required fields!");
-            } else if ((actv.getName() != null && actv.getLocalstake() != null) && (actv.getAddress() == null || actv.getLat() == null || actv.getLng() == null)){
+            } else if ((activity.getName() != null && activity.getLocalstake() != null) && (activity.getAddress() == null || activity.getLat() == null || activity.getLng() == null)){
                 GeoApiContext context = new GeoApiContext()
-                        .setApiKey(" ");
-                TextSearchRequest request = PlacesApi.textSearchQuery(context, actv.getName() + " Charleston");
+                        .setApiKey(APIkey);
+                TextSearchRequest request = PlacesApi.textSearchQuery(context, activity.getName() + " Charleston");
                 PlacesSearchResponse results = request.await();
-                if (actv.getLat() == null){
-                    actv.setLat(results.results[0].geometry.location.lat);
+                if (activity.getLat() == null){
+                    activity.setLat(results.results[0].geometry.location.lat);
                 }
-                if (actv.getLng() == null ) {
-                    actv.setLng(results.results[0].geometry.location.lng);
+                if (activity.getLng() == null ) {
+                    activity.setLng(results.results[0].geometry.location.lng);
                 }
-                if (actv.getAddress() == null) {
-                    actv.setAddress(results.results[0].formattedAddress);
+                if (activity.getAddress() == null) {
+                    activity.setAddress(results.results[0].formattedAddress);
                 }
 
             }
-            activities.save(actv);
-        }
+            activities.save(activity);
+
 
     }
 
