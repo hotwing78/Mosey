@@ -180,7 +180,7 @@
   padding: .25em 1em;
   line-height: 1em; }
 
-.medium-8 h3 {
+.large-12 h3 {
   border-radius: 5px;
   background-color: white;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
@@ -190,14 +190,14 @@
   font-size: 4em;
   color: #FA4032; }
 
-.medium-8 ul {
+.large-12 ul {
   line-height: 1em;
   list-style: none;
   text-align: center;
   color: #999;
   font-size: 3em; }
 
-.medium-4 p {
+.large-12 p {
   line-height: 1.2em;
   list-style: none;
   text-align: left;
