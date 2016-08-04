@@ -71,6 +71,13 @@ module.exports = function(app) {
                     new google.maps.Size(30, 30)
                 );
 
+                var itinIcon = new google.maps.MarkerImage(
+                    "./images/pin.png",
+                    null, /* size is determined at runtime */
+                    null, /* origin is 0,0 */
+                    null, /* anchor is bottom center of the scaled image */
+                    new google.maps.Size(30, 30)
+                );
 
                 var eatsIcon = new google.maps.MarkerImage(
                     "./images/food.png",
@@ -111,7 +118,7 @@ module.exports = function(app) {
                 $scope.deletePoint = function(point) {
                     console.log('clicked delete');
                     console.log(this.point.name);
-                    $scope.itin.removeObject(point);
+                    //$scope.itin.removeObject(point);
                     Markers.itineraryDelete(this.point);
                     map.removeMarkers();
                     userLocal();
@@ -149,6 +156,16 @@ module.exports = function(app) {
                     return compiled[0];
                 }
 
+                function itineraryContent(point, name) {
+                    var htmlElement = `<div class = 'info'>
+                            \t<strong>${point.name}</strong></br>
+                            Price:\t${point.price}</br>
+                            Category:\t${point.category}</br>
+                            </div>`
+                    var compiled = $compile(htmlElement)($scope)
+                    return compiled[0];
+                }
+
 
                 function userLocal() {
                   if (loginService.getUsername() === undefined) {
@@ -163,15 +180,18 @@ module.exports = function(app) {
                         angular.copy(promise, $scope.itin);
                         promise.forEach(function(point) {
                             if (point.name !== '') {
-                               console.table(point);
+
                                 map.addMarker({
                                     lat: point.lat,
                                     lng: point.lng,
                                     title: point.name,
-                                    icon: eatsIcon,
-
+                                    icon: itinIcon,
+                                    infoWindow: {
+                                        content: itineraryContent(point, point.name), //I have another function called content declared earlier
+                                    },
                                     click: function(e) {
                                         console.log('click')
+                                          Markers.setPoint(point);
                                     }
                                 }); //end addMarker
                             } // end of the if statement
@@ -247,6 +267,7 @@ module.exports = function(app) {
 
                             // intial map population*************************
                             Markers.getCurrentLocation(lat, lng);
+                            map.setZoom(17);
                             // User location on the map
                             map.addMarker({
                                 lat: lat,
