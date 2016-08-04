@@ -1,18 +1,12 @@
 <div class="row">
 
   <div class="row">
-    <div class="medium-4 columns" id='options'>
-      <button type="button" class=" hollow button" ng-click='toggle()'>Instructions</button>
+    <!-- <div class="small-4 columns">
 
-      <p ng-show="newInstructions">
-        1. Login/Register <br>
-        2. Select recommendations <br>  near you <br>
-        3. Add to Itinerary <br>and start to mosey! <br>
-      </p>
-    </div>
-  <div class="medium-8 columns">
+    </div> -->
+  <div class="large-12 columns">
     <h3>Whatcha in the mood for?</h3>
-    <select ng-model = 'selector' ng-change = 'getSelection()'>
+    <select id="opts" ng-model = 'selector' ng-change = 'getSelection()'>
       <option value="all">All</option>
       <option value="food">Food</option>
       <option value="activity">Activity</option>
@@ -38,6 +32,13 @@
             </li>
         </ul>
         <p>Are we missing something to do?<a href="#/addmosey"> Tell us!</a></p>
+        <button type="button" class=" hollow button" ng-click='toggle()'>Instructions</button>
+
+        <p ng-show="newInstructions">
+          1. Login/Register <br>
+          2. Select recommendations <br>  near you <br>
+          3. Add to Itinerary <br>and start to mosey! <br>
+        </p>
     </div>
 
 
