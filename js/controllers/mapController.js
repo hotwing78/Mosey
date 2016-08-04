@@ -98,6 +98,7 @@ module.exports = function(app) {
                             \t<strong>${point.name}</strong></br>
                             Price:\t${point.price}</br>
                             Category:\t${point.category}</br>
+                            <br>Local's Tip: \t${point.localstake}</br>
                             <button ng-click ="addPlace(point)">ADD</button>
                             </div>`
                     var compiled = $compile(htmlElement)($scope)

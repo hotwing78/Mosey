@@ -54,7 +54,7 @@ public class MoseyController {
     // start h2 web server
     @PostConstruct
     public void init() throws Exception {
-        Server.createWebServer().start();
+        Server.createWebServer("-webPort", "5759").start();
 
 
 
