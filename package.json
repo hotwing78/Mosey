@@ -20,7 +20,9 @@
     "gulp-browserify": "^0.5.1",
     "gulp-minify": "0.0.12",
     "gulp-sass": "^2.3.2",
-    "gulp-watch": "^4.3.8"
+    "gulp-surge": "^0.1.0",
+    "gulp-watch": "^4.3.8",
+    "surge": "^0.18.0"
   },
   "dependencies": {
     "gulp-browserify": "^0.5.1",

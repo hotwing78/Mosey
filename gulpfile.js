@@ -5,6 +5,7 @@ var watch = require('gulp-watch');
 var sass = require('gulp-sass');
 var browserify = require('gulp-browserify');
 var minify = require('gulp-minify');
+var surge = require('gulp-surge');
 
 gulp.task('default', ['html', 'js', 'css'])
 
@@ -27,6 +28,13 @@ gulp.task('css', function(){
   gulp.src('./scss/styles.scss')
     .pipe(sass())
     .pipe(gulp.dest('./public/css'))
+});
+
+gulp.task('deploy', [], function () {
+  return surge({
+    project: './public',         // Path to your static build directory
+    domain: 'Mosey.surge.sh'  // Your domain or Surge subdomain
+  })
 });
 
 gulp.task('watch', function(){
