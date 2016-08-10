@@ -1,16 +1,21 @@
+$primary-yellow: #E1B80D;
+$primary-offwht: #FEF3E2;
+$primary-red: #FA4032;
+$primary-orange: #FA812F;
+$gray: #999;
 
 
 .top-bar {
-  background-color: #292c2f;
+  background-color: white;
   text-align: center;
   font-size: 1.2rem;
-  padding: 1rem;
+  padding: .3rem;
   font-family: 'Source Sans Pro', sans-serif;
   margin-bottom: 1%;
 }
 
 .top-bar ul {
-  background-color: #292c2f;
+  background-color: white;
   text-align: center;
   font-size: 1.2rem;
   padding: 1rem;}
@@ -19,11 +24,10 @@
 .menu li{
   a {
     font-size: 1.3em;
-    color: gray;
+    color: $primary-red;
   }
   a:hover {
-    font-size: 1.3em;
-    color: white;
+    font-weight: bolder;
   }
   a img {
     width: 70%;
@@ -43,16 +47,34 @@
 
 }
 
-@keyframes logo {
-    0%   { transform: translate(-100px,0px);                    opacity: 0 }
-    42%  { transform: translate(-80px,0px);                     opacity: 0.8 }
-    60%  { transform: translate(3px,0px)     scale(0.96,1.04);  opacity: 1 }
-    65%  { transform: translate(2px,0px);                       opacity: 1 }
-    80%  { transform: translate(-2px,0px);                      opacity: 1 }
-    90%  { transform: translate(1px,0px);                       opacity: 1 }
-    100% { transform: translate(0px,0px);                       opacity: 1 }
-}
+// mobile view
+@media only screen and (max-width: 480px) {
+  .menu #logo {
+    padding-left: 30px;
+    text-align: center;
+    display: block;
+    width: 320px;
+  }
 
+  
+  .menu li {
+    font-size: 0.8em;
+    display: block;
+  }
+}
+// tablet
+@media only screen and (max-width: 670px) {
+  .menu #logo {
+    padding-left: 30px;
+    text-align: center;
+    display: block;
+    width: 360px;
+  }
+  .menu li {
+    text-align: center;
+    font-size: 0.8em;
+  }
+}
 
 
 /* Styles for Login */
@@ -90,8 +112,15 @@ margin-bottom: 0px;
   text-align: center;
   margin-left: 0;
 }
+
+
 .signup-panel p {
-  font-size: 1rem;
+  font-size: 1em;
+  font-weight: 200;
+  text-align: center;
+}
+.signup-panel p #welcomemosey{
+  font-size: 4em;
   font-weight: 200;
   text-align: center;
 }
@@ -108,4 +137,19 @@ margin-bottom: 0px;
 
 .signup-panel .newusers{
   text-align: center;
+}
+
+#welcomenew {
+  font-size: 5em;
+  font-family: TheWildThingsScript;
+  color: $gray;
+  font-weight: 300;
+  text-shadow: 1.2px 1.2px 1px white;
+}
+#welcomereg {
+  font-size: 5em;
+  font-family: TheWildThingsScript;
+  color: $gray;
+  font-weight: 300;
+  text-shadow: 1.2px 1.2px 1px white;
 }

@@ -1,9 +1,11 @@
 
 <div class="row" id="register">
-  <div class="large-6 columns auth-plain">
+  <div class="large-12 columns auth-plain">
+    <div class="row">
 
-    <div class="signup-panel newusers">
-      <p class="welcome"> Register to Mosey</p>
+
+    <div class="signup-panel">
+      <p class="welcomemosey"> Register to Mosey</p>
       <div ng-if="errorMessage != '' ">
           <!-- Error Needs to be displayed -->
           <p>{{errorMessage}}</p>
@@ -13,11 +15,12 @@
       <input type="text"  ng-model='email'  placeholder ='Email'>
       <input type="text"  ng-model='username'  placeholder='User Name'>
       <input type="password" name="password" ng-model='password'  placeholder='Password'>
-      <input type="radio" name="button" ng-model='islocal'> Native </input>
-      <input type="radio" name="button" ng-model='istourist'> Tourist </input>
+      <input type="radio" name="button" ng-model='islocal' value = true> Native </input>
+      <input type="radio" name="button" ng-model='islocal' value = false> Tourist </input>
 
 
       <a $event.preventDefault() class="hollow button" ng-click='register()'>Register</a></br>
     </div>
+   </div>
   </div>
 </div>

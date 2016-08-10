@@ -10,40 +10,44 @@ module.exports = function(app) {
 
 
         let usersArray = [];
-        var currentUser = {};
+        var currentUser;
+
+        logout = function() {
+            $http.post('/logout').then(function(data) {
+                console.log('logout: ', data);
+            })
+        }
+
 
         return {
 
+
             getUser: function() {
-                console.log("here");
                 $http({
                     method: 'GET',
                     url: '/users',
                 }).then(function(response) {
-                    console.log('YAY USER', response);
-                    console.log(response.data);
+                    console.log('getting the user', response.data);
                     let userList = response.data
                     angular.copy(userList, usersArray)
                 })
                 return usersArray;
             },
             registerUser: function(firstname, lastname, email, username, password, isLocal) {
-                console.log('registerUser');
                 return $http({
-                        method: 'POST',
-                        url: '/register',
-                        data: {
-                            firstname: firstname,
-                            lastname: lastname,
-                            email: email,
-                            username: username,
-                            password: password,
-                            isLocal: isLocal,
-                        }
-                    });
+                    method: 'POST',
+                    url: '/register',
+                    data: {
+                        firstname: firstname,
+                        lastname: lastname,
+                        email: email,
+                        username: username,
+                        password: password,
+                        isLocal: isLocal,
+                    }
+                });
             },
             loginUser: function(username, password) {
-                console.log(username, password);
                 return $http({
                     method: 'POST',
                     url: '/login',
@@ -51,13 +55,11 @@ module.exports = function(app) {
                         username: username,
                         password: password,
                     }
-                }).then(function(response){
-                  console.log('we are logging in')
-                  if (response.config.data.username ===username){
-                    console.log(response.config.data.username);
-                    currentUser = response.config.data.username;
-                  }
-                  return currentUser
+                }).then(function(response) {
+                    if (response.config.data.username === username) {
+                        currentUser = response.config.data.username;
+                    }
+                    return currentUser
                 })
             },
 

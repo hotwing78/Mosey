@@ -2,8 +2,55 @@
   list-style: none;
 }
 
-.button .hollow {
-    border: 1px solid #292c2f;
-    color: #33383b;
-    background-color: white;
+@font-face {
+    font-family: TheWildThingsScript;
+    src: url("../TheWildThingsScript/TheWildThingsScript.otf");
+}
+
+
+#reviewHead {
+  font-style: italic;
+  color: $gray;
+  text-align: center;
+  h2{
+    font-size: 6em;
+    font-family: TheWildThingsScript;
+    color: $gray;
+    font-weight: 300;
+    text-shadow: 1.2px 1.2px 1px white;
+  }
+}
+
+#reviewList {
+  color: rgb(111, 111, 116);
+  font-size: 1.2em;
+}
+
+hr {
+  color: white;
+}
+
+.large-12 p{
+  display: inline-block;
+  font-size: 1.2em;
+}
+
+.little {
+  text-align: center;
+  border-radius: 3px;
+  background-color: white;
+  color: $gray;
+  padding:.7%;
+  float: right;
+  display: inline-block;
+}
+
+.little:hover {
+  text-align: center;
+  border-radius: 3px;
+  background-color:   $primary-red;
+  color: white;
+  padding:.7%;
+  float: right;
+  display: inline-block;
 }

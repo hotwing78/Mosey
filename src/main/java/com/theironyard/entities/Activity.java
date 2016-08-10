@@ -22,7 +22,7 @@ public class Activity {
     boolean isoutside;
 
     @Column(nullable = false)
-    String activityname;
+    String name;
 
     @Column(nullable = false)
     String localstake;
@@ -36,11 +36,28 @@ public class Activity {
     @Column (nullable = false)
     Double lng;
 
+   /* @Column(nullable = false)
+    int thumbsup;
+
+    @ManyToOne
+    User users; */
+
 
     public Activity() {
     }
 
-    public Activity(String category, String price, boolean isoutside, String activityname, String localstake, String address, Double lat, Double lng) {
+    public Activity(String category, String price, boolean isoutside, String name, String localstake, String address, Double lat, Double lng) {
+        this.category = category;
+        this.price = price;
+        this.isoutside = isoutside;
+        this.name = name;
+        this.localstake = localstake;
+        this.address = address;
+        this.lat = lat;
+        this.lng = lng;
+    }
+
+    /* public Activity(String category, String price, boolean isoutside, String activityname, String localstake, String address, Double lat, Double lng, User users) {
         this.category = category;
         this.price = price;
         this.isoutside = isoutside;
@@ -49,7 +66,8 @@ public class Activity {
         this.address = address;
         this.lat = lat;
         this.lng = lng;
-    }
+        this.users = users;
+    } */
 
     public Activity(int id, String address) {
         this.id = id;
@@ -88,12 +106,12 @@ public class Activity {
         this.isoutside = isoutside;
     }
 
-    public String getActivityname() {
-        return activityname;
+    public String getName() {
+        return name;
     }
 
-    public void setActivityname(String activityname) {
-        this.activityname = activityname;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getAddress() {
@@ -127,4 +145,20 @@ public class Activity {
     public void setLocalstake(String localstake) {
         this.localstake = localstake;
     }
+
+    /*public int getThumbsup() {
+        return thumbsup;
+    }
+
+    public void setThumbsup(int thumbsup) {
+        this.thumbsup = thumbsup;
+    }
+
+    public User getUsers() {
+        return users;
+    }
+
+    public void setUsers(User users) {
+        this.users = users;
+    }*/
 }

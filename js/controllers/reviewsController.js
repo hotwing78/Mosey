@@ -1,9 +1,17 @@
+Array.prototype.removeObject = function(object) {
+    var idx = this.indexOf(object);
+    if (typeof idx === "number") {
+        console.log(idx);
+        this.splice(idx, 1);
+    }
+}
+
 module.exports = function(app) {
     app.controller('reviewsController', ['$scope', '$http', '$location', 'reviewsService', 'loginService', function($scope, $http, $location, reviewsService, loginService) {
-
         $scope.reviewList = reviewsService.getAllReviews();
         $scope.username = loginService.getUsername();
         $scope.errorMessage = '';
+
         $scope.addReview = function() {
             console.log(`send new review ${$scope.reviewText}`);
             return $http({
@@ -11,46 +19,30 @@ module.exports = function(app) {
                 url: '/reviews',
                 data: {
                     comment: $scope.reviewText
-                    // username: 'teammosey'
                 }
             }).catch(function(response) {
-                console.log('BRANDON', response);
                 $scope.errorMessage = response.data.message;
             }).then(function(response) {
-                console.log('pina colada', response);
                 return reviewsService.getAllReviews();
-            })
-
-
+                $scope.data = null;
+            });
         };
 
-        $scope.deleteReview = function(index) {
-            console.log(index);
+        $scope.deleteReview = function(review) {
             var comment = {
-              id: index.id,
-              comment: index.comment,
-              username: index.username
+                id: review.id,
+                comment: review.comment,
+                username: review.username
             }
-            console.log(comment);
-          return $http({
-            method: 'POST',
-            url: '/deletereviews',
-            data: comment,
-          }).then(function(res){
-            console.log(res);
-            $scope.reviewList.splice(index, 1);
-          }).catch(function(response) {
-              console.log('BRANDON', response);
-              $scope.errorMessage = response.data.message;
-          })
-          // .then(function(response){
-          //   console.log('deletttting this response: ', response);
-          // }), function(error){
-          //   console.log('delete error');
-          // }
-            // $scope.reviewList.splice(index, 1);
+            return $http({
+                method: 'POST',
+                url: '/deletereviews',
+                data: comment,
+            }).then(function(res) {
+                $scope.reviewList.removeObject(review);
+            }).catch(function(response) {
+                $scope.errorMessage = response.data.message;
+            })
         };
-
-
     }])
 }
