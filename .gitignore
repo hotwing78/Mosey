@@ -50,3 +50,5 @@ fabric.properties
 .node_modules/
 
 *.rtf
+
+node_modules

@@ -33,7 +33,7 @@ gulp.task('css', function(){
 gulp.task('deploy', [], function () {
   return surge({
     project: './public',         // Path to your static build directory
-    domain: 'Mosey.surge.sh'  // Your domain or Surge subdomain
+    domain: 'mosey.surge.sh'  // Your domain or Surge subdomain
   })
 });
 

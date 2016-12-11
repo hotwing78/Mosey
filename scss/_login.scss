@@ -56,12 +56,13 @@ $gray: #999;
     width: 320px;
   }
 
-  
+
   .menu li {
     font-size: 0.8em;
     display: block;
   }
 }
+
 // tablet
 @media only screen and (max-width: 670px) {
   .menu #logo {
