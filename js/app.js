@@ -1,7 +1,7 @@
 let app = angular.module('Mosey', ['ngRoute']);
 
 //controllers
-require('./controllers/loginController.js')(app);
+app.require('./controllers/loginController.js')(app);
 require('./controllers/mapController.js')(app);
 require('./controllers/reviewsController.js')(app);
 require('./controllers/newSpotController.js')(app);
